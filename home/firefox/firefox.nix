@@ -1,7 +1,20 @@
-{inputs, ...}:
+{inputs, pkgs, ...}:
 # Fetch the user's name and their full name from the home/options.nix file
 let
-  inherit (import ./options.nix) userName userFullName;
+  inherit (import ../options.nix) userName userFullName;
+  firefoxModBlur = pkgs.fetchgit {
+    url = "";
+    sparseCheckout = [
+      "userChrome.css"
+      "userContent.css"
+      "EXTRA MODS"
+      "ASSETS"
+    ];
+    postFetch = ''
+    
+    '';
+    hash = "";
+  };
 in {
   home.sessionVariables.BROWSER = "firefox";
 
@@ -15,6 +28,8 @@ in {
       extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
         ublock-origin
         sponsorblock
+        skip-redirect
+        i-dont-care-about-cookies
       ];
 
       settings = {
@@ -24,6 +39,12 @@ in {
 
         # Don't call home for blacklisting
         "extensions.blocklist.enabled" = false;
+
+        #Required by firefoxModBlur
+        "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+        #So I don't have to deal w/ the pain of losing all my tabs on each startup
+        "browser.sessionstore.restore_hidden_tabs" = true; 
 
         # Prevent EULA dialog to popup on first run
         "browser.EULA.override" = true;
@@ -191,6 +212,11 @@ in {
           ];
         }
       ];
+
     };
+  };
+  home.file."./.mozilla/firefox/polo.default/chrome" = {
+    recursive = true;
+    source = ./chrome;
   };
 }

@@ -6,7 +6,7 @@ let
 in {
   imports = [
     ./extra.nix
-    ./firefox.nix
+    ./firefox/firefox.nix
     ./git.nix
     ./gtk.nix
     ./kitty.nix
