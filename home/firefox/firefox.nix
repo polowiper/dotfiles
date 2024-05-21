@@ -169,7 +169,7 @@ in {
       bookmarks = [
         {
           name = "Nix sites";
-          toolbar = true;
+          toolbar = false;
           bookmarks = [
             {
               name = "nix.dev";
@@ -189,7 +189,7 @@ in {
        
         {
           name = "Image utilities";
-          toolbar = true;
+          toolbar = false;
           bookmarks = [
             {
               name = "CloudConvert";
@@ -203,7 +203,7 @@ in {
         }
         {
           name = "🏴";
-          toolbar = true;
+          toolbar = false;
           bookmarks = [
             {
               name = "Plex";
