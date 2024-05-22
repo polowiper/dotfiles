@@ -3,7 +3,6 @@
  
  home.packages = with pkgs; [
   vial
-  vesktop
   obs-studio
   xorg.xev
   osu-lazer-bin

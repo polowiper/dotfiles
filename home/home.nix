@@ -5,6 +5,7 @@ let
   inherit (import ../system/options.nix) stateVersion;
 in {
   imports = [
+    ./discord.nix
     ./extra.nix
     ./firefox/firefox.nix
     ./git.nix
