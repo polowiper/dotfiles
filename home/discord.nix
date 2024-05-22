@@ -36,7 +36,7 @@
           settingsLocation = "aboveActivity";
         };
         SupportHelper.enabled = true;
-        AlwaysAnimate.enabled = true;
+        AlwaysAnimate.enabled = false;
         AlwaysTrust.enabled = true; # remove "do you trust this link" dialogs.
         AnonymiseFileNames.enabled = true;
         BANger.enabled = false;
