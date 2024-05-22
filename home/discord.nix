@@ -53,7 +53,7 @@
         LoadingQuotes.enabled = true;
         MemberCount.enabled = true;
         MessageLogger.enabled = true;
-        noF1.enabled = true;
+        "noF1".enabled = true;
         NSFWGateBypass.enabled = true;
         PermissionFreeWill.enabled = true;
         PreviewMessage.enabled = true;
