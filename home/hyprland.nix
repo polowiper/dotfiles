@@ -32,7 +32,7 @@ in {
       };
       
       monitor = [
-      "eDP-1, 1920x1080@60.01, 1920x0, 1.5"
+      "eDP-1, 1920x1080@60.01, 1920x0, 1"
       "HDMI-A-1, 1920x1080@144.00, 0x0, 1"
       ];
 
@@ -146,7 +146,7 @@ in {
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
           "$mainMod,        p,   exec,   ${rofiPowerMenuScript}/bin/script"
           "$mainMod,        q,   exec,   ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons"
-          "$mainMod,        y,   exec,   ${pkgs.spotify}/bin/spotify"
+          "$mainMod,        y,   exec,   spotify"
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
           "$mainMod,        t,   exec,   ${pkgs.kitty}/bin/kitty"
           "$mainMod SHIFT,  b,   exec,   ${batteryNotificationScript}/bin/script"
