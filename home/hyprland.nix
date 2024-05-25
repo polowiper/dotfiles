@@ -206,6 +206,10 @@ in {
         ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ",XF86AudioMute,        exec, wpctl set-mute   @DEFAULT_AUDIO_SINK@ toggle"
 
+        # Control the brightness
+        "$mainMod ,XF86AudioRaiseVolume, exec, brightnessctl s 5%+"
+        "$mainMod ,XF86AudioLowerVolume, exec, brightnessctl s 5%-"
+        
         # Resize windows.
         "$mainMod CTRL, l, resizeactive, 30 0"
         "$mainMod CTRL, h, resizeactive, -30 0"
