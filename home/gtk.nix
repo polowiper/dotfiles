@@ -7,6 +7,7 @@
         accents = ["pink"];
         size = "standard";
         variant = "mocha";
+        tweaks = ["black"];
       };
     };
     cursorTheme.name = "default";

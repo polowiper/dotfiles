@@ -10,6 +10,7 @@
   scrcpy
   android-tools
   gnome.nautilus
+  nautilus-open-any-terminal
   loupe
   mpv-unwrapped
   nix-inspect

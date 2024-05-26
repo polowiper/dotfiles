@@ -12,6 +12,7 @@ in {
     ./git.nix
     ./gtk.nix
     ./kitty.nix
+    ./nixvim.nix
     ./nushell.nix
     ./rofi.nix
     ./spotify.nix

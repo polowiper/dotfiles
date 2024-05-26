@@ -81,7 +81,6 @@ programs.steam = {
     wget
     git
     gcc
-    neovim
     gdb
     nh
     wdisplays
