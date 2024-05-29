@@ -11,7 +11,10 @@ in {
       enableNushellIntegration = true;
       nix-direnv.enable = true;
     };
-
+    zoxide = {
+      enable = true;
+      enableNushellIntegration = true; 
+    };
     nushell = {
       enable = true;
       loginFile.text = ''
@@ -33,6 +36,7 @@ in {
 
         # ETC.
         c = "clear";
+        cd = "z";
         f = "${pkgs.yazi-unwrapped}/bin/yazi";
         la = "ls -la";
         ll = "ls -l";

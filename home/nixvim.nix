@@ -64,13 +64,6 @@
 
       toggleterm = {
         enable = true;
-        autochdir = true;
-        insertMappings = false;
-        settings.openMapping = "<leader>t";
-        direction = "float";
-        floatOpts = {
-          border = "curved";
-        };
       };
 
       molten = {
@@ -231,6 +224,13 @@
       key = "<leader>e";
       action = "<cmd>:NvimTreeFocus<CR>";
       options.desc = "Nvim Tree Focus";
+    }
+
+    #ToggleTerm
+    {
+      key = "<leader>v";
+      action = "<cmd>:ToggleTerm size=40 direction=vertical<CR>";
+      options.desc = "Toggle a vertical terminal";
     }
 
     # SnipRun

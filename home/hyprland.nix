@@ -209,6 +209,8 @@ in {
         # Control the brightness
         "$mainMod ,XF86AudioRaiseVolume, exec, brightnessctl s 5%+"
         "$mainMod ,XF86AudioLowerVolume, exec, brightnessctl s 5%-"
+        "         ,XF86MonBrightnessDown, exec, brightnessctl s 5%-"
+        "         ,XF86MonBrightnessUp, exec, brightnessctl s 5%+"
         
         # Resize windows.
         "$mainMod CTRL, l, resizeactive, 30 0"
