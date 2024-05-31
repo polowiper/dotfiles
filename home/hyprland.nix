@@ -1,4 +1,4 @@
-{pkgs, lib, inputs, ...}:
+{pkgs, inputs, ...}:
 # The wallpaper will be fetched from GitHub. I don't store my wallpapers locally.
 let
   currentWallpaper = pkgs.fetchurl {
@@ -165,7 +165,10 @@ in {
           # Toggle window states.
           "$mainMod SHIFT, v, togglefloating,"
           "$mainMod SHIFT, , fullscreen,"
-
+          
+          # Toggle special workspace 
+          "$mainMod, S, togglespecialworkspace"
+          
           # Move focus from one window to another.
           "$mainMod, h, movefocus, l"
           "$mainMod, l, movefocus, r"

@@ -306,7 +306,7 @@
       undofile = true;
 
       # QOL
-      clipboard = "unnamedplus";
+      clipboard = "wl-copy";
       ignorecase = true;
       showmode = false;
       termguicolors = true;
