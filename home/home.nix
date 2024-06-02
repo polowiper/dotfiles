@@ -15,6 +15,7 @@ in {
     ./nixvim.nix
     ./nushell.nix
     ./mako.nix
+    ./qt.nix
     ./rofi.nix
     ./spotify.nix
     ./starship.nix
