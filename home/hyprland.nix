@@ -10,7 +10,7 @@ let
     wallpaper = ,${currentWallpaper}
     splash = false
   '';
-  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript;
+  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript screenshotScript ;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -151,7 +151,7 @@ in {
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
           "$mainMod,        t,   exec,   ${pkgs.kitty}/bin/kitty"
           "$mainMod SHIFT,  b,   exec,   ${batteryNotificationScript}/bin/script"
-          "$mainMod SHIFT,  s,   exec,   ${pkgs.grimblast}/bin/grimblast --notify copysave area ~/Pictures/Screenshots/$(date +'%Y-%m-%d-At-%Ih%Mm%Ss').png"
+          "$mainMod SHIFT,  s,   exec,   ${screenshotScript}/bin/script"
 
           # Control media players.
           ",XF86AudioPlay,  exec, ${pkgs.playerctl}/bin/playerctl play-pause"

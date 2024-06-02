@@ -18,6 +18,9 @@
   gnome.nautilus
   nautilus-open-any-terminal
   loupe
+  grim
+  swappy
+  slurp
   mpv-unwrapped
   nix-inspect
   nix-prefetch-scripts
