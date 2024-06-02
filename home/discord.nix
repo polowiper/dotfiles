@@ -49,6 +49,7 @@
         CrashHandler.enabled = true;
         EmoteCloner.enabled = false;
         Experiments.enabled = true;
+        FixSpotifyEmbeds.enabled = true;
         FavoriteEmojiFirst.enabled = true;
         LoadingQuotes.enabled = true;
         MemberCount.enabled = true;

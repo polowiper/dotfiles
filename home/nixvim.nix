@@ -28,7 +28,7 @@
 
       lualine = {
         enable = true;
-        theme = "nightfly";
+        theme = "modus-vivendi";
         globalstatus = true;
         componentSeparators = { 
           right = "";
@@ -306,7 +306,7 @@
       undofile = true;
 
       # QOL
-      clipboard = "wl-copy";
+      clipboard.providers.wl-copy.enable = true;
       ignorecase = true;
       showmode = false;
       termguicolors = true;

@@ -10,7 +10,7 @@ let
     wallpaper = ,${currentWallpaper}
     splash = false
   '';
-  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript;
+  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -145,6 +145,7 @@ in {
           "$mainMod,        d,   exec,   ${pkgs.vesktop}/bin/vesktop"
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
           "$mainMod,        p,   exec,   ${rofiPowerMenuScript}/bin/script"
+          "$mainMod,        w,   exec,   ${rofiWifiMenuScript}/bin/script"
           "$mainMod,        q,   exec,   ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons"
           "$mainMod,        y,   exec,   spotify"
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix

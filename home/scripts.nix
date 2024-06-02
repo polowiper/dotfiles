@@ -58,4 +58,48 @@
       echo "No match"
     fi
   '';
+
+  rofiWifiMenuScript = pkgs.writeShellScriptBin "script" ''
+
+  nmcli -t d wifi rescan
+  LIST=$(nmcli --fields SSID,SECURITY,BARS device wifi list | sed '/^--/d' | sed 1d | sed -E "s/WPA*.?\S/~~/g" | sed "s/~~ ~~/~~/g;s/802\.1X//g;s/--/~~/g;s/  *~/~/g;s/~  */~/g;s/_/ /g" | column -t -s '~')
+
+  CONSTATE=$(nmcli -fields WIFI g)
+  if [[ "$CONSTATE" =~ "enabled" ]]; then
+	  TOGGLE="Disable WiFi 睊"
+  elif [[ "$CONSTATE" =~ "disabled" ]]; then
+	  TOGGLE="Enable WiFi 直"
+  fi
+
+  CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | ${pkgs.rofi-wayland}/bin/rofi -dmenu -selected-row 1 -p "Wifi Networks")
+  CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
+
+  if [ "$CHENTRY" = "" ]; then
+      exit
+  elif [ "$CHENTRY" = "Enable WiFi 直" ]; then
+	  nmcli radio wifi on
+  elif [ "$CHENTRY" = "Disable WiFi 睊" ]; then
+	  nmcli radio wifi off
+  else
+      KNOWNCON=$(nmcli connection show)
+	
+  	if [ "$CHSSID" = "*" ]; then
+	  	CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $3}')
+	  fi
+
+	  if [[ $(echo "$KNOWNCON" | grep "$CHSSID") = "$CHSSID" ]]; then
+		  nmcli con up "$CHSSID"
+	  else
+		  if [[ "$CHENTRY" =~ "" ]]; then
+			  WIFIPASS=$(echo " Press Enter if network is saved" | ${pkgs.rofi-wayland}/bin/rofi -dmenu -p " WiFi Password: " -lines 1 )
+		  fi
+		  if nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
+		  then
+			  ${pkgs.libnotify}/bin/notify-send 'Connection successful'
+		  else
+			  ${pkgs.libnotify}/bin/notify-send 'Connection failed'
+		  fi
+	  fi
+  fi
+  '';
 }
