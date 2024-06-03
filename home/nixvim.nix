@@ -22,8 +22,21 @@
 #| /_/            /____/                  |
 #\----------------------------------------/
       plugins = {
-      nvim-tree = {
+    nvim-tree = {
+      enable = true;
+    };
+
+    telescope = {
         enable = true;
+        highlightTheme = "catppuccin-mocha";
+        extensions = {
+          file-browser.enable = true;
+          fzf-native.enable = true;
+        };
+        settings.defaults = {
+          layout_config.horizontal.prompt_position = "top";
+          sorting_strategy = "ascending";
+        };
       };
 
       lualine = {
@@ -60,6 +73,62 @@
 
       auto-save = {
         enable = true;
+      };
+
+      flash = {
+        enable = true;
+        labels = "asdfghjklqwertyuiopzxcvbnm";
+        search = {
+          mode = "fuzzy";
+        };
+        jump = {
+          autojump = true;
+        };
+        label = {
+          uppercase = false;
+          rainbow = {
+            enabled = false;
+            shade = 5;
+          };
+        };
+      };
+
+      oil = {
+        enable = true;
+        settings  = {
+          useDefaultKeymaps = true;
+          deleteToTrash = true;
+          float = {
+            padding = 2;
+            maxWidth = 0; # ''math.ceil(vim.o.lines * 0.8 - 4)'';
+            maxHeight = 0; # ''math.ceil(vim.o.columns * 0.8)'';
+            border = "rounded"; # 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
+            winOptions = {
+              winblend = 0;
+            };
+          };
+          preview = {
+            border = "rounded";
+          };
+          keymaps = {
+            "g?" = "actions.show_help";
+            "<CR>" = "actions.select";
+            "<C-\\>" = "actions.select_vsplit";
+            "<C-enter>" = "actions.select_split"; # this is used to navigate left
+            "<C-t>" = "actions.select_tab";
+            "<C-v>" = "actions.preview";
+            "<C-c>" = "actions.close";
+            "<C-r>" = "actions.refresh";
+            "-" = "actions.parent";
+            "_" = "actions.open_cwd";
+            "`" = "actions.cd";
+            "~" = "actions.tcd";
+            "gs" = "actions.change_sort";
+            "gx" = "actions.open_external";
+            "g." = "actions.toggle_hidden";
+            "q" = "actions.close";
+          };
+        };
       };
 
       toggleterm = {
@@ -100,6 +169,14 @@
         };
       };
 
+      undotree = {
+        enable = true;
+        settings = {
+          autoOpenDiff = true;
+          focusOnToggle = true;
+        };
+      };
+
       better-escape = {
         enable = true;
         mapping = [ "jj" "jk" ];
@@ -112,6 +189,7 @@
         };
       };
 
+      
       treesitter = {
         enable = true;
         # folding = true;
@@ -119,6 +197,18 @@
         incrementalSelection = {
           enable = true;
         };
+      };
+
+      illuminate = {
+        enable = true;
+        underCursor = false;
+        filetypesDenylist = [
+          "Outline"
+          "TelescopePrompt"
+          "alpha"
+          "harpoon"
+          "reason"
+        ];
       };
 
       lsp = {
@@ -157,7 +247,7 @@
           "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
         };
       in
-      {
+        {
         enable = true;
         cmdline = {
           "/" = {
@@ -201,7 +291,9 @@
 
     extraPlugins = with pkgs; [
       vimPlugins.iron-nvim
-    ];
+      vimPlugins.comment-nvim
+      vimPlugins.neoscroll-nvim
+ ];
 
 #/------------------------------------------------\
 #|      __                                        |
@@ -226,12 +318,249 @@
       options.desc = "Nvim Tree Focus";
     }
 
+    # Telescope 
+    {
+      mode = "n";
+      key = "<leader><space>";
+      action = "<cmd>Telescope find_files<cr>";
+      options.desc = "Find files";
+    }
+ 
+    {
+      mode = "n";
+      key = "<leader>/";
+      action = "<cmd>Telescope live_grep<cr>";
+      options.desc = "Telescope live_grep";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>:";
+      action = "<cmd>Telescope command_history<cr>";
+      options.desc = "Commands history";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>b";
+      action = "<cmd>Telescope buffers<cr>";
+      options.desc = "Navigate through your buffers";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>ff";
+      action = "<cmd>Telescope find_files<cr>";
+      options.desc = "Find files w/ Telescope (again?!?!??!)";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>fr";
+      action = "<cmd>Telescope live_grep<cr>";
+      options.desc = "Telescope live_grep";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>fR";
+      action = "<cmd>Telescope resume<cr>";
+      options.desc = "Resume Telescope";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>fg";
+      action = "<cmd>Telescope oldfiles<cr>";
+      options.desc = "Find smth through your old files";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>b";
+      action = "<cmd>Telescope buffers<cr>";
+      options.desc = "Telescope through your buffers";
+    }
+
+    {
+      mode = "n";
+      key = "<C-p>";
+      action = "<cmd>Telescope git_files<cr>";
+      options.desc = "Telescope through your git files";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>gc";
+      action = "<cmd>Telescope git_commits<cr>";
+      options.desc = "Search in your commits";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>/";
+      action = "<cmd>Telescope git_status<cr>";
+      options.desc = "Telescope the git status";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sa";
+      action = "<cmd>Telescope autocommands<cr>";
+      options.desc = "Find certain commands";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sb";
+      action = "<cmd>Telescope current_buffer_fuzzy_find<cr>";
+      options.desc = "Telescope into your current buffer";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sc";
+      action = "<cmd>Telescope command_history<cr>";
+      options.desc = "Shows your commands history";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sC";
+      action = "<cmd>Telescope commands<cr>";
+      options.desc = "Shows the commands";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sh";
+      action = "<cmd>Telescope help_tags<cr>";
+      options.desc = "Basically a --help";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sH";
+      action = "<cmd>Telescope highlights<cr>";
+      options.desc = "Shows the synthax highlighting";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sk";
+      action = "<cmd>Telescope keymaps<cr>";
+      options.desc = "Shows all of your keymaps";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sm";
+      action = "<cmd>Telescope man_pages<cr>";
+      options.desc = "Shows the different man pages";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sM";
+      action = "<cmd>Telescope marks<cr>";
+      options.desc = "Lists vim marks and their value";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>so";
+      action = "<cmd>Telescope vim_options<cr>";
+      options.desc = "Shows the different vim options";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sR";
+      action = "<cmd>Telescope resume<cr>";
+      options.desc = "Resumes Telescope";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>uC";
+      action = "<cmd>Telescope colorscheme<cr>";
+      options.desc = "Shows the different colorschemes";
+    }
+
+    {
+      mode = "n";
+      key = "<leader>sd";
+      action = "<cmd>Telescope diagnostics bufnr=0<cr>";
+      options.desc = "Document diagnostics";
+    }
+    {
+      mode = "n";
+      key = "<leader>fe";
+      action = "<cmd>Telescope file_browser<cr>";
+      options.desc = "File browser";
+    }
+    {
+      mode = "n";
+      key = "<leader>fE";
+      action = "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>";
+      options.desc = "File browser";
+    }
+
     #ToggleTerm
     {
       key = "<leader>v";
       action = "<cmd>:ToggleTerm size=40 direction=vertical<CR>";
       options.desc = "Toggle a vertical terminal";
     }
+
+    # Oil 
+     {
+      mode = "n";
+      key = "-";
+      action = ":Oil<CR>";
+      options = {
+        desc = "Open parent directory";
+        silent = true;
+      };
+    }
+
+    # Flash shit
+    {
+      mode = ["n" "x" "o"];
+      key = "s";
+      action = "<cmd>lua require('flash').jump()<cr>";
+      options = {
+        desc = "Flash";
+      };
+    }
+
+    {
+      mode = ["n" "x" "o"];
+      key = "S";
+      action = "<cmd>lua require('flash').treesitter()<cr>";
+      options = {
+        desc = "Flash Treesitter";
+      };
+    }
+
+    {
+      mode = "o";
+      key = "r";
+      action = "<cmd>lua require('flash').remote()<cr>";
+      options = {
+        desc = "Remote Flash";
+      };
+    }
+
+    {
+      mode = ["x" "o"];
+      key = "R";
+      action = "<cmd>lua require('flash').treesitter_search()<cr>";
+      options = {
+        desc = "Treesitter Search";
+      };
+    }
+
 
     # SnipRun
     {
@@ -249,7 +578,18 @@
       action = "<cmd>:SniClose<CR>";
       options.desc = "Snip Close";
     }
- 
+
+    # Undo Tree
+    {
+      mode = "n";
+      key = "<leader>ut";
+      action = "<cmd>UndotreeToggle<CR>";
+      options = {
+        silent = true;
+        desc = "Undotree";
+      };
+    }
+
     # Resize with arrows
     {
       key = "<C-Up>";
@@ -323,6 +663,7 @@
       # NAVIGATION
       cursorline = true;
       number = true;
+      relativenumber = true;
       numberwidth = 2;
       signcolumn = "yes";
       wrap = false;
@@ -335,7 +676,15 @@
     extraConfigLua = ''
       vim.opt.shortmess:append "IcA"
       vim.opt.whichwrap:append("<,>,h,l,[,]") 
-
+      require('Comment').setup()
+          require('neoscroll').setup {}
+      require("telescope").setup{
+      pickers = {
+        colorscheme = {
+          enable_preview = true
+        }
+      }
+    }
       local view = require("iron.view")
       require("iron.core").setup({
         config = {

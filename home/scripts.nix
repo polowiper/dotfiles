@@ -10,7 +10,7 @@
   '';
 
   batteryNotificationScript = pkgs.writeShellScriptBin "script" ''
-    percentage=$(cat /sys/class/power_supply/BAT0/capacity)
+    percentage=$(cat /sys/class/power_supply/BAT1/capacity)
     if [ $percentage -ge 100 ]; then
       ${pkgs.libnotify}/bin/notify-send "Battery Full" # My battery reports over 356% when full. It is broken.
     else
@@ -75,7 +75,7 @@
 	  TOGGLE="Enable WiFi 直"
   fi
 
-  CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | ${pkgs.rofi-wayland}/bin/rofi -dmenu -selected-row 1 -p "Wifi Networks")
+  CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | ${pkgs.rofi-wayland}/bin/rofi -dmenu -selected-row 1 -p "Wifi Networks 󰤨 ")
   CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 
   if [ "$CHENTRY" = "" ]; then
