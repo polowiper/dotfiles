@@ -26,6 +26,94 @@
       enable = true;
     };
 
+    alpha = let
+        nixFlake = [
+          "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗"
+          "████╗  ██║██║╚██╗██╔╝██║   ██║██║████╗ ████║"
+          "██╔██╗ ██║██║ ╚███╔╝ ██║   ██║██║██╔████╔██║"
+          "██║╚██╗██║██║ ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║"
+          "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║"
+          "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
+        ];
+      in {
+        enable = true;
+        layout = [
+          {
+            type = "padding";
+            val = 4;
+          }
+          {
+            opts = {
+              hl = "AlphaHeader";
+              position = "center";
+            };  
+            type = "text";
+            val = nixFlake;
+          }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            type = "group";
+            val = let
+              mkButton = shortcut: cmd: val: hl: {
+                type = "button";
+                inherit val;
+                opts = {
+                  inherit hl shortcut;
+                  keymap = [
+                    "n"
+                    shortcut
+                    cmd
+                    {}
+                  ];
+                  position = "center";
+                  cursor = 0;
+                  width = 40;
+                  align_shortcut = "right";
+                  hl_shortcut = "Keyword";
+                };
+              };
+            in [
+              (
+                mkButton
+                "n"
+                "<CMD>ene<CR>"
+                "󱇧 New file"
+                "Operator"
+              )
+              (
+                mkButton
+                "f"
+                "<CMD>lua require('telescope.builtin').find_files({hidden = true})<CR>"
+                "🔍 Find File"
+                "Operator"
+              )
+              (
+                mkButton
+                "q"
+                "<CMD>qa<CR>"
+                "💣 Quit Neovim"
+                "String"
+              )
+            ];
+          }
+          {
+            type = "padding";
+            val = 2;
+          }
+          {
+            opts = {
+              hl = "GruvboxBlue";
+              position = "center";
+            };
+            type = "text";
+            val = "";
+          }
+        ];
+      };
+
     telescope = {
         enable = true;
         highlightTheme = "catppuccin-mocha";
@@ -36,6 +124,67 @@
         settings.defaults = {
           layout_config.horizontal.prompt_position = "top";
           sorting_strategy = "ascending";
+        };
+      };
+
+    treesitter = {
+        enable = true;
+        indent = true;
+        folding = true;
+        nixvimInjections = true;
+        grammarPackages = with pkgs.vimPlugins.nvim-treesitter-parsers; [
+          nix
+          markdown
+          markdown_inline
+          python
+          c 
+          ocaml
+        ];
+      };
+    treesitter-context.enable = true;
+
+    treesitter-textobjects = {
+        enable = false;
+        select = {
+          enable = true;
+          lookahead = true;
+          keymaps = {
+            "aa" = "@parameter.outer";
+            "ia" = "@parameter.inner";
+            "af" = "@function.outer";
+            "if" = "@function.inner";
+            "ac" = "@class.outer";
+            "ic" = "@class.inner";
+            "ii" = "@conditional.inner";
+            "ai" = "@conditional.outer";
+            "il" = "@loop.inner";
+            "al" = "@loop.outer";
+            "at" = "@comment.outer";
+          };
+        };
+        move = {
+          enable = true;
+          gotoNextStart = {
+            "[m" = "@function.outer";
+            "[[" = "@class.outer";
+          };
+          gotoNextEnd = {
+            "[M" = "@function.outer";
+            "[]" = "@class.outer";
+          };
+          gotoPreviousStart = {
+            "]m" = "@function.outer";
+            "]]" = "@class.outer";
+          };
+          gotoPreviousEnd = {
+            "]M" = "@function.outer";
+            "][" = "@class.outer";
+          };
+        };
+        swap = {
+          enable = true;
+          swapNext = {"<leader>a" = "@parameters.inner";};
+          swapPrevious = {"<leader>A" = "@parameter.outer";};
         };
       };
 
@@ -154,15 +303,15 @@
               "terminal"
               "quickfix"
             ];
-            filetypes = [
-              ""
-              "checkhealth"
-              "help"
-              "lspinfo"
-              "TelescopePrompt"
-              "TelescopeResults"
-              "yaml"
-            ];
+              filetypes = [
+                ""
+                "checkhealth"
+                "help"
+                "lspinfo"
+                "TelescopePrompt"
+                "TelescopeResults"
+                "yaml"
+              ];
           };
           indent.char = "│"; #  `▎`,`│`
           scope.enabled = false;
@@ -186,16 +335,6 @@
         enable = true;
         operators = {
           gc = "Comments";
-        };
-      };
-
-      
-      treesitter = {
-        enable = true;
-        # folding = true;
-        indent = true;
-        incrementalSelection = {
-          enable = true;
         };
       };
 
@@ -304,13 +443,7 @@
 #|            /____/               /_/            |
 #\------------------------------------------------/
 
-    keymaps = 
-    let 
-      def = {
-      mode = ["n" "v"];
-      options.silent = true;
-    }; 
-    in [
+    keymaps = [
       # Nvim Tree
     {
       key = "<leader>e";
@@ -676,6 +809,7 @@
     extraConfigLua = ''
       vim.opt.shortmess:append "IcA"
       vim.opt.whichwrap:append("<,>,h,l,[,]") 
+      local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
       require('Comment').setup()
           require('neoscroll').setup {}
       require("telescope").setup{
