@@ -20,8 +20,8 @@ in {
         {
           monitor = "";
           path = toString (pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/polowiper/Wallpapers/44f782950aea3957b94fa91e36368212698d0dea/oled-Stray.jpg";
-            sha256 = "sha256-qWkDoLZph+6JcVXkNAGX3ip3VffSyxrCdt8bqL4g0Ew=";
+          url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/cat_anime-girl.png";
+          sha256 = "sha256-eghqCS3tLe7i8DzaKtzsMPgkXTBR/BGNOP264jFWfNY=";
           });
         }
       ];
@@ -34,7 +34,7 @@ in {
           inner_color = placeholderAndTimeColor;
           font_color = "rgb(127, 132, 156)";
           fade_on_empty = false;
-          placeholder_text = "password...";
+          placeholder_text = "je suis un débiteur indébitable indébitablement indébité qui débite sur le beat en débitant des putains de bites !!";
           dots_spacing = 0.3;
           dots_center = true;
         }

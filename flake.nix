@@ -24,7 +24,7 @@
      
      nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.nixpkgs.follows = "nixpkgs";   lmao it broke and I don't wanna wait for the fix to be merged 
      };
 
      spicetify-nix.url = "github:the-argus/spicetify-nix";

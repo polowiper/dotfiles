@@ -14,6 +14,7 @@ let
 in {
   wayland.windowManager.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
     systemd = {
       enable = true;
       variables = ["--all"];
@@ -23,7 +24,7 @@ in {
     ];
     settings = {
       general = {
-        layout = "master";
+        layout = "dwindle";
         gaps_in = 5;
         gaps_out = 10;
         border_size = 2;
@@ -132,7 +133,6 @@ in {
         preserve_split = true;
         smart_split = true;
       };
-      master.new_is_master = true;
       gestures.workspace_swipe = true;
 
       # Using the Super key (windows button) as the main mod.
