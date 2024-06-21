@@ -12,7 +12,6 @@
         vaapiVdpau
         libvdpau-va-gl
       ];
-      driSupport = true;
     };
     enableRedistributableFirmware = true;
 

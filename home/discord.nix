@@ -78,6 +78,7 @@
         };
       };
 
+      Vesktop.Settings.store.discordBranch = "stable";
       notifications = {
         timeout = 5000;
         position = "bottom-right";

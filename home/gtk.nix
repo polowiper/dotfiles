@@ -1,13 +1,17 @@
-{pkgs, ...}: rec {
+{pkgs, ...}:  
+
+{
+  home.sessionVariables = {
+    GTK_THEME = "rose-pine-gtk-theme-unstable";
+      GTK_USE_PORTAL = "1";
+  };
+  
   gtk = {
     enable = true;
-    catppuccin = {
-      enable = true;
-      flavor = "mocha";
-      accent = "pink";
-      size = "standard";
-
-    };
+    theme = {
+      name = "rose-pine-gtk-theme-unstable";
+      package = pkgs.rose-pine-gtk-theme;
+     };
     cursorTheme.name = "default";
     iconTheme = {
       package = pkgs.catppuccin-papirus-folders.override {
