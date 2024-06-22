@@ -19,6 +19,7 @@ in {
     ./rofi.nix
     ./spotify.nix
     ./starship.nix
+    ./vscode.nix
     ./waybar.nix
     ./xdg.nix
     ./hyprland.nix
@@ -40,18 +41,6 @@ in {
     stateVersion = "${stateVersion}"; #ALLAH AKBAR
     sessionVariables.EDITOR = "nvim";
   };
-
- programs.vscode = {
-  enable = true;
-  extensions = with pkgs.vscode-extensions; [
-    dracula-theme.theme-dracula
-    ms-toolsai.jupyter
-    ms-python.python
-    vscodevim.vim
-    yzhang.markdown-all-in-one
-  ];
-};
-
 
 programs.home-manager.enable = true;
 programs.home-manager.path = lib.mkDefault "${dotfilesDir}";
