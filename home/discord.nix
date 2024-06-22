@@ -22,7 +22,7 @@
       winCtrlQ = false;
       disableMinSize = false;
       winNativeTitleBar = false;
-      plugins = {
+     /*plugins = {
         BadgeAPI.enabled = true;
         ChatInputButtonAPI.enabled = true;
         CommandsAPI.enabled = true;
@@ -76,7 +76,7 @@
         WhoReacted = {
           enabled = true;
         };
-      };
+      }; */
 
       Vesktop.Settings.store.discordBranch = "stable";
       notifications = {

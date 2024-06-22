@@ -2,9 +2,10 @@
   config,
   pkgs,
   ...
-}: let
+}:
+let
   browser = "firefox.desktop";
-  fileManager = "org.gnome.Nautilus.desktop";
+  fileManager = "nemo.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
   mediaPlayer = "mpv.desktop";
   textEditor = "neovim.desktop";

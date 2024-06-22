@@ -15,7 +15,7 @@
   telegram-desktop
   scrcpy
   android-tools
-  gnome.nautilus
+  cinnamon.nemo
   nautilus-open-any-terminal
   loupe
   grim
