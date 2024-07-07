@@ -21,14 +21,6 @@ in {
     };
     nushell = {
       enable = true;
-      loginFile.text = ''
-        if (tty) == "/dev/tty1" {
-          exec Hyprland
-        }
-      '';
-      
-
-
       shellAliases = let
         g = lib.getExe pkgs.git;
       in {
@@ -52,7 +44,6 @@ in {
         # Nix
         ns = "nh os switch";
         hs = "nh home switch";
-        nd = "nix develop -c $env.SHELL";
         nlu = "nix flake lock --update-input";
 
         # Modern yuunix, uwu <3
@@ -408,6 +399,9 @@ in {
         }
       ]
     }
+    def nd [language: string] {
+          nix develop $"/home/polo/nix-devshells/($language)" -c $env.SHELL
+        }
    '';
 
     };

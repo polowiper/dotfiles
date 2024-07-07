@@ -2,12 +2,6 @@
 {
  
  home.packages = with pkgs; [
-  python311
-  python311Packages.numpy
-  python311Packages.matplotlib
-  ocaml
-  ocamlPackages.utop
-  gcc
   vial
   obs-studio
   xorg.xev
@@ -24,5 +18,6 @@
   mpv-unwrapped
   nix-inspect
   nix-prefetch-scripts
+  anydesk
   ];
 }

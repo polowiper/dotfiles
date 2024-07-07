@@ -20,7 +20,7 @@ in {
       variables = ["--all"];
     };
     plugins = [
-      #inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces    every Hyprland plugins just fucking broke for some dumb fucking reason so ima just disable it for now 
+      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces   #every Hyprland plugins just fucking broke for some dumb fucking reason so ima just disable it for now 
     ];
     settings = {
       general = {
@@ -183,14 +183,14 @@ in {
           "$mainMod SHIFT,  j, movewindow, d"
         ]
         # WTF is this? I don't understand Nix code. 😿
-        ++ map (n: "$mainMod SHIFT, ${toString n}, movetoworkspace, ${
+        ++ map (n: "$mainMod SHIFT, ${toString n}, split-movetoworkspace, ${
           toString (
             if n == 0
             then 10
             else n
           )
         }") [1 2 3 4 5 6 7 8 9 0]
-        ++ map (n: "$mainMod, ${toString n}, workspace, ${
+        ++ map (n: "$mainMod, ${toString n}, split-workspace, ${
           toString (
             if n == 0
             then 10
