@@ -9,7 +9,6 @@ in{
   imports =
     [ # Include the results of the hardware scan.
       ./fonts.nix
-      ./greetd.nix
       ./users.nix
       ./sys.nix
       ./hardware-configuration.nix

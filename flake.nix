@@ -24,10 +24,13 @@
      
      nixvim = {
       url = "github:nix-community/nixvim";
-      #inputs.nixpkgs.follows = "nixpkgs";   lmao it broke and I don't wanna wait for the fix to be merged 
+      inputs.nixpkgs.follows = "nixpkgs";   #lmao it broke and I don't wanna wait for the fix to be merged 
      };
 
-     spicetify-nix.url = "github:the-argus/spicetify-nix";
+     spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
  };
 
   outputs = {

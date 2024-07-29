@@ -9,6 +9,8 @@
   telegram-desktop
   scrcpy
   android-tools
+  bitwarden-desktop
+  prismlauncher-unwrapped
   cinnamon.nemo
   nautilus-open-any-terminal
   loupe
