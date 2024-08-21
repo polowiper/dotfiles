@@ -7,11 +7,19 @@
   xorg.xev
   osu-lazer-bin
   telegram-desktop
+
   scrcpy
+  android-studio
   android-tools
+  mitmproxy
+  mitmproxy2swagger
+  apktool
+  ghex
+  ida-free
+
   bitwarden-desktop
   prismlauncher-unwrapped
-  cinnamon.nemo
+  nemo
   nautilus-open-any-terminal
   loupe
   grim

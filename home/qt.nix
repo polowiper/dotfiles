@@ -3,7 +3,7 @@
 {
   qt = {
     enable = true;
-    platformTheme = "qtct";
+    platformTheme.name = "qtct";
     style = {
       package = pkgs.catppuccin-qt5ct;
       name = "catppuccin";

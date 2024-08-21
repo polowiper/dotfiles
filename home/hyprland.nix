@@ -20,8 +20,8 @@ in {
       variables = ["--all"];
     };
     plugins = [
-      inputs.split-monitor-workspaces.packages.${pkgs.system}.split-monitor-workspaces   #every Hyprland plugins just fucking broke for some dumb fucking reason so ima just disable it for now 
-    ];
+      inputs.hyprsplit.packages.${pkgs.system}.hyprsplit   #every Hyprland plugins just fucking broke for some dumb fucking reason so ima just disable it for now 
+];
     settings = {
       general = {
         layout = "dwindle";
@@ -35,6 +35,7 @@ in {
       monitor = [
       "eDP-1, 1920x1080@60.01, 1920x0, 1"
       "HDMI-A-1, 1920x1080@144.00, 0x0, 1"
+      "DP-3, preferred, -1080x0, 1, transform, 1"
       ];
 
       input = {
@@ -165,7 +166,7 @@ in {
 
           # Toggle window states.
           "$mainMod SHIFT, v, togglefloating,"
-          "$mainMod SHIFT, , fullscreen,"
+          "$mainMod, Shift_R, fullscreen,"
           
           # Toggle special workspace 
           "$mainMod, S, togglespecialworkspace"
@@ -183,14 +184,14 @@ in {
           "$mainMod SHIFT,  j, movewindow, d"
         ]
         # WTF is this? I don't understand Nix code. 😿
-        ++ map (n: "$mainMod SHIFT, ${toString n}, split-movetoworkspace, ${
+        ++ map (n: "$mainMod SHIFT, ${toString n}, split:movetoworkspace, ${
           toString (
             if n == 0
             then 10
             else n
           )
         }") [1 2 3 4 5 6 7 8 9 0]
-        ++ map (n: "$mainMod, ${toString n}, split-workspace, ${
+        ++ map (n: "$mainMod, ${toString n}, split:workspace, ${
           toString (
             if n == 0
             then 10
@@ -228,13 +229,17 @@ in {
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
-
+      plugin = {
+        hyprsplit = {
+          num_workspaces = 5;
+        };
+      };
       exec-once = [
         "${pkgs.hyprpaper}/bin/hyprpaper -c ${hyprpaperConf}"
         "${pkgs.waybar}/bin/waybar"
 
         # Please see home/gtk.nix before modifying the line below. It actually sets the cursor to Bibata-Modern-Ice.
-        "hyprctl setcursor default 24"
+        "hyprctl setcursor Borealis-cursors 24"
       ];
     };
   };

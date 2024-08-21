@@ -41,14 +41,23 @@ gtkCss = ''
 @define-color popover_bg_color #26233a;
 @define-color popover_fg_color #e0def4;''; 
 in {
-  home.sessionVariables.GTK_THEME = "adw-gtk3"; 
+  home.sessionVariables.GTK_THEME = "adw-gtk3";
+/*   home.pointerCursor = {
+    name = "Borealis-cursor";
+    package = pkgs.borealis-cursors;
+    size = 32;
+    gtk.enable = true;
+}; */
   gtk = {
-    enable = true;
+    enable = true; 
     theme = {
       package = pkgs.adw-gtk3;
       name = "adw-gtk3";
      };
-    cursorTheme.name = "default";
+    cursorTheme = {
+      name = "Borealis-cursors";
+      package = pkgs.borealis-cursors;
+    };
     iconTheme = {
       package = pkgs.catppuccin-papirus-folders.override {
         flavor = "mocha";

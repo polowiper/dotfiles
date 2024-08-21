@@ -9,7 +9,7 @@
     defaultEditor = true;
     colorschemes.catppuccin = {
       enable = true;
-      flavour = "mocha";
+      settings.flavour = "mocha";
     };
 
     globals.mapleader = " ";
@@ -272,7 +272,7 @@
 
     treesitter = {
         enable = true;
-        indent = true;
+        settings.indent.enable = true;
         folding = true;
         nixvimInjections = true;
         grammarPackages = with pkgs.vimPlugins.nvim-treesitter-parsers; [
@@ -342,25 +342,26 @@
       };
       bufferline = {
         enable = true;
-        alwaysShowBufferline = false;
-        diagnostics = "nvim_lsp";
-        numbers = "buffer_id";
-        offsets = [
-          {
-            filetype = "NvimTree";
-            text = "File Explorer";
-            text_align = "left";
-            separator = false;
-          }
-        ];
-        showBufferCloseIcons = false;
-        showCloseIcon = false;
-        indicator.style = null;
+        settings = {
+          alwaysShowBufferline = false;
+          diagnostics = "nvim_lsp";
+          numbers = "buffer_id";
+          offsets = [
+            {
+              filetype = "NvimTree";
+              text = "File Explorer";
+              text_align = "left";
+              separator = false;
+            }
+          ];
+          showBufferCloseIcons = false;
+          showCloseIcon = false;
+          indicator.style = null;
+        };
       };
-
       nvim-autopairs = {
         enable = true;
-        checkTs = true;
+        settings.check_ts = true;
       };
 
       auto-save = {
@@ -369,18 +370,20 @@
 
       flash = {
         enable = true;
-        labels = "asdfghjklqwertyuiopzxcvbnm";
-        search = {
-          mode = "fuzzy";
-        };
-        jump = {
-          autojump = true;
-        };
-        label = {
-          uppercase = false;
-          rainbow = {
-            enabled = false;
-            shade = 5;
+        settings = {
+          labels = "asdfghjklqwertyuiopzxcvbnm";
+          search = {
+            mode = "fuzzy";
+          };
+          jump = {
+            autojump = true;
+          };
+          label = {
+            uppercase = false;
+            rainbow = {
+              enabled = false;
+              shade = 5;
+            };
           };
         };
       };
@@ -471,12 +474,14 @@
 
       better-escape = {
         enable = true;
-        mapping = [ "jj" "jk" ];
+        settings = {
+          mapping = [ "jj" "jk" ];
+        };
       };
 
       which-key = {
         enable = true;
-        operators = {
+        settings.operators = {
           gc = "Comments";
         };
       };
@@ -964,8 +969,8 @@
       vim.opt.shortmess:append "IcA"
       vim.opt.whichwrap:append("<,>,h,l,[,]") 
       local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-      require('Comment').setup()
-          require('neoscroll').setup {}
+      require('Comment').setup()    
+      require('neoscroll').setup {}
       require("telescope").setup{
       pickers = {
         colorscheme = {

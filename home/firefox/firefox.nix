@@ -44,7 +44,8 @@ in {
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
 
         #So I don't have to deal w/ the pain of losing all my tabs on each startup
-        "browser.sessionstore.restore_hidden_tabs" = true; 
+        "browser.sessionstore.restore_hidden_tabs" = true;
+        "browser.startup.page" = 3;
 
         # Prevent EULA dialog to popup on first run
         "browser.EULA.override" = true;
@@ -186,6 +187,20 @@ in {
           icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
           definedAliases = [ "@np" ];
         };
+        "Nix Options" = {
+          urls = [{
+            template = "https://search.nixos.org/options";
+            params = [
+              { name = "type"; value = "packages"; }
+              { name = "channel"; value = "unstable"; }
+              { name = "query"; value = "{searchTerms}"; }
+            ];
+          }];
+
+          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          definedAliases = [ "@no" ];
+        };
+
         "Home-manager Options" = {
           urls = [{
             template = "https://home-manager-options.extranix.com";

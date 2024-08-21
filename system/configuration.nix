@@ -75,7 +75,7 @@ programs.steam = {
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # $ nix search wgetcon
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
@@ -101,7 +101,6 @@ programs.steam = {
 
 
   #PIPEWIRESHIT
-  sound.enable = false;
   # rtkit is optional but recommended
   security.rtkit.enable = true;
   services.pipewire = {

@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  inherit (import ./options.nix) dotfilesDir userName;
+  inherit (import ./options.nix) dotfilesDir;
 in {
   programs = {
     direnv = {
@@ -399,9 +399,13 @@ in {
         }
       ]
     }
-    def nd [language: string] {
-          nix develop $"/home/polo/nix-devshells/($language)" -c $env.SHELL
-        }
+    def nd [language?: string] {
+      if ($language == null) {
+        nix develop -c $env.SHELL
+      } else {
+        nix develop $"/home/polo/nix-devshells/($language)" -c $env.SHELL
+      }
+    }
    '';
 
     };
