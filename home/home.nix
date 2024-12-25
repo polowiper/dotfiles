@@ -9,11 +9,11 @@ in {
     ./discord.nix
     ./extra.nix
     ./firefox/firefox.nix
+    ./fish.nix
     ./git.nix
     ./gtk.nix
     ./kitty.nix
     ./nixvim.nix
-    ./nushell.nix
     ./mako.nix
     ./qt.nix
     ./rofi.nix
@@ -25,7 +25,6 @@ in {
     ./hyprland.nix
     ./hyprlock.nix
     inputs.catppuccin.homeManagerModules.catppuccin
-    inputs.hyprland.homeManagerModules.default
   ];
 
   nixpkgs = {

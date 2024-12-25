@@ -27,6 +27,8 @@ in {
 
       extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
         ublock-origin
+        youtube-shorts-block
+        bitwarden
         sponsorblock
         skip-redirect
         i-dont-care-about-cookies

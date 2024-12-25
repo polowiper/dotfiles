@@ -1,9 +1,9 @@
-# Edit this configuration file to define what should be installed on
+# Edit this configuration file to define what should be installed onconfig
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { inputs, pkgs, ... }:
-let
+let 
   inherit (import ./options.nix) stateVersion;  
 in{
   imports =
@@ -68,9 +68,17 @@ programs.steam = {
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "us";
-    xkbVariant = "";
+    enable = true;
+    xkb={
+      layout = "us";
+      variant = "";
+    };
+    windowManager.awesome = {
+      enable = true;
+    };
   };
+
+  services.displayManager.sddm.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -80,13 +88,12 @@ programs.steam = {
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    gdb
     nh
-    wdisplays
     xwayland
     zip
     unzip
     helvum
+    via
     brightnessctl
   ];
   
@@ -110,7 +117,10 @@ programs.steam = {
 	pulse.enable = true;
   	# If you want to use JACK applications, uncomment this
   	#jack.enable = true;
-};
+  };
+  
+  
+  services.udev.packages = [ pkgs.via ];
   hardware.pulseaudio.enable = false;
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

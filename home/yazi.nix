@@ -3,7 +3,7 @@
     enable = true;
     catppuccin.enable = true;
     package = pkgs.yazi-unwrapped;
-    enableNushellIntegration = true;
+    enableFishIntegration = true;
     settings = {
       manager = {
         show_hidden = false;

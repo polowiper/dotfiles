@@ -22,7 +22,7 @@
 #| /_/            /____/                  |
 #\----------------------------------------/
       plugins = {
-    nvim-tree = {
+   nvim-tree = {
       enable = true;
     };
 
@@ -129,19 +129,19 @@
 
     conform-nvim = {
         enable = true;
-        formatOnSave = {
-          lspFallback = true;
-          timeoutMs = 500;
-        };
-        notifyOnError = true;
-        formattersByFt = {
-          python = ["black"];
-          nix = ["alejandra"];
-          markdown = [["prettierd" "prettier"]];
-          ocaml = ["ocamlformat" "ocp-Indent"];
+        settings = {
+          notify_on_error = true;
+          formatters_by_ft = {
+            python = ["black"];
+            nix = ["alejandra"];
+            markdown = [["prettierd" "prettier"]];
+            ocaml = ["ocamlformat" "ocp-Indent"];
+          };
         };
     };
-
+    web-devicons = {
+      enable = true;
+    };
     fidget = {
         enable = true;
         logger = {
@@ -233,33 +233,36 @@
 
     noice = {
         enable = true;
-        notify.enabled = false;
-        messages.enabled = true; # Adds a padding-bottom to neovim statusline when set to false for some reason
+        settings = {
+          notify.enabled = false;
+          messages.enabled = true; # Adds a padding-bottom to neovim statusline when set to false for some reason
 
-        lsp = {
-          message.enabled = true;
-          progress = {
-            enabled = false;
-            view = "mini";
-          };
+          lsp = {
+            message.enabled = true;
+            progress = {
+              enabled = false;
+              view = "mini";
+            };
         };
         popupmenu = {
           enabled = true;
           backend = "nui";
         };
-    format = {
-      filter = {
-        pattern = [":%s*%%s*s:%s*" ":%s*%%s*s!%s*" ":%s*%%s*s/%s*" "%s*s:%s*" ":%s*s!%s*" ":%s*s/%s*"];
-        icon = "";
-        lang = "regex";
-      };
-      replace = {
-        pattern = [":%s*%%s*s:%w*:%s*" ":%s*%%s*s!%w*!%s*" ":%s*%%s*s/%w*/%s*" "%s*s:%w*:%s*" ":%s*s!%w*!%s*" ":%s*s/%w*/%s*"];
-        icon = "󱞪";
-        lang = "regex";
+        format = {
+        filter = {
+          pattern = [":%s*%%s*s:%s*" ":%s*%%s*s!%s*" ":%s*%%s*s/%s*" "%s*s:%s*" ":%s*s!%s*" ":%s*s/%s*"];
+          icon = "";
+          lang = "regex";
+        };
+        replace = {
+          pattern = [":%s*%%s*s:%w*:%s*" ":%s*%%s*s!%w*!%s*" ":%s*%%s*s/%w*/%s*" "%s*s:%w*:%s*" ":%s*s!%w*!%s*" ":%s*s/%w*/%s*"];
+          icon = "󱞪";
+          lang = "regex";
+            };
           };
         };
       };
+
 
     notify = {
         enable = true;
@@ -330,19 +333,22 @@
           swapPrevious = {"<leader>A" = "@parameter.outer";};
         };
       };
+      
 
       lualine = {
         enable = true;
-        theme = "modus-vivendi";
-        globalstatus = true;
-        componentSeparators = { 
-          right = "";
-          left = "";
+        settings.options = {
+          theme = "modus-vivendi";
+          globalstatus = true;
+          component_separators = { 
+            right = "";
+            left = "";
+          };
         };
       };
       bufferline = {
         enable = true;
-        settings = {
+        settings.options = {
           alwaysShowBufferline = false;
           diagnostics = "nvim_lsp";
           numbers = "buffer_id";
@@ -440,7 +446,9 @@
       leap = {
         enable = true;
       };
-
+      nix = {
+        enable = true;
+      };
       indent-blankline = {
         enable = true;
         settings = {
@@ -475,15 +483,12 @@
       better-escape = {
         enable = true;
         settings = {
-          mapping = [ "jj" "jk" ];
+          default_mappings = true;
         };
       };
 
       which-key = {
         enable = true;
-        settings.operators = {
-          gc = "Comments";
-        };
       };
 
       illuminate = {
@@ -503,7 +508,7 @@
         servers = {
           pyright.enable = true;
           clangd.enable = true;
-          ocamllsp.enable = true;
+          #ocamllsp.enable = true;
           nixd.enable = true;
         };
         keymaps = {
@@ -521,62 +526,11 @@
           #};
         };
       };
-
-      cmp = 
-      let
-        mapping = {
-          "<C-Space>" = "cmp.mapping.complete()";
-          "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-          "<C-e>" = "cmp.mapping.close()";
-          "<C-f>" = "cmp.mapping.scroll_docs(4)";
-          "<CR>" = "cmp.mapping.confirm({ select = true })";
-          "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-          "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-        };
-      in
-        {
-        enable = true;
-        cmdline = {
-          "/" = {
-            mapping = mapping;
-            sources = [
-              { name = "buffer"; }
-            ];
-          };
-          ":" = {
-            mapping = mapping;
-            sources = [
-              { name = "path"; }
-              {
-                name = "cmdline";
-                option = {
-                  ignore_cmds = [
-                    "Man"
-                    "!"
-                  ];
-                };
-              }
-            ];
-          };
-        };
-        settings = {
-          mapping = mapping;
-          snippet = {
-            expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-            };
-          sources = [
-            { name = "nvim_lsp"; }
-            { name = "luasnip"; }
-            { name = "path"; }
-            { name = "buffer"; }
-          ];
-          performance.max_view_entries = 10;
-        };
       };
-    };
-    
+      
 
     extraPlugins = with pkgs; [
+      vimPlugins.supermaven-nvim
       vimPlugins.iron-nvim
       vimPlugins.comment-nvim
       vimPlugins.neoscroll-nvim

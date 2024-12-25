@@ -9,12 +9,16 @@ in {
       isNormalUser = true;
       description = "${userFullName}";
       extraGroups = [ "networkmanager" "wheel" ];
-      shell = pkgs.nushell; 
-};
+      shell = pkgs.fish; 
+    };
   };
 
+
+programs.fish = {
+  enable = true;
+  
+};
 programs.hyprland = {
   enable = true;
-  package = inputs.hyprland.packages.${pkgs.system}.hyprland;
 };
 }

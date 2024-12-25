@@ -8,10 +8,11 @@
     catppuccin.catppuccin-vsc
     vscode-icons-team.vscode-icons
     ms-toolsai.jupyter
-    ms-python.python
     bbenoist.nix
     ocamllabs.ocaml-platform
     yzhang.markdown-all-in-one
+    supermaven.supermaven
+    adpyke.codesnap
   ];
  };
 }

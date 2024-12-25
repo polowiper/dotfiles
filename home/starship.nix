@@ -1,9 +1,7 @@
 {
   programs.starship = {
     enable = true;
-    catppuccin.enable = true;
-    enableNushellIntegration = true;
-
+    enableFishIntegration = true;
     settings = {
       right_format = "$cmd_duration";
 
@@ -33,4 +31,5 @@
       };
     };
   };
+  catppuccin.starship.enable = true;
 }

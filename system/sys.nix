@@ -4,7 +4,7 @@
   hardware = {
     # Hardware acceleration.
     # This is for my old Dell laptop from 2011, with the Sandybridge processor.
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-vaapi-driver
