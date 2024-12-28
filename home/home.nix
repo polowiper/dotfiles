@@ -8,7 +8,7 @@ in {
     ./cli.nix
     ./discord.nix
     ./extra.nix
-    ./firefox/firefox.nix
+    ./firefox.nix
     ./fish.nix
     ./git.nix
     ./gtk.nix

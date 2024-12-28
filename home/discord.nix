@@ -39,6 +39,9 @@
         AlwaysAnimate.enabled = false;
         AlwaysTrust.enabled = true; # remove "do you trust this link" dialogs.
         AnonymiseFileNames.enabled = true;
+        ShikiCodeblocks.enabled = true;
+        VencordToolBox.enabled = true;
+        YoutubeAdBlock.enabled = true;
         BANger.enabled = false;
         BetterGifPicker.enabled = true;
         BetterSettings.enabled = true;

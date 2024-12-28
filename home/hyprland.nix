@@ -2,8 +2,8 @@
 # The wallpaper will be fetched from GitHub. I don't store my wallpapers locally.
 let
   currentWallpaper = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/cat_anime-girl.png";
-    sha256 = "sha256-eghqCS3tLe7i8DzaKtzsMPgkXTBR/BGNOP264jFWfNY=";
+    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/catppuccin.jpg";
+    sha256 = "sha256-bMYij70tl4RmzGLnsmcjg6wtBDVnL71gO9ox6g2MUcs=";
   };
   hyprpaperConf = pkgs.writeText "hyprpaper.conf" ''
     preload = ${currentWallpaper}

@@ -1,21 +1,8 @@
 {inputs, pkgs, ...}:
 # Fetch the user's name and their full name from the home/options.nix file
 let
-  inherit (import ../options.nix) userName userFullName;
-  firefoxModBlur = pkgs.fetchgit {
-    url = "";
-    sparseCheckout = [
-      "userChrome.css"
-      "userContent.css"
-      "EXTRA MODS"
-      "ASSETS"
-    ];
-    postFetch = ''
-    
-    '';
-    hash = "";
-  };
-in {
+  inherit (import ./options.nix) userName userFullName;
+  in {
   home.sessionVariables.BROWSER = "firefox";
 
   programs.firefox = {
@@ -276,8 +263,4 @@ in {
 
     };
   };
-  home.file."./.mozilla/firefox/polo.default/chrome" = {
-    recursive = true;
-    source = ./chrome;
-  };
-}
+  }
