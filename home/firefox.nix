@@ -2,11 +2,11 @@
 # Fetch the user's name and their full name from the home/options.nix file
 let
   inherit (import ./options.nix) userName userFullName;
-  in {
-  home.sessionVariables.BROWSER = "firefox";
-
-  programs.firefox = {
+in {
+ home.sessionVariables.BROWSER = "firefox-esr";
+ programs.firefox = {
     enable = true;
+    package = pkgs.firefox-esr;
     profiles."${userName}" = {
       isDefault = true;
       name = "${userFullName}";
@@ -48,6 +48,7 @@ let
         "app.privacyURL" = "http://127.0.0.1/";
 
         # Disable plugin installer
+        "xpinstall.signatures.required" = false;
         "plugins.hide_infobar_for_missing_plugin" = true;
         "plugins.hide_infobar_for_outdated_plugin" = true;
         "plugins.notifyMissingFlash" = false;

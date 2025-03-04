@@ -11,7 +11,10 @@
     bbenoist.nix
     ocamllabs.ocaml-platform
     yzhang.markdown-all-in-one
-    supermaven.supermaven
+    ms-vsliveshare.vsliveshare
+    arjun.swagger-viewer
+    mhutchie.git-graph
+    eamodio.gitlens
     adpyke.codesnap
   ];
  };

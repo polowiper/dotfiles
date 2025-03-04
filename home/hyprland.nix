@@ -142,7 +142,7 @@ in {
       bind =
         [
           # Launch apps
-          "$mainMod,        f,   exec,   ${pkgs.firefox}/bin/firefox"
+          "$mainMod,        f,   exec,   ${pkgs.firefox-esr}/bin/firefox-esr"
           "$mainMod,        d,   exec,   ${pkgs.vesktop}/bin/vesktop"
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
           "$mainMod,        p,   exec,   ${rofiPowerMenuScript}/bin/script"

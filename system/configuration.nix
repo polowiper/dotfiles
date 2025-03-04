@@ -46,7 +46,7 @@ programs.steam = {
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
 };
-
+  programs.nix-ld.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Paris";
@@ -79,6 +79,7 @@ programs.steam = {
   };
 
   services.displayManager.sddm.enable = true;
+  services.mullvad-vpn.enable = true;
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -121,8 +122,7 @@ programs.steam = {
   	#jack.enable = true;
   };
   
-  
-  services.udev = {
+ services.udev = {
     packages = [ pkgs.via ];
     extraRules = ''
 # Atmel DFU
@@ -216,7 +216,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="342d", ATTRS{idProduct}=="dfa0", TAG+="uacc
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2e3c", ATTRS{idProduct}=="df11", TAG+="uaccess"
     '';
   };
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 

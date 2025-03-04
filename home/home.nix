@@ -13,7 +13,7 @@ in {
     ./git.nix
     ./gtk.nix
     ./kitty.nix
-    ./nixvim.nix
+    ./nvim
     ./mako.nix
     ./qt.nix
     ./rofi.nix

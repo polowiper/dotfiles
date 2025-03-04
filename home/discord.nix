@@ -54,14 +54,19 @@
         Experiments.enabled = true;
         FixSpotifyEmbeds.enabled = true;
         FavoriteEmojiFirst.enabled = true;
+        MessageClickActions.enabled = true;
         LoadingQuotes.enabled = true;
         MemberCount.enabled = true;
         MessageLogger.enabled = true;
-        "noF1".enabled = true;
+        "NoF1".enabled = true;
         NSFWGateBypass.enabled = true;
         PermissionFreeWill.enabled = true;
         PreviewMessage.enabled = true;
         ReadAllNotificationsButton.enabled = true;
+        FakeNitro.enabled = true;
+        FixYoutubeEmbeds.enabled = true;
+        FullSearchContext.enabled = true;
+
         RelationshipNotifier.enabled = true;
         ReverseImageSearch.enabled = true;
         ShowConnections.enabled = true;

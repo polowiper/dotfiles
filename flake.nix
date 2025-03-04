@@ -15,6 +15,7 @@
        url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
        inputs.nixpkgs.follows = "nixpkgs";
      };
+     nix-alien.url = "github:thiagokokada/nix-alien";
 
      nixvim = {
       url = "github:nix-community/nixvim";
