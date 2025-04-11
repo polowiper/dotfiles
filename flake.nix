@@ -19,7 +19,7 @@
 
      nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";   #lmao it broke and I don't wanna wait for the fix to be merged 
+      inputs.nixpkgs.follows = "nixpkgs";   #lmao it broke and I don't wanna wait for the fix to be merged
      };
 
      spicetify-nix = {
@@ -29,10 +29,10 @@
  };
 
   outputs = {
-    self, 
+    self,
     nixpkgs,
     home-manager,
-    ... 
+    ...
     } @ inputs: let
       inherit (import ./system/options.nix) hostName system;
       inherit (import ./home/options.nix) userName;
@@ -43,7 +43,6 @@
       modules = [
         ./system/configuration.nix
       ];
-     
     };
 
     homeConfigurations."${userName}" = home-manager.lib.homeManagerConfiguration {

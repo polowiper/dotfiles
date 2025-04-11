@@ -11,7 +11,7 @@ require("iron.core").setup({
       },
       repl_open_cmd = "vertical botright 80 split",
     },
-  
+
     keymaps = {
       send_motion = "<space>sc",
       visual_send = "<space>sc",
@@ -27,10 +27,10 @@ require("iron.core").setup({
       exit = "<space>sq",
       clear = "<space>cl",
     },
-  
+
     highlight = {
       italic = true
     },
-  
+
     ignore_blank_lines = true,
   })

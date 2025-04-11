@@ -30,7 +30,7 @@ in {
         "col.active_border" = "0x9399b2FF";
         "col.inactive_border" = "0x4488a3EE";
       };
-      
+
       monitor = [
       "eDP-1, 1920x1080@60.01, 1920x0, 1"
       "HDMI-A-1, preferred, 0x0, 1"
@@ -75,6 +75,10 @@ in {
         "float,title:^(Page Info)$"
       ];
       windowrulev2 = [
+        "float,class:^(thunar)$"
+        "size 70% 70%,class:^(thunar)$"
+        "float,class:^(org.gnome.Loupe)$"
+        "size 70% 70%,class:^(org.gnome.Loupe)$"
         "float,class:^(pavucontrol)$"
         "float,class:^(file_progress)$"
         "float,class:^(confirm)$"
@@ -143,10 +147,10 @@ in {
         [
           # Launch apps
           "$mainMod,        f,   exec,   ${pkgs.firefox-esr}/bin/firefox-esr"
-          "$mainMod,        d,   exec,   ${pkgs.vesktop}/bin/vesktop"
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
           "$mainMod,        p,   exec,   ${rofiPowerMenuScript}/bin/script"
           "$mainMod,        w,   exec,   ${rofiWifiMenuScript}/bin/script"
+          "$mainMod,        d,   exec,   ${pkgs.xfce.thunar}/bin/thunar"
           "$mainMod,        q,   exec,   ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons"
           "$mainMod,        y,   exec,   spotify"
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
@@ -167,10 +171,10 @@ in {
           # Toggle window states.
           "$mainMod SHIFT, v, togglefloating,"
           "$mainMod, Shift_R, fullscreen,"
-          
-          # Toggle special workspace 
+
+          # Toggle special workspace
           "$mainMod, S, togglespecialworkspace"
-          
+
           # Move focus from one window to another.
           "$mainMod, h, movefocus, l"
           "$mainMod, l, movefocus, r"
@@ -216,7 +220,7 @@ in {
         "$mainMod ,XF86AudioLowerVolume, exec, brightnessctl s 5%-"
         "         ,XF86MonBrightnessDown, exec, brightnessctl s 5%-"
         "         ,XF86MonBrightnessUp, exec, brightnessctl s 5%+"
-        
+
         # Resize windows.
         "$mainMod CTRL, l, resizeactive, 30 0"
         "$mainMod CTRL, h, resizeactive, -30 0"

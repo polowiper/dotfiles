@@ -5,7 +5,7 @@
 }:
 let
   browser = "firefox-esr.desktop";
-  fileManager = "nemo.desktop";
+  fileManager = "thunar.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
   mediaPlayer = "mpv.desktop";
   textEditor = "neovim.desktop";

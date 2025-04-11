@@ -6,14 +6,13 @@ let
 in {
   imports = [
     ./cli.nix
-    ./discord.nix
     ./extra.nix
     ./firefox.nix
     ./fish.nix
     ./git.nix
     ./gtk.nix
     ./kitty.nix
-    ./nvim
+    ./neovim
     ./mako.nix
     ./qt.nix
     ./rofi.nix
@@ -45,5 +44,3 @@ programs.home-manager.enable = true;
 programs.home-manager.path = lib.mkDefault "${dotfilesDir}";
 }
 
- 
- 

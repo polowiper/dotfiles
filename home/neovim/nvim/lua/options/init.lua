@@ -29,7 +29,7 @@ o.signcolumn    = 'yes'   -- Always show sign column (otherwise it will shift te
 opt.fillchars = { eob = " " } -- Don't show `~` outside of buffer
 
 opt.shortmess:append "sI" -- disable nvim intro
-
+opt.termguicolors = true --required for notify
 -- indenting
 o.expandtab = true -- tabs to spaces
 o.shiftwidth = 2 -- nb of spaces for indenting

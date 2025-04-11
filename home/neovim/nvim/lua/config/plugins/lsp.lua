@@ -12,7 +12,7 @@ local servers = {
         },
       },
     },
-  
+
     pyright = {
       on_attach = function(_, bufnr)
         -- fuck 4 space tabs, all my homies hate 4 space tab
@@ -22,13 +22,13 @@ local servers = {
         vim.api.nvim_buf_set_option(bufnr, 'expandtab', true)
       end,
     },
-  
+
     ccls = {},
-  
+
     cssls = {},
-  
+
     ocamllsp = {},
-  
+
     nixd = {
       cmd = { "nixd" },
       settings = {
@@ -43,15 +43,15 @@ local servers = {
       },
     },
   }
-  
-  
+
+
   local lspconfig = require('lspconfig')
-  
+
   for server, config in pairs(servers) do
-  
+
     -- passing config.capabilities to blink.cmp merges with the capabilities in your
     -- `opts[server].capabilities, if you've defined it
     config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
     lspconfig[server].setup(config)
-  
+
   end

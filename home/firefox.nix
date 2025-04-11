@@ -12,7 +12,7 @@ in {
       name = "${userFullName}";
       path = "${userName}.default";
 
-      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+      extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
         ublock-origin
         youtube-shorts-block
         bitwarden

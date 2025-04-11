@@ -18,8 +18,12 @@
       snacks-nvim
 
       blink-cmp
+      nvim-notify
       iron-nvim
       molten-nvim
+      quarto-nvim
+      otter-nvim
+      jupytext-nvim
       flash-nvim
       which-key-nvim
     ];
@@ -44,6 +48,7 @@
       vscode-langservers-extracted
 
       ocamlPackages.utop
+      python312Packages.jupytext #You need to add it here instead of the extraPython3Packages because the extraPython3Packages won't append the executable to the PATH which makes jupytext unable to detect the jupytext executable basically making it not work
     ];
 
     extraLuaPackages = luaPkgs:
@@ -64,6 +69,7 @@
 
         # test molten
         ipython
+        jupytext
         jupyter
         ipykernel
         numpy
@@ -74,6 +80,6 @@
 
   home.file.".config/nvim" = {
     recursive = true;
-    source = ./luafiles;
+    source = ./nvim;
   };
 }

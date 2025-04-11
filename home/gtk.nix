@@ -1,7 +1,7 @@
 {pkgs, lib, ...}:  
 
 let 
-gtkCss = ''
+extraCss = ''
 @define-color accent_bg_color #c4a7e7;
 @define-color accent_fg_color #191724;
 @define-color accent_color #c4a7e7;
@@ -40,9 +40,14 @@ gtkCss = ''
 
 @define-color popover_bg_color #26233a;
 @define-color popover_fg_color #e0def4;''; 
+inherit (import ./options.nix) homeDir;
 in {
-  home.sessionVariables.GTK_THEME = "adw-gtk3";
-/*   home.pointerCursor = {
+  home.sessionVariables = {
+  GTK_THEME = "adw-gtk3";
+  GTK_USE_PORTAL = "1";
+  GDK_BACKEND = "wayland";
+  };
+    /*   home.pointerCursor = {
     name = "Borealis-cursor";
     package = pkgs.borealis-cursors;
     size = 32;
@@ -65,23 +70,44 @@ in {
       };
       name = "Papirus-Dark";
     };
-  
-  gtk4.extraConfig = {
-    gtk-application-prefer-dark-theme = true;
-  };
-  gtk3.extraConfig = {
-    gtk-application-prefer-dark-theme = true;
-  };
-};
-  xdg.configFile = {
-    "gtk-3.0/gtk.css" = {
-        text = lib.mkForce gtkCss;
-        force = true;
+    gtk2 = {
+      configLocation = "${homeDir}/gtk-2.0/gtkrc";
+      extraConfig = ''
+      '';
     };
-    "gtk-4.0/gtk.css" = {
-        text = lib.mkForce gtkCss;
-        force = true;
-    };
-  };
 
+    gtk3 = {
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        gtk-overlay-scrolling = false;
+        gtk-enable-primary-paste = false;
+        gtk-error-bell = false;
+        gtk-enable-input-feedback-sounds = false;
+        gtk-decoration-layout = "appmenu:none";
+        gtk-xft-antialias = 1;
+        gtk-xft-hinting = 1;
+        gtk-xft-hintstyle = "hintslight";
+        gtk-xft-rgba = "rgb";
+      };
+      inherit extraCss;
+    };
+
+    gtk4 = {
+      extraConfig = {
+        gtk-application-prefer-dark-theme = true;
+        gtk-overlay-scrolling = false;
+        gtk-enable-primary-paste = false;
+        gtk-error-bell = false;
+        gtk-enable-input-feedback-sounds = false;
+        gtk-decoration-layout = "appmenu:none";
+        gtk-xft-antialias = 1;
+        gtk-xft-hinting = 1;
+        gtk-xft-hintstyle = "hintslight";
+        gtk-xft-rgba = "rgb";
+      };
+      inherit extraCss;
+    };
+  };
 }
+
+

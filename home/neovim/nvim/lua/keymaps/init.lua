@@ -2,7 +2,7 @@
 local map = vim.keymap.set
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.maplocalleader = "m"
 
 map("n", "q:", "") -- "all my homies hate q:" -Confucius
 

@@ -3,17 +3,21 @@
 let
   nix-alien-pkgs = inputs.nix-alien.packages.${pkgs.system};
 in
-  { 
+ {
  home.packages = with pkgs; [
   vial
   obs-studio
+  anki
   xorg.xev
   telegram-desktop
+
+  bambu-studio #GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
 
   scrcpy
   android-tools
   apktool
   ghex
+  ripgrep
   httptoolkit-server
   httptoolkit
   deluge
@@ -23,7 +27,9 @@ in
 
   texlive.combined.scheme-basic
   texstudio
+  sqlite
 
+  quarto
   mullvad-vpn
   galculator
   kdePackages.okular
@@ -31,7 +37,7 @@ in
   bitwarden-desktop
   temurin-bin
   prismlauncher
-  nemo
+  planify
   loupe
   grim
   swappy

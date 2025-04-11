@@ -18,10 +18,10 @@
 
                 if test -d "$path"
                     echo "Found directory: $path"
-                    nix develop "$path" -c $SHELL
+                    nix develop "$path" -c fish
                 else
                     echo "$path not found. Running nix develop without a path."
-                    nix develop -c $SHELL
+                    nix develop -c fish
                 end
             else
                 nix develop -c $SHELL
