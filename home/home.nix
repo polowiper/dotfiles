@@ -7,7 +7,7 @@ in {
   imports = [
     ./cli.nix
     ./extra.nix
-    ./firefox.nix
+    ./firefox/firefox.nix
     ./fish.nix
     ./git.nix
     ./gtk.nix
@@ -16,14 +16,13 @@ in {
     ./mako.nix
     ./qt.nix
     ./rofi.nix
-    ./spotify.nix
     ./starship.nix
     ./vscode.nix
     ./waybar.nix
     ./xdg.nix
     ./hyprland.nix
     ./hyprlock.nix
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   nixpkgs = {

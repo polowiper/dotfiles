@@ -1,7 +1,7 @@
 {inputs, pkgs, ...}:
 # Fetch the user's name and their full name from the home/options.nix file
 let
-  inherit (import ./options.nix) userName userFullName;
+  inherit (import ../options.nix) userName userFullName;
 in {
  home.sessionVariables.BROWSER = "firefox-esr";
  programs.firefox = {
@@ -17,6 +17,8 @@ in {
         youtube-shorts-block
         bitwarden
         sponsorblock
+        sidebery
+        userchrome-toggle-extended
         skip-redirect
         i-dont-care-about-cookies
       ];
@@ -29,8 +31,15 @@ in {
         # Don't call home for blacklisting
         "extensions.blocklist.enabled" = false;
 
-        #Required by firefoxModBlur
+        #Required by the firefox theme
         "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+        "svg.context-properties.content.enabled" = true;
+        "layout.css.has-selector.enabled" = true;
+        "widget.gtk.rounded-bottom-corners.enabled" = true;
+        "widget.gtk.ignore-bogus-leave-notify" = 1;
+
+        #All my homies hate the new sidebar
+        "sidebar.revamp" =false;
 
         #So I don't have to deal w/ the pain of losing all my tabs on each startup
         "browser.sessionstore.restore_hidden_tabs" = true;
@@ -100,6 +109,14 @@ in {
         "camera.control.autofocus_moving_callback.enabled" = false;
         "network.http.speculative-parallel-limit" = 0;
         "browser.urlbar.speculativeConnect.enabled" = false;
+        "browser.urlbar.suggest.calculator" = true;
+        "browser.urlbar.suggest.unitConversion.enabled" = true;
+        "browser.urlbar.trimHttps" = true;
+        "browser.urlbar.trimURLs" = true;
+
+        # So that firefox doesn't use the default xdg-desktop-portal-gtk file picker but instead the one defined in xdg.nix (inode/directory)
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "widget.widget.use-xdg-desktop-portal.mime-handler" = 1;
 
         # Don't download ads for the newtab page
         "browser.newtabpage.directory.source" = "";
@@ -158,12 +175,12 @@ in {
       };
 
   search = {
-        default = "Google";
-        order = [ "Google" ];
+        default = "ddg";
+        order = [ "ddg" "google" ];
         force = true;
         engines = {
-        "Bing".metaData.hidden = true;
-        "Google".metaData.alias = "@g";
+        "bing".metaData.hidden = true;
+        "google".metaData.alias = "@g";
         "Nix Packages" = {
           urls = [{
             template = "https://search.nixos.org/packages";
@@ -203,7 +220,7 @@ in {
           definedAliases = [ "@hm" ];
         };
         "NixOS Wiki" = {
-          urls = [{ 
+          urls = [{
             template = "https://wiki.nixos.org/index.php";
             params = [
               { name = "query"; value = "{searchTerms}"; }
@@ -215,53 +232,59 @@ in {
         };
       };
 
-      bookmarks = [
-        {
-          name = "Nix sites";
-          toolbar = false;
-          bookmarks = [
-            {
-              name = "nix.dev";
-              url = "https://nix.dev/";
-            }
-            {
-              name = "discourse";
-              url = "https://discourse.nixos.org";
-            }
-            {
-              name = "Noogle (nix func search)";
-              url = "https://noogle.dev";
-            }
-          ];
-        }
+      bookmarks = {
+          force = true;
+          settings = [
+          {
+            name = "Nix sites";
+            toolbar = false;
+            bookmarks = [
+              {
+                name = "nix.dev";
+                url = "https://nix.dev/";
+              }
+              {
+                name = "discourse";
+                url = "https://discourse.nixos.org";
+              }
+              {
+                name = "Noogle (nix func search)";
+                url = "https://noogle.dev";
+              }
+            ];
+          }
 
-       
-        {
-          name = "Image utilities";
-          toolbar = false;
-          bookmarks = [
-            {
-              name = "CloudConvert";
-              url = "https://cloudconvert.com";
-            }
-            {
-              name = "Upscale Media";
-              url = "https://upscale.media";
-            }
-          ];
-        }
-        {
-          name = "🏴";
-          toolbar = false;
-          bookmarks = [
-            {
-              name = "Plex";
-              url = "https://app.plex.tv/desktop";
-            }
-          ];
-        }
-      ];
 
+          {
+            name = "Image utilities";
+            toolbar = false;
+            bookmarks = [
+              {
+                name = "CloudConvert";
+                url = "https://cloudconvert.com";
+              }
+              {
+                name = "Upscale Media";
+                url = "https://upscale.media";
+              }
+            ];
+          }
+          {
+            name = "🏴";
+            toolbar = false;
+            bookmarks = [
+              {
+                name = "Plex";
+                url = "https://app.plex.tv/desktop";
+              }
+            ];
+          }
+        ];
+     };
     };
   };
-  }
+  home.file."./.mozilla/firefox/polo.default/chrome" = {
+    recursive = true;
+    source = ./chrome;
+  };
+}

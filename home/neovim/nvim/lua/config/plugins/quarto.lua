@@ -32,7 +32,7 @@ quarto.setup({
 vim.keymap.set("n", "<localleader>qp", quarto.quartoPreview,
   { desc = "Preview the Quarto document", silent = true, noremap = true })
 
-vim.keymap.set("n", "<localleader>cc", "i`<c-j>",
+vim.keymap.set("n", "<localleader>cc", "i```{}\r\r```",
   { desc = "Create a new code cell", silent = true })
 
 vim.keymap.set("n", "<localleader>cs", "i```\r\r```{}<left>",

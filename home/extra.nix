@@ -1,4 +1,4 @@
-{pkgs, inputs, ...}: 
+{pkgs, inputs, ...}:
 
 let
   nix-alien-pkgs = inputs.nix-alien.packages.${pkgs.system};
@@ -13,6 +13,7 @@ in
 
   bambu-studio #GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
 
+  gimp
   scrcpy
   android-tools
   apktool
@@ -28,7 +29,7 @@ in
   texlive.combined.scheme-basic
   texstudio
   sqlite
-
+  overskride
   quarto
   mullvad-vpn
   galculator

@@ -3,8 +3,8 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { inputs, pkgs, ... }:
-let 
-  inherit (import ./options.nix) stateVersion;  
+let
+  inherit (import ./options.nix) stateVersion;
 in{
   imports =
     [ # Include the results of the hardware scan.
@@ -35,10 +35,10 @@ in{
 
   # Enable networking
   networking.networkmanager.enable = true;
-	
+
   environment.sessionVariables = {
   NIXOS_OZONE_WL = "1";
-  FLAKE = "/home/polo/nixos/"; 
+  FLAKE = "/home/polo/nixos/";
   };
 
 programs.steam = {
@@ -54,7 +54,6 @@ programs.steam = {
   programs.thunar = {
     enable = true;
     plugins = with pkgs.xfce; [
-      thunar-archive-plugin
       thunar-volman
       thunar-media-tags-plugin
     ];
@@ -95,8 +94,13 @@ programs.steam = {
     };
   };
 
-  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm =
+  {
+      enable = true;
+      #theme = "catppuccin";
+  };
   services.mullvad-vpn.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -117,7 +121,7 @@ programs.steam = {
     qmk
     brightnessctl
   ];
-  
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -139,8 +143,21 @@ programs.steam = {
   	# If you want to use JACK applications, uncomment this
   	#jack.enable = true;
   };
-  
 
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      PLATFORM_PROFILE_ON_AC="performance";
+      PLATFORM_PROFILE_ON_BAT="low-power";
+      CPU_BOOST_ON_AC=1;
+      CPU_BOOST_ON_BAT=0;
+      CPU_HWP_DYN_BOOST_ON_AC=1;
+      CPU_HWP_DYN_BOOST_ON_BAT=0;
+
+    };
+  };
   services.pulseaudio.enable = false;
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;

@@ -65,7 +65,7 @@ in {
       };
 
       windowrule = [
-        "float,udiskie"
+        "float,title:^(udiskie)$"
         "float,title:^(Transmission)$"
         "float,title:^(Volume Control)$"
         "size 700 450,title:^(Volume Control)$"
@@ -75,14 +75,16 @@ in {
         "float,title:^(Page Info)$"
       ];
       windowrulev2 = [
-        "float,class:^(thunar)$"
+        "float,class:i^(Thunar)$"
+        "size 70% 70%,class:^(Thunar)$"
+        "float,class:i^(thunar)$" #HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
         "size 70% 70%,class:^(thunar)$"
         "float,class:^(org.gnome.Loupe)$"
         "size 70% 70%,class:^(org.gnome.Loupe)$"
         "float,class:^(pavucontrol)$"
         "float,class:^(file_progress)$"
         "float,class:^(confirm)$"
-        "float,class:^(.blueman-manager-wrapped)$"
+        "float,class:^(io.github.kaii_lb.Overskride)$"
         "float,class:^(dialog)$"
         "float,class:^(download)$"
         "float,class:^(notification)$"
@@ -95,8 +97,8 @@ in {
       decoration = {
         rounding = 7;
         #`"col.shadow" = "rgba(1a1a1aee)";
-        active_opacity = 0.75;
-        inactive_opacity = 0.75;
+        active_opacity = 1.0; #The transparent era is over :sadge:
+        inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
         blur = {
           enabled = true;

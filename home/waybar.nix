@@ -66,7 +66,7 @@ in {
           "29" = "9";
           "30" = "0"; # 3 FUCKING MONITORS BABY HELLLL YEAH (IT'S PROB A REALLYYYYY BAD WAY OF DOING IT)
           sort-by-number = true;
-        }; 
+        };
         persistent-workspaces = {
           "*" = 0;
         };

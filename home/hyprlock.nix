@@ -6,7 +6,7 @@ let
   # TODO: Replace this with proper Catppuccin colors.
   placeholderAndTimeColor = "rgb(205, 214, 244)";
 in {
-  
+
   programs.hyprlock = {
     enable = true;
     settings = {

@@ -1,5 +1,5 @@
 {pkgs, ...}:
-let 
+let
   inherit (import ./options.nix) fontName;
 in {
   fonts = {

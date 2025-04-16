@@ -6,7 +6,7 @@ local opt = vim.opt
 
 -- General
 o.undofile    = true  -- Enable persistent undo (see also `:h undodir`)
-o.clipboard = "unnamedplus"
+o.clipboard = "unnamed"
 
 o.backup      = false -- Don't store backup while overwriting the file
 o.writebackup = false -- Don't store backup while overwriting the file
@@ -17,6 +17,7 @@ o.breakindent   = true    -- Indent wrapped lines to match line start
 o.cursorline    = true   -- Highlight current line
 o.cursorlineopt = "number"
 o.number        = true    -- Show line numbers
+o.relativenumber = true   -- Show relative line numbers
 o.numberwidth   = 4       -- size of gutter for line numbers
 o.splitbelow    = true    -- Horizontal splits will be below
 o.splitright    = true    -- Vertical splits will be to the right

@@ -24,31 +24,44 @@
       quarto-nvim
       otter-nvim
       jupytext-nvim
+      bufferline-nvim
       flash-nvim
       which-key-nvim
     ];
 
     extraPackages = with pkgs; [
+      #C/C++
       gcc
+      gnumake
+      gdb
       cmake
+      clang
+      clang-tools
+
+      #Python
+      python3
+      python312Packages.jupytext #You need to add it here instead of the extraPython3Packages because the extraPython3Packages won't append the executable to the PATH which makes jupytext unable to detect the jupytext executable basically making it not work
+      pyright
+      ruff
+
+      #Ocaml
+      ocamlPackages.ocaml-lsp
+      ocamlPackages.ocamlformat-rpc-lib
+      ocamlPackages.ocamlformat
+      ocamlPackages.utop
+
+      #Lua
+      lua-language-server
+
+      #Nix
+      nixd
+
+      #Utils
       git
       curl
       fzf
-      python3
       imagemagick
-
-      ccls
-      clang-tools
-      lua-language-server
-      pyright
-      ruff
-      ocamlPackages.lsp
-      ocamlPackages.ocamlformat
-      nixd
       vscode-langservers-extracted
-
-      ocamlPackages.utop
-      python312Packages.jupytext #You need to add it here instead of the extraPython3Packages because the extraPython3Packages won't append the executable to the PATH which makes jupytext unable to detect the jupytext executable basically making it not work
     ];
 
     extraLuaPackages = luaPkgs:

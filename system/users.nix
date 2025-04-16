@@ -1,6 +1,6 @@
-{inputs, pkgs, ...}:
+{ pkgs, ...}:
 
-let 
+let
   inherit (import ../home/options.nix) userName userFullName;
 in {
   users = {
@@ -9,14 +9,14 @@ in {
       isNormalUser = true;
       description = "${userFullName}";
       extraGroups = [ "networkmanager" "wheel" ];
-      shell = pkgs.fish; 
+      shell = pkgs.fish;
     };
   };
 
 
 programs.fish = {
   enable = true;
-  
+
 };
 programs.hyprland = {
   enable = true;
