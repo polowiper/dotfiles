@@ -1,3 +1,12 @@
+-- plugins/quarto.lua
+return {
+    "quarto-dev/quarto-nvim",
+    dependencies = {
+      "jmbuhr/otter.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+
 local quarto = require("quarto")
 
 quarto.setup({
@@ -37,5 +46,5 @@ vim.keymap.set("n", "<localleader>cc", "i```{}\r\r```",
 
 vim.keymap.set("n", "<localleader>cs", "i```\r\r```{}<left>",
   { desc = "Split code cell", silent = true, noremap = true })
-
-
+end,
+}

@@ -1,4 +1,8 @@
-require("jupytext").setup({
+return {
+  "GCBallesteros/jupytext.nvim",
+  config = function()
+local jupytext = require("jupytext")
+jupytext.setup({
   jupytext = 'jupytext',
   format = "markdown",
 
@@ -17,3 +21,5 @@ require("jupytext").setup({
   handle_url_schemes = true,
 
 })
+end,
+}

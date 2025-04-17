@@ -1,3 +1,16 @@
+return {
+  'jmbuhr/otter.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+    },
+    init = function() 
+    vim.api.nvim_create_user_command(
+				"Otter",
+				function(cmd) require("otter").activate(cmd.fargs) end,
+				{ nargs = "+" }
+			)
+  end,
+    config = function()
 local otter = require'otter'
 otter.setup{
   lsp = {
@@ -50,4 +63,6 @@ otter.setup{
   verbose = { -- set to false to disable all verbose messages
     no_code_found = false -- warn if otter.activate is called, but no injected code was found
   },
+}
+end,
 }

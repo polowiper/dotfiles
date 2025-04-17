@@ -1,4 +1,8 @@
-{pkgs, inputs, ...}:
+{
+  pkgs,
+  inputs,
+  ...
+}:
 # The wallpaper will be fetched from GitHub. I don't store my wallpapers locally.
 let
   currentWallpaper = pkgs.fetchurl {
@@ -10,7 +14,7 @@ let
     wallpaper = ,${currentWallpaper}
     splash = false
   '';
-  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript screenshotScript ;
+  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript screenshotScript;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -32,10 +36,10 @@ in {
       };
 
       monitor = [
-      "eDP-1, 1920x1080@60.01, 1920x0, 1"
-      "HDMI-A-1, preferred, 0x0, 1"
-      #"HDMI-A-1, 1920x1080@144.00, 0x0, 1"
-      "DP-3, preferred, -1080x0, 1, transform, 1"
+        "eDP-1, 1920x1080@60.01, 1920x0, 1"
+        "HDMI-A-1, preferred, 0x0, 1"
+        #"HDMI-A-1, 1920x1080@144.00, 0x0, 1"
+        "DP-3, preferred, -1080x0, 1, transform, 1"
       ];
 
       input = {
@@ -75,9 +79,9 @@ in {
         "float,title:^(Page Info)$"
       ];
       windowrulev2 = [
-        "float,class:i^(Thunar)$"
+        "float,class:^(Thunar)$"
         "size 70% 70%,class:^(Thunar)$"
-        "float,class:i^(thunar)$" #HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
+        "float,class:^(thunar)$" #HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
         "size 70% 70%,class:^(thunar)$"
         "float,class:^(org.gnome.Loupe)$"
         "size 70% 70%,class:^(org.gnome.Loupe)$"

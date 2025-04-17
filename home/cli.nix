@@ -16,6 +16,4 @@
       btop.enable = true;
       bat.enable = true;
     };
-
-
 }

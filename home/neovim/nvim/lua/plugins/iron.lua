@@ -1,4 +1,8 @@
-require("iron.core").setup({
+return {
+  "hkupty/iron.nvim",
+  config = function()
+local iron = require("iron.core")
+iron.setup({
     config = {
       scratch_repl = true,
       repl_definition = {
@@ -34,3 +38,5 @@ require("iron.core").setup({
 
     ignore_blank_lines = true,
   })
+end,
+}

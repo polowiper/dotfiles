@@ -7,27 +7,9 @@
     vimdiffAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      lazy-nvim
       catppuccin-nvim
-      nvim-lspconfig
-      nvim-treesitter.withAllGrammars
-      pkgs.tree-sitter-grammars.tree-sitter-norg-meta
-      nvim-treesitter-parsers.norg
-      image-nvim
-      nvim-web-devicons
-      mini-nvim
-      snacks-nvim
-
-      blink-cmp
-      nvim-notify
-      iron-nvim
-      molten-nvim
-      quarto-nvim
-      otter-nvim
-      jupytext-nvim
-      bufferline-nvim
-      flash-nvim
-      which-key-nvim
-    ];
+   ];
 
     extraPackages = with pkgs; [
       #C/C++
@@ -51,7 +33,10 @@
       ocamlPackages.utop
 
       #Lua
+      lua
       lua-language-server
+      lua51Packages.luarocks
+
 
       #Nix
       nixd
@@ -67,6 +52,7 @@
     extraLuaPackages = luaPkgs:
       with luaPkgs; [
         magick # for image rendering
+        luarocks
       ];
 
     extraPython3Packages = ps:
