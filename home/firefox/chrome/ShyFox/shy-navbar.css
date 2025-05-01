@@ -33,7 +33,7 @@ Navigation bar on top of the window
   padding-bottom: 2px !important;
 }
 
-/* 
+/*
 
 --- NAVBAR SHOWN ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -42,16 +42,16 @@ Navigation bar on top of the window
 #nav-bar{
   position: fixed !important;
   z-index: 3 !important;
-  
+
   transition: var(--transition) !important;
-  
+
   background-color: transparent !important;
   border-top: 0px solid transparent !important;
-  
+
   top: 0px;
   left: var(--left-margin) !important;
   right: auto !important;
-  
+
   & > * {opacity: var(--dyn-opct);}
 }
 
@@ -80,7 +80,7 @@ Navigation bar on top of the window
       100vw
       - var(--left-margin)
       - var(--right-margin)
-      - var(--buttonbox-right-wdt) 
+      - var(--buttonbox-right-wdt)
       + var(--nav-rgt-btnbx-margin)
     ) !important;
   }
@@ -93,7 +93,7 @@ Navigation bar on top of the window
       100vw
       - var(--left-margin)
       - var(--right-margin)
-      - var(--buttonbox-right-wdt) 
+      - var(--buttonbox-right-wdt)
       + var(--nav-rgt-btnbx-button)
     ) !important;
   }
@@ -106,9 +106,9 @@ Navigation bar on top of the window
       100vw
       - var(--left-margin)
       - var(--right-margin)
-      - var(--buttonbox-left-wdt) 
+      - var(--buttonbox-left-wdt)
       + var(--nav-lft-btnbx-margin)
-      - var(--buttonbox-right-wdt) 
+      - var(--buttonbox-right-wdt)
       + var(--nav-rgt-btnbx-button)
     ) !important;
   }
@@ -120,15 +120,15 @@ Navigation bar on top of the window
       100vw
       - var(--left-margin)
       - var(--right-margin)
-      - var(--buttonbox-left-wdt) 
+      - var(--buttonbox-left-wdt)
       + var(--nav-lft-btnbx-margin)
-      - var(--buttonbox-right-wdt) 
+      - var(--buttonbox-right-wdt)
       + var(--nav-rgt-btnbx-margin)
     ) !important;
   }
 }
 
-/* 
+/*
 
 --- NAVBAR HIDDEN -----------------------------------------------------------------------------------------------------------------------------------
 
@@ -137,35 +137,35 @@ Navigation bar on top of the window
 
 /* activate style when navbar hidden or clean mode enabled (and not in customizing page) */
 #main-window:is([titlepreface*="‌"], [titlepreface*="‍"]):not([customizing]){
-  
+
   #nav-bar{
     overflow: visible !important;
     z-index: 4 !important;
-    
+
     border-radius: var(--big-rounding);
-    
+
     width: var(--navbar-real-wdt) !important;
     max-width: calc(
-      100vw 
+      100vw
       - var(--left-margin)
       - var(--right-margin)
     );
-    
+
     top: calc(
-      var(--margin) 
-      + var(--panel-hide-ldg) 
-      - var(--toolbar-item-hgt) 
+      var(--margin)
+      + var(--panel-hide-ldg)
+      - var(--toolbar-item-hgt)
     );
-    
+
     left: calc(
       (
-        100vw 
-        - var(--navbar-real-wdt) 
-        + var(--left-margin) 
-        - var(--right-margin) 
-      ) / 2 
+        100vw
+        - var(--navbar-real-wdt)
+        + var(--left-margin)
+        - var(--right-margin)
+      ) / 2
     ) !important;
-    
+
     /* make all panel content invisible (it will visible when hover) */
     #nav-bar-customization-target > *:not(#unified-extensions-button),
     #nav-bar-overflow-button
@@ -173,7 +173,7 @@ Navigation bar on top of the window
        transition: var(--transition) !important;
        opacity: 0 !important;
     }
-    
+
     /* hover target (invisible box between window edge and panel) */
     #nav-bar-customization-target::before{
       content: "";
@@ -184,30 +184,30 @@ Navigation bar on top of the window
       width: 100%;
       bottom: 0px;
     }
-    
+
     /* indication bar (line on window edge) */
     &::before{
       content: "";
       position: absolute;
       transition: var(--transition);
-      
+
       top: calc(
-        100% 
-        - var(--panel-hide-ldg) 
-        - var(--margin) 
+        100%
+        - var(--panel-hide-ldg)
+        - var(--margin)
         + var(--hide-bar-padding)
       );
-      
+
       height: calc(var(--margin) - var(--hide-bar-padding) * 2);
       width: calc(100% - var(--hide-bar-wdt-pad));
       left: calc(var(--hide-bar-wdt-pad) / 2);
-      
+
       border-radius: var(--rounding);
       background-color: var(--bt-col);
       opacity: var(--hide-bar-opct);
     }
   }
-  
+
   /* tab loading progress bar */
   &:has(.tabbrowser-tab[selected][busy]) #nav-bar::before{
     background: linear-gradient(
@@ -216,7 +216,7 @@ Navigation bar on top of the window
       var(--bt-col) var(--shy-tab-load-pcent) 100%
     ) !important;
   }
-  
+
   /* tab loading progress on whole panel */
   &:has(.tabbrowser-tab[selected][busy]) #nav-bar::after{
     content: "";
@@ -234,7 +234,7 @@ Navigation bar on top of the window
       transparent var(--shy-tab-load-pcent) 100%
     );
   }
-  
+
   /* hotfix */
   #urlbar{
     visibility: collapse;
@@ -247,8 +247,8 @@ Navigation bar on top of the window
     border-radius: var(--rounding);
     background-color: var(--toolbar-field-background-color);
   }
-  
-  
+
+
   /* show navbar on hover or focus */
   &:has(
     #nav-bar-customization-target:hover #unified-extensions-button:not(:hover),
@@ -260,7 +260,7 @@ Navigation bar on top of the window
     #nav-bar-overflow-button:hover
   ) {
     #nav-bar{
-      
+
       /* hotfix */
       #urlbar{
         visibility: visible !important;
@@ -268,40 +268,40 @@ Navigation bar on top of the window
         min-width: var(--urlbar-width) !important;
       }
 
-      
+
       top: calc(var(--top-margin) + var(--margin));
-      
+
       background-color: var(--tb-col) !important;
-      
+
       /* corners, shadow */
       border: var(--outline) !important;
       outline: var(--shadow) !important;
-      
+
       #nav-bar-customization-target > *:not([disabled="true"]),
       #nav-bar-overflow-button {opacity: 1 !important;}
       #nav-bar-customization-target > *[disabled="true"] {opacity: 0.5 !important;}
-      
+
       &::before {opacity: 0;}
       &::after {opacity: 0.1;} /* opacity of tab load progress indicator */
     }
   }
-  
+
   /* hide all  */
   &[titlepreface*="‍"]{
     #nav-bar-customization-target > *:not(#urlbar-container, #unified-extensions-button) {display: none !important;}
   }
-  
+
   /* adaptive navbar width */
   @media (max-width: 1000px) {
     #nav-bar{
       --navbar-real-wdt: calc(
-        100vw 
+        100vw
         - var(--margin) * 2
         - var(--right-margin)
         - var(--buttonbox-left-wdt)
         - var(--buttonbox-right-wdt)
       ) !important;
-      
+
       max-width: none !important;
       left: calc(
         var(--margin)
@@ -321,14 +321,14 @@ Navigation bar on top of the window
   #nav-bar{
     left: 140px !important;
     right: 140px !important;
-    
+
     width: calc(100vw - 280px) !important;
-    
+
     top: var(--margin) !important;
     border-radius: var(--big-rounding) !important;
-    
+
     background-color: var(--bg-col) !important;
   }
-  
+
   #urlbar-background, #searchbar {background-color: var(--tb-col) !important;}
 }

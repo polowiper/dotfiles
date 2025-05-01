@@ -12,8 +12,8 @@
       enable = true;
     };
   };
-    catppuccin = {
-      btop.enable = true;
-      bat.enable = true;
-    };
+  catppuccin = {
+    btop.enable = true;
+    bat.enable = true;
+  };
 }

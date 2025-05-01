@@ -1,8 +1,12 @@
-{inputs, pkgs, lib, ...}:
-
-let
+{
+  inputs,
+  pkgs,
+  lib,
+  ...
+}: let
   inherit (import ./options.nix) userName dotfilesDir;
   inherit (import ../system/options.nix) stateVersion;
+  ida = pkgs.callPackage ./ida_pro/ida.nix { };
 in {
   imports = [
     ./cli.nix
@@ -18,7 +22,8 @@ in {
     ./rofi.nix
     ./starship.nix
     ./vscode.nix
-    ./waybar.nix
+    # ./waybar.nix
+    ./testwaybar.nix 
     ./xdg.nix
     ./hyprland.nix
     ./hyprlock.nix
@@ -28,7 +33,7 @@ in {
   nixpkgs = {
     config = {
       allowUnfree = true;
-      allowUnfreePredicate = (_: true);
+      allowUnfreePredicate = _: true;
     };
   };
 
@@ -37,9 +42,9 @@ in {
     homeDirectory = "/home/${userName}";
     stateVersion = "${stateVersion}"; #ALLAH AKBAR
     sessionVariables.EDITOR = "nvim";
+    packages = [ ida ];
   };
 
-programs.home-manager.enable = true;
-programs.home-manager.path = lib.mkDefault "${dotfilesDir}";
+  programs.home-manager.enable = true;
+  programs.home-manager.path = lib.mkDefault "${dotfilesDir}";
 }
-

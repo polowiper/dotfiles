@@ -9,7 +9,7 @@
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
       catppuccin-nvim
-   ];
+    ];
 
     extraPackages = with pkgs; [
       #C/C++
@@ -23,6 +23,7 @@
       #Python
       python3
       python312Packages.jupytext #You need to add it here instead of the extraPython3Packages because the extraPython3Packages won't append the executable to the PATH which makes jupytext unable to detect the jupytext executable basically making it not work
+      yapf
       pyright
       ruff
 
@@ -33,10 +34,10 @@
       ocamlPackages.utop
 
       #Lua
+      stylua 
       lua
       lua-language-server
       lua51Packages.luarocks
-
 
       #Nix
       nixd

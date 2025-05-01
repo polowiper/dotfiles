@@ -2,8 +2,7 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   inherit (import ../system/options.nix) fontName;
 in {
   home.packages = [pkgs.libnotify];

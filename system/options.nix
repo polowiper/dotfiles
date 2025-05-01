@@ -1,5 +1,5 @@
 {
-  #system/networking.nix 
+  #system/networking.nix
   hostName = "nixos";
 
   #system/locale.nix
@@ -13,5 +13,5 @@
   fontName = "Monaspice Nerd Font";
 
   #Home manager et System comme ca les deux sont forcément synchros
-  stateVersion = "23.11"; 
+  stateVersion = "23.11";
 }

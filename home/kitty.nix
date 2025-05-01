@@ -3,7 +3,7 @@ let
   inherit (import ../system/options.nix) fontName;
 in {
   home.sessionVariables.TERMINAL = "kitty";
-  
+
   catppuccin.kitty.enable = true;
   programs.kitty = {
     enable = true;

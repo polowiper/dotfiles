@@ -6,15 +6,15 @@
 # The wallpaper will be fetched from GitHub. I don't store my wallpapers locally.
 let
   currentWallpaper = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/catppuccin.jpg";
-    sha256 = "sha256-bMYij70tl4RmzGLnsmcjg6wtBDVnL71gO9ox6g2MUcs=";
+    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/anime-girl.jpg";
+    sha256 = "sha256-/lo8Spx7wJcdMP0HQBAzwO9ytpng2VjkCaUGf7b7Chc=";
   };
   hyprpaperConf = pkgs.writeText "hyprpaper.conf" ''
     preload = ${currentWallpaper}
     wallpaper = ,${currentWallpaper}
     splash = false
   '';
-  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript screenshotScript;
+  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript screenshotScript wifi-menu rofi-menu power-menu;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -90,6 +90,12 @@ in {
         "float,class:^(confirm)$"
         "float,class:^(io.github.kaii_lb.Overskride)$"
         "float,class:^(dialog)$"
+        "float,title:^(Please wait...)$"
+        "size 70% 70%,class:^(Please wait...)$"
+        "float,title:^(IDA: Quick start)$"
+        "size 70% 70%,class:^(IDA: Quick start)$"
+        "float,title:^(About)$"
+        "size 70% 70%,class:^(About)$"
         "float,class:^(download)$"
         "float,class:^(notification)$"
         "float,class:^(nm-connection-editor)$"
@@ -154,10 +160,10 @@ in {
           # Launch apps
           "$mainMod,        f,   exec,   ${pkgs.firefox-esr}/bin/firefox-esr"
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
-          "$mainMod,        p,   exec,   ${rofiPowerMenuScript}/bin/script"
-          "$mainMod,        w,   exec,   ${rofiWifiMenuScript}/bin/script"
+          "$mainMod,        p,   exec,   ${power-menu}/bin/powermenu"
+          "$mainMod,        w,   exec,   ${wifi-menu}/bin/script"
           "$mainMod,        d,   exec,   ${pkgs.xfce.thunar}/bin/thunar"
-          "$mainMod,        q,   exec,   ${pkgs.rofi-wayland}/bin/rofi -show drun -show-icons"
+          "$mainMod,        q,   exec,   ${rofi-menu}/bin/rofi-menu"
           "$mainMod,        y,   exec,   spotify"
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
           "$mainMod,        t,   exec,   ${pkgs.kitty}/bin/kitty"

@@ -1,10 +1,13 @@
-{inputs, pkgs, ...}:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 # Fetch the user's name and their full name from the home/options.nix file
 let
   inherit (import ../options.nix) userName userFullName;
 in {
- home.sessionVariables.BROWSER = "firefox-esr";
- programs.firefox = {
+  programs.firefox = {
     enable = true;
     package = pkgs.firefox-esr;
     profiles."${userName}" = {
@@ -39,7 +42,7 @@ in {
         "widget.gtk.ignore-bogus-leave-notify" = 1;
 
         #All my homies hate the new sidebar
-        "sidebar.revamp" =false;
+        "sidebar.revamp" = false;
 
         #So I don't have to deal w/ the pain of losing all my tabs on each startup
         "browser.sessionstore.restore_hidden_tabs" = true;
@@ -174,67 +177,102 @@ in {
         "browser.privatebrowsing.promoEnabled" = false;
       };
 
-  search = {
+      search = {
         default = "ddg";
-        order = [ "ddg" "google" ];
+        order = ["ddg" "google"];
         force = true;
         engines = {
-        "bing".metaData.hidden = true;
-        "google".metaData.alias = "@g";
-        "Nix Packages" = {
-          urls = [{
-            template = "https://search.nixos.org/packages";
-            params = [
-              { name = "type"; value = "packages"; }
-              { name = "channel"; value = "unstable"; }
-              { name = "query"; value = "{searchTerms}"; }
+          "bing".metaData.hidden = true;
+          "google".metaData.alias = "@g";
+          "Nix Packages" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/packages";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
             ];
-          }];
 
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@np" ];
-        };
-        "Nix Options" = {
-          urls = [{
-            template = "https://search.nixos.org/options";
-            params = [
-              { name = "type"; value = "packages"; }
-              { name = "channel"; value = "unstable"; }
-              { name = "query"; value = "{searchTerms}"; }
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@np"];
+          };
+          "Nix Options" = {
+            urls = [
+              {
+                template = "https://search.nixos.org/options";
+                params = [
+                  {
+                    name = "type";
+                    value = "packages";
+                  }
+                  {
+                    name = "channel";
+                    value = "unstable";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
             ];
-          }];
 
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@no" ];
-        };
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@no"];
+          };
 
-        "Home-manager Options" = {
-          urls = [{
-            template = "https://home-manager-options.extranix.com";
-            params = [
-              { name = "release"; value = "master"; }
-              { name = "query"; value = "{searchTerms}"; }
+          "Home-manager Options" = {
+            urls = [
+              {
+                template = "https://home-manager-options.extranix.com";
+                params = [
+                  {
+                    name = "release";
+                    value = "master";
+                  }
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
             ];
-          }];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@hm" ];
-        };
-        "NixOS Wiki" = {
-          urls = [{
-            template = "https://wiki.nixos.org/index.php";
-            params = [
-              { name = "query"; value = "{searchTerms}"; }
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@hm"];
+          };
+          "NixOS Wiki" = {
+            urls = [
+              {
+                template = "https://wiki.nixos.org/index.php";
+                params = [
+                  {
+                    name = "query";
+                    value = "{searchTerms}";
+                  }
+                ];
+              }
             ];
-          }];
-          icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-          definedAliases = [ "@nw" ];
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@nw"];
           };
         };
       };
 
       bookmarks = {
-          force = true;
-          settings = [
+        force = true;
+        settings = [
           {
             name = "Nix sites";
             toolbar = false;
@@ -253,7 +291,6 @@ in {
               }
             ];
           }
-
 
           {
             name = "Image utilities";
@@ -280,7 +317,7 @@ in {
             ];
           }
         ];
-     };
+      };
     };
   };
   home.file."./.mozilla/firefox/polo.default/chrome" = {

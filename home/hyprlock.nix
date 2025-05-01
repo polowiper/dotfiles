@@ -1,4 +1,9 @@
-{pkgs, libs, inputs, ...}:
+{
+  pkgs,
+  libs,
+  inputs,
+  ...
+}:
 # Fetch the fontName variable from system/options.nix to determine which font to use.
 let
   inherit (import ../system/options.nix) fontName;
@@ -6,7 +11,6 @@ let
   # TODO: Replace this with proper Catppuccin colors.
   placeholderAndTimeColor = "rgb(205, 214, 244)";
 in {
-
   programs.hyprlock = {
     enable = true;
     settings = {
@@ -16,12 +20,12 @@ in {
         no_fade_in = false;
       };
 
-        background = [
+      background = [
         {
           monitor = "";
           path = toString (pkgs.fetchurl {
-          url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/cat_anime-girl.png";
-          sha256 = "sha256-eghqCS3tLe7i8DzaKtzsMPgkXTBR/BGNOP264jFWfNY=";
+            url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/anime-girl.jpg";
+            sha256 = "sha256-/lo8Spx7wJcdMP0HQBAzwO9ytpng2VjkCaUGf7b7Chc=";
           });
         }
       ];
@@ -52,7 +56,6 @@ in {
           halign = "center";
         }
       ];
-      };
+    };
   };
 }
-

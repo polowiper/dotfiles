@@ -2,21 +2,35 @@
   config,
   pkgs,
   ...
-}:
-let
+}: let
   browser = "firefox-esr.desktop";
   fileManager = "thunar.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
   mediaPlayer = "mpv.desktop";
   textEditor = "neovim.desktop";
 in {
+  home.sessionVariables = with config.xdg; {
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+
+    BROWSER = "firefox-esr";
+    TERMINAL = "kitty";
+  };
+  home.packages = with pkgs; [
+    xdg-utils
+    xdg-ninja
+  ];
   xdg = {
     enable = true;
-    portal = with pkgs; {
+    portal = {
       enable = true;
-      configPackages = [xdg-desktop-portal-gtk xdg-desktop-portal-hyprland xdg-desktop-portal];
-      extraPortals = [xdg-desktop-portal-gtk xdg-desktop-portal];
-      xdgOpenUsePortal = false;
+      config.common.default = "*";
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+        xdg-desktop-portal-hyprland
+      ];
+      xdgOpenUsePortal = true;
     };
     userDirs = {
       enable = true;

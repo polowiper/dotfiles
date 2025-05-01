@@ -5,8 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-       url = "github:nix-community/home-manager/master";
-       inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     catppuccin.url = "github:catppuccin/nix";
@@ -16,22 +16,20 @@
     };
 
     firefox-addons = {
-       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
-       inputs.nixpkgs.follows = "nixpkgs";
-     };
-     nix-alien.url = "github:thiagokokada/nix-alien";
-
- };
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = {
     nixpkgs,
     home-manager,
     ...
-    } @ inputs: let
-      inherit (import ./system/options.nix) hostName system;
-      inherit (import ./home/options.nix) userName;
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
+  } @ inputs: let
+    inherit (import ./system/options.nix) hostName system;
+    inherit (import ./home/options.nix) userName;
+    pkgs = nixpkgs.legacyPackages.${system};
+  in {
     nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
