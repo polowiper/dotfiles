@@ -6,15 +6,24 @@
 # The wallpaper will be fetched from GitHub. I don't store my wallpapers locally.
 let
   currentWallpaper = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/anime-girl.jpg";
-    sha256 = "sha256-/lo8Spx7wJcdMP0HQBAzwO9ytpng2VjkCaUGf7b7Chc=";
+    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/macchiato-hald8-cyberpunkish.png";
+    sha256 = "sha256-MxGjtSppJZosNWJQ8YIAUywQ0ffKmFR7QMUEyPg3nqM=";
   };
   hyprpaperConf = pkgs.writeText "hyprpaper.conf" ''
     preload = ${currentWallpaper}
     wallpaper = ,${currentWallpaper}
     splash = false
   '';
-  inherit (import ./scripts.nix {inherit pkgs;}) batteryNotificationScript rofiPowerMenuScript rofiWifiMenuScript screenshotScript wifi-menu rofi-menu power-menu;
+  inherit
+    (import ./scripts.nix {inherit pkgs;})
+    batteryNotificationScript
+    rofiPowerMenuScript
+    rofiWifiMenuScript
+    screenshotScript
+    wifi-menu
+    rofi-menu
+    power-menu
+    ;
 in {
   wayland.windowManager.hyprland = {
     enable = true;
@@ -37,8 +46,8 @@ in {
 
       monitor = [
         "eDP-1, 1920x1080@60.01, 1920x0, 1"
-        "HDMI-A-1, preferred, 0x0, 1"
-        #"HDMI-A-1, 1920x1080@144.00, 0x0, 1"
+        # "HDMI-A-1, preferred, 0x0, 1"
+        "HDMI-A-1, 1920x1080@144.00, 0x0, 1"
         "DP-3, preferred, -1080x0, 1, transform, 1"
       ];
 
@@ -81,10 +90,11 @@ in {
       windowrulev2 = [
         "float,class:^(Thunar)$"
         "size 70% 70%,class:^(Thunar)$"
-        "float,class:^(thunar)$" #HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
+        "float,class:^(thunar)$" # HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
         "size 70% 70%,class:^(thunar)$"
         "float,class:^(org.gnome.Loupe)$"
         "size 70% 70%,class:^(org.gnome.Loupe)$"
+        "float,title:^(Media Viewer)$" # Telegram's media viewer
         "float,class:^(pavucontrol)$"
         "float,class:^(file_progress)$"
         "float,class:^(confirm)$"
@@ -107,7 +117,7 @@ in {
       decoration = {
         rounding = 7;
         #`"col.shadow" = "rgba(1a1a1aee)";
-        active_opacity = 1.0; #The transparent era is over :sadge:
+        active_opacity = 1.0; # The transparent era is over :sadge:
         inactive_opacity = 1.0;
         fullscreen_opacity = 1.0;
         blur = {
@@ -158,7 +168,7 @@ in {
       bind =
         [
           # Launch apps
-          "$mainMod,        f,   exec,   ${pkgs.firefox-esr}/bin/firefox-esr"
+          "$mainMod,        f,   exec,   ${pkgs.firefox}/bin/firefox"
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
           "$mainMod,        p,   exec,   ${power-menu}/bin/powermenu"
           "$mainMod,        w,   exec,   ${wifi-menu}/bin/script"
@@ -168,7 +178,7 @@ in {
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
           "$mainMod,        t,   exec,   ${pkgs.kitty}/bin/kitty"
           "$mainMod SHIFT,  b,   exec,   ${batteryNotificationScript}/bin/script"
-          "$mainMod SHIFT,  s,   exec,   ${screenshotScript}/bin/script"
+          "$mainMod,        r,   exec,   ${screenshotScript}/bin/script"
 
           # Control media players.
           ",XF86AudioPlay,  exec, ${pkgs.playerctl}/bin/playerctl play-pause"
@@ -186,6 +196,7 @@ in {
 
           # Toggle special workspace
           "$mainMod, S, togglespecialworkspace"
+          "$mainMod SHIFT,  s,   movetoworkspace, special"
 
           # Move focus from one window to another.
           "$mainMod, h, movefocus, l"
@@ -200,20 +211,39 @@ in {
           "$mainMod SHIFT,  j, movewindow, d"
         ]
         # WTF is this? I don't understand Nix code. 😿
-        ++ map (n: "$mainMod SHIFT, ${toString n}, movetoworkspace, ${
-          toString (
-            if n == 0
-            then 10
-            else n
-          )
-        }") [1 2 3 4 5 6 7 8 9 0]
-        ++ map (n: "$mainMod, ${toString n}, workspace, ${
-          toString (
-            if n == 0
-            then 10
-            else n
-          )
-        }") [1 2 3 4 5 6 7 8 9 0];
+        ++ map (n: "$mainMod SHIFT, ${toString n}, movetoworkspace, ${toString (
+          if n == 0
+          then 10
+          else n
+        )}")
+        [
+          1
+          2
+          3
+          4
+          5
+          6
+          7
+          8
+          9
+          0
+        ]
+        ++ map (n: "$mainMod, ${toString n}, workspace, ${toString (
+          if n == 0
+          then 10
+          else n
+        )}") [
+          1
+          2
+          3
+          4
+          5
+          6
+          7
+          8
+          9
+          0
+        ];
 
       binde = [
         # Move windows.

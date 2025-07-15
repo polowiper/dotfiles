@@ -156,7 +156,7 @@ in {
         @define-color alt_white #d0d3d8; */
 
         /* Everblush Palette */
-        @define-color foreground #dadada;
+        @define-color foreground #ffffff; /*#dadada;*/
         @define-color background #141b1e;
         @define-color alt_background #182024;
         @define-color accent #67cbe7;
@@ -188,9 +188,9 @@ in {
       }
 
       window#waybar {
-        /* background-color: rgba(0, 0, 0, 0); */
+        background-color: rgba(0, 0, 0, 0);
         /* background-color: rgba(18, 21, 29, 0.98); */
-        background-color: @background;
+        /* background-color: @background; */
         border-radius: 6px;
         color: @foreground;
         opacity: 1;
@@ -376,13 +376,25 @@ in {
         margin = "8px 10px -2px 10px";
         layer = "top";
 
-        modules-left = ["custom/distro" "hyprland/workspaces" "hyprland/window"];
+        modules-left = [
+          "custom/distro"
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
         modules-center = [];
-        modules-right = ["battery" "cpu" "memory" "backlight" "pulseaudio" "clock" "network" "tray" "custom/powermenu"];
+        modules-right = [
+          "battery"
+          "cpu"
+          "memory"
+          "backlight"
+          "pulseaudio"
+          "clock"
+          "network"
+          "tray"
+          "custom/powermenu"
+        ];
 
-        /*
-        Modules configuration
-        */
+        # Modules configuration
         "hyprland/workspaces" = {
           active-only = "false";
           on-scroll-up = "hyprctl dispatch workspace e+1";
@@ -434,7 +446,11 @@ in {
 
         "backlight" = {
           format = "{icon}{percent}%";
-          format-icons = ["󰃞 " "󰃟 " "󰃠 "];
+          format-icons = [
+            "󰃞 "
+            "󰃟 "
+            "󰃠 "
+          ];
           on-scroll-up = "light -A 1";
           on-scroll-down = "light -U 1";
         };
@@ -449,17 +465,23 @@ in {
           format-charging = "󱐋{capacity}%";
           format-plugged = " {capacity}%";
           format-alt = "{time} {icon}";
-          format-icons = ["  " "  " "  " "  " "  "];
+          format-icons = [
+            "  "
+            "  "
+            "  "
+            "  "
+            "  "
+          ];
         };
 
         "network" = {
-          format-wifi = " {essid} {signalStrength}%";
+          format-wifi = "  {bandwidthTotalBytes}";
           format-ethernet = "{ifname}: {ipaddr}/{cidr}  ";
           format-linked = "{ifname} (No IP)  ";
           format-disconnected = "󰤮 Disconnected";
           on-click = "${wifi-menu}/bin/wifi-menu";
           on-click-release = "sleep 0";
-          tooltip-format = "{essid} {signalStrength}%";
+          tooltip-format = " {bandwidthDownBytes}  {bandwidthUpBytes}";
         };
 
         "pulseaudio" = {
@@ -476,7 +498,11 @@ in {
             phone = " ";
             portable = " ";
             car = " ";
-            default = [" " " " "  "];
+            default = [
+              " "
+              " "
+              "  "
+            ];
           };
           tooltip-format = "{desc} {volume}%";
           on-click = "wpctl set-sink-mute @DEFAULT_SINK@ toggle";
@@ -500,5 +526,4 @@ in {
       };
     };
   };
-
 }

@@ -6,10 +6,11 @@
 }: let
   inherit (import ./options.nix) userName dotfilesDir;
   inherit (import ../system/options.nix) stateVersion;
-  ida = pkgs.callPackage ./ida_pro/ida.nix { };
+  ida = pkgs.callPackage ./ida_pro/ida.nix {};
 in {
   imports = [
     ./cli.nix
+    ./dconf.nix
     ./extra.nix
     ./firefox/firefox.nix
     ./fish.nix
@@ -23,7 +24,8 @@ in {
     ./starship.nix
     ./vscode.nix
     # ./waybar.nix
-    ./testwaybar.nix 
+    ./testwaybar.nix
+    ./wezterm/wezterm.nix
     ./xdg.nix
     ./hyprland.nix
     ./hyprlock.nix
@@ -40,9 +42,9 @@ in {
   home = {
     username = "${userName}";
     homeDirectory = "/home/${userName}";
-    stateVersion = "${stateVersion}"; #ALLAH AKBAR
+    stateVersion = "${stateVersion}"; # ALLAH AKBAR
     sessionVariables.EDITOR = "nvim";
-    packages = [ ida ];
+    packages = [ida];
   };
 
   programs.home-manager.enable = true;

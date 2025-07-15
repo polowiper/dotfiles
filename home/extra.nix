@@ -8,12 +8,19 @@
     obs-studio
     anki
     xorg.xev
-    telegram-desktop
+    kotatogram-desktop
 
-    bambu-studio #GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
+    bambu-studio # GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
+    freecad
+
+    #Wii stuff
+    wiimms-iso-tools
+    rvz
 
     gimp
     networkmanagerapplet
+    better-control
+    usbguard
     scrcpy
     android-tools
     apktool
@@ -26,8 +33,8 @@
     rpi-imager
     sqlitestudio
 
+    zathura
     texlive.combined.scheme-basic
-    texstudio
     sqlite
     overskride
     quarto
@@ -38,7 +45,6 @@
     bitwarden-desktop
     temurin-bin
     prismlauncher
-    planify
     loupe
     grim
     swappy

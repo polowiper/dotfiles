@@ -4,23 +4,30 @@ return {
 		lazy = false,
 		config = function()
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			local servers = {
+				clangd = {},
+				lua_ls = {},
+				ocamllsp = {},
+				pylsp = {},
+				ts_ls = {},
+				nixd = {},
+				texlab = {},
+			}
+			for server, opts in pairs(servers) do
+				opts.capabilities = capabilities
+				opts.on_attach = function(client, bufnr)
+					require("nvim-navic").attach(client, bufnr)
+				end
+				require("lspconfig")[server].setup(opts)
+			end
 
-			local lspconfig = require("lspconfig")
-			lspconfig.lua_ls.setup({
-				capabilities = capabilities,
+			vim.diagnostic.config({
+				virtual_text = true,
+				signs = true,
+				underline = true,
+				update_in_insert = false,
+				severity_sort = true,
 			})
-			lspconfig.clangd.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.ocamllsp.setup({
-				capabilities = capabilities,
-			})
-			lspconfig.nixd.setup({
-				capabilities = capabilities,
-			})
-
-
-
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})

@@ -9,9 +9,6 @@
       layout = "us";
       variant = "";
     };
-    windowManager.awesome = {
-      enable = true;
-    };
   };
   services.pipewire = {
     enable = true;
@@ -36,10 +33,9 @@
     };
   };
   services.pulseaudio.enable = false;
-
   services.displayManager.sddm = {
     enable = true;
-    #theme = "catppuccin";
+    theme = "catppuccin-mocha";
   };
   services.mullvad-vpn.enable = true;
 }

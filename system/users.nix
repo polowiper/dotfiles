@@ -6,7 +6,11 @@ in {
     users.${userName} = {
       isNormalUser = true;
       description = "${userFullName}";
-      extraGroups = ["networkmanager" "wheel"];
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "libvirtd"
+      ];
       shell = pkgs.fish;
     };
   };

@@ -1,31 +1,31 @@
-{ autoPatchelfHook
-, cairo
-, copyDesktopItems
-, python3
-, tree
-, dbus
-, fetchurl
-, fontconfig
-, freetype
-, glib
-, gtk3
-, lib
-, libdrm
-, libGL
-, libkrb5
-, libsecret
-, libsForQt5
-, libunwind
-, libxkbcommon
-, makeDesktopItem
-, makeWrapper
-, openssl
-, stdenv
-, xorg
-, zlib
-, ...
+{
+  autoPatchelfHook,
+  cairo,
+  copyDesktopItems,
+  python3,
+  tree,
+  dbus,
+  fetchurl,
+  fontconfig,
+  freetype,
+  glib,
+  gtk3,
+  lib,
+  libdrm,
+  libGL,
+  libkrb5,
+  libsecret,
+  libsForQt5,
+  libunwind,
+  libxkbcommon,
+  makeDesktopItem,
+  makeWrapper,
+  openssl,
+  stdenv,
+  xorg,
+  zlib,
+  ...
 }:
-
 stdenv.mkDerivation rec {
   pname = "ida-cracked";
   version = "v9.0";
@@ -44,11 +44,11 @@ stdenv.mkDerivation rec {
     comment = "IDA";
     desktopName = "IDA Pro";
     genericName = "Interactive Disassembler";
-    categories = [ "Development" ];
+    categories = ["Development"];
     startupWMClass = "IDA";
   };
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   nativeBuildInputs = [
     tree
@@ -143,5 +143,4 @@ stdenv.mkDerivation rec {
 
     runHook postInstall
   '';
-
 }

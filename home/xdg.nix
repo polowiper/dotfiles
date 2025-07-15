@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: let
-  browser = "firefox-esr.desktop";
+  browser = "firefox.desktop";
   fileManager = "thunar.desktop";
   imageViewer = "org.gnome.Loupe.desktop";
   mediaPlayer = "mpv.desktop";
@@ -13,8 +13,7 @@ in {
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
-
-    BROWSER = "firefox-esr";
+    BROWSER = "firefox";
     TERMINAL = "kitty";
   };
   home.packages = with pkgs; [
@@ -35,7 +34,7 @@ in {
     userDirs = {
       enable = true;
       createDirectories = true;
-      desktop = "${config.home.homeDirectory}/Projects";
+      desktop = "${config.home.homeDirectory}/Screenshots"; # Yeah I know but the desktop dir is almost excusively used to save screenshots in my case so who cares ?
       publicShare = "${config.home.homeDirectory}/.local/public";
       templates = "${config.home.homeDirectory}/.local/templates";
     };

@@ -5,17 +5,29 @@
 }:
 # Fetch the user's name and their full name from the home/options.nix file
 let
+  # Man why is tampermonkey unfree ? *sight*
+  allowedPkgs = import inputs.nixpkgs {
+    system = pkgs.system;
+    config.allowUnfree = true;
+  };
+
+  # Manually import the firefox-addons package set with required args
+  firefoxAddonsWithUnfree = import inputs.firefox-addons {
+    fetchurl = allowedPkgs.fetchurl;
+    lib = allowedPkgs.lib;
+    stdenv = allowedPkgs.stdenv;
+  };
   inherit (import ../options.nix) userName userFullName;
 in {
   programs.firefox = {
     enable = true;
-    package = pkgs.firefox-esr;
+    package = pkgs.firefox;
     profiles."${userName}" = {
       isDefault = true;
       name = "${userFullName}";
       path = "${userName}.default";
 
-      extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
+      extensions.packages = with firefoxAddonsWithUnfree; [
         ublock-origin
         youtube-shorts-block
         bitwarden
@@ -179,7 +191,10 @@ in {
 
       search = {
         default = "ddg";
-        order = ["ddg" "google"];
+        order = [
+          "ddg"
+          "google"
+        ];
         force = true;
         engines = {
           "bing".metaData.hidden = true;
