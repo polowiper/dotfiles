@@ -2,7 +2,7 @@
 # Fetch the fontName variable from system/options.nix to determine which font to use.
 let
   inherit (import ./scripts.nix {inherit pkgs;}) waybarTemperatureScript;
-  inherit (import ../system/options.nix) fontName;
+  inherit (import ../hosts/shared/options.nix) fontName;
 in {
   programs.waybar = {
     enable = true;
@@ -14,9 +14,17 @@ in {
       margin-bottom = 0;
       margin-left = 0;
       margin-right = 0;
-      modules-left = ["custom/launcher" "hyprland/workspaces"];
+      modules-left = [
+        "custom/launcher"
+        "hyprland/workspaces"
+      ];
       modules-center = ["clock"];
-      modules-right = ["cpu" "custom/temperature" "pulseaudio" "tray"];
+      modules-right = [
+        "cpu"
+        "custom/temperature"
+        "pulseaudio"
+        "tray"
+      ];
 
       clock = {
         calendar.format.today = "<span color='#b4befe'><b>{}</b></span>";
@@ -92,7 +100,9 @@ in {
       pulseaudio = {
         format = "{icon} {volume}%";
         format-muted = "󰖁 ";
-        format-icons = {default = [" "];};
+        format-icons = {
+          default = [" "];
+        };
         scroll-step = 5;
         on-click = "${pkgs.pavucontrol}/bin/pavucontrol";
       };

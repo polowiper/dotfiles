@@ -5,7 +5,6 @@
   ...
 }: let
   inherit (import ./options.nix) userName dotfilesDir;
-  inherit (import ../system/options.nix) stateVersion;
   ida = pkgs.callPackage ./ida_pro/ida.nix {};
 in {
   imports = [
@@ -42,7 +41,7 @@ in {
   home = {
     username = "${userName}";
     homeDirectory = "/home/${userName}";
-    stateVersion = "${stateVersion}"; # ALLAH AKBAR
+    stateVersion = "23.11";
     sessionVariables.EDITOR = "nvim";
     packages = [ida];
   };

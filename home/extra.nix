@@ -9,6 +9,7 @@
     anki
     xorg.xev
     kotatogram-desktop
+    libreoffice
 
     bambu-studio # GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
     freecad
@@ -16,6 +17,11 @@
     #Wii stuff
     wiimms-iso-tools
     rvz
+
+    #Steam stuff
+    wine
+    winetricks
+    protontricks
 
     gimp
     networkmanagerapplet
@@ -33,10 +39,13 @@
     rpi-imager
     sqlitestudio
 
+    kicad
     zathura
     texlive.combined.scheme-basic
+    imagemagick
     sqlite
     overskride
+    osu-lazer
     quarto
     mullvad-vpn
     galculator

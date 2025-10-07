@@ -25,7 +25,6 @@
       };
     };
   };
-
   # Laptop's fan go brrrr.
   powerManagement = {
     enable = true;

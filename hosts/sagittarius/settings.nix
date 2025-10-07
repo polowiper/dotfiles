@@ -1,4 +1,6 @@
-{...}: {
+{...}: let
+  inherit (import ./options.nix) hostName;
+in {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -18,7 +20,7 @@
     ];
   };
   networking = {
-    hostName = "nixos"; # Define your hostname.
+    hostName = "${hostName}"; # Define your hostname.
     #networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary
@@ -34,6 +36,7 @@
       127.0.0.1 nixos.localdomain nixos
     '';
   };
+
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     NH_FLAKE = "/home/polo/nixos/";

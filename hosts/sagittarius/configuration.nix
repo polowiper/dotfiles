@@ -7,14 +7,9 @@ in {
   imports = [
     # Include the results of the hardware scan.
     ./boot.nix
-    ./fonts.nix
     ./hardware-configuration.nix
-    ./locale.nix
-    ./services.nix
     ./settings.nix
-    ./sys.nix
-    ./syspkgs.nix
-    ./users.nix
+    ../common/shared.nix
     inputs.catppuccin.nixosModules.catppuccin
   ];
   # This value determines the NixOS release from which the default

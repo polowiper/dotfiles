@@ -45,10 +45,10 @@ in {
       };
 
       monitor = [
-        "eDP-1, 1920x1080@60.01, 1920x0, 1"
+        "eDP-1, 2560x1600@165.00, 1920x0, 1"
         # "HDMI-A-1, preferred, 0x0, 1"
-        "HDMI-A-1, 1920x1080@144.00, 0x0, 1"
-        "DP-3, preferred, -1080x0, 1, transform, 1"
+        "DP-3, 1920x1080@144.00, 0x0, 1"
+        "DP-4, preferred, -1080x0, 1, transform, 1"
       ];
 
       input = {

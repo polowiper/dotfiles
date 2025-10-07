@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  inherit (import ../home/options.nix) userName userFullName;
+  inherit (import ../../home/options.nix) userName userFullName;
 in {
   users = {
     mutableUsers = true;

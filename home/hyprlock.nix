@@ -6,7 +6,7 @@
 }:
 # Fetch the fontName variable from system/options.nix to determine which font to use.
 let
-  inherit (import ../system/options.nix) fontName;
+  inherit (import ../hosts/shared/options.nix) fontName;
 
   # TODO: Replace this with proper Catppuccin colors.
   placeholderAndTimeColor = "rgb(205, 214, 244)";
@@ -23,10 +23,12 @@ in {
       background = [
         {
           monitor = "";
-          path = toString (pkgs.fetchurl {
-            url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/anime-girl.jpg";
-            sha256 = "sha256-/lo8Spx7wJcdMP0HQBAzwO9ytpng2VjkCaUGf7b7Chc=";
-          });
+          path = toString (
+            pkgs.fetchurl {
+              url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/macchiato-hald8-cyberpunkish.png";
+              sha256 = "sha256-MxGjtSppJZosNWJQ8YIAUywQ0ffKmFR7QMUEyPg3nqM=";
+            }
+          );
         }
       ];
 

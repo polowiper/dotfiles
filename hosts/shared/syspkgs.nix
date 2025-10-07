@@ -9,6 +9,8 @@ in {
     wget
     git
     direnv
+    kitty
+    firefox
     nh
     xwayland
     zip

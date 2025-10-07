@@ -18,27 +18,37 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     ...
   } @ inputs: let
-    inherit (import ./system/options.nix) hostName system;
-    inherit (import ./home/options.nix) userName;
-    pkgs = nixpkgs.legacyPackages.${system};
+    mkHost = host: system: {
+      nixos = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/${host}/configuration.nix
+        ];
+      };
+
+      home = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/home.nix
+        ];
+      };
+    };
   in {
-    nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./system/configuration.nix
-      ];
+    nixosConfigurations = {
+      andromeda = (mkHost "andromeda" "x86_64-linux").nixos;
+      sagittarius = (mkHost "sagittarius" "x86_64-linux").nixos;
     };
 
-    homeConfigurations."${userName}" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = {inherit inputs;};
-      modules = [
-        ./home/home.nix
-      ];
+    homeConfigurations = {
+      "user@andromeda" = (mkHost "andromeda" "x86_64-linux").home;
+      "user@sagittarius" = (mkHost "sagittarius" "x86_64-linux").home;
     };
   };
 }
