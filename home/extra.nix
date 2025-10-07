@@ -45,7 +45,6 @@
     imagemagick
     sqlite
     overskride
-    osu-lazer
     quarto
     mullvad-vpn
     galculator

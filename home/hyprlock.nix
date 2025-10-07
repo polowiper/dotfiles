@@ -25,8 +25,8 @@ in {
           monitor = "";
           path = toString (
             pkgs.fetchurl {
-              url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/macchiato-hald8-cyberpunkish.png";
-              sha256 = "sha256-MxGjtSppJZosNWJQ8YIAUywQ0ffKmFR7QMUEyPg3nqM=";
+              url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/CreationOfAdam.png";
+              sha256 = "sha256-U5RPYzUaPafyAr2QBGqGCh8tCNvfl8wH5av3oIUadws=";
             }
           );
         }

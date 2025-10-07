@@ -31,15 +31,14 @@
           ./hosts/${host}/configuration.nix
         ];
       };
+    };
 
-      home = home-manager.lib.homeManagerConfiguration {
+    sharedHome = system:
+      home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ./home/home.nix
-        ];
+        modules = [./home/home.nix];
       };
-    };
   in {
     nixosConfigurations = {
       andromeda = (mkHost "andromeda" "x86_64-linux").nixos;
@@ -47,8 +46,8 @@
     };
 
     homeConfigurations = {
-      "user@andromeda" = (mkHost "andromeda" "x86_64-linux").home;
-      "user@sagittarius" = (mkHost "sagittarius" "x86_64-linux").home;
+      "polo@andromeda" = sharedHome "x86_64-linux";
+      "polo@sagittarius" = sharedHome "x86_64-linux";
     };
   };
 }

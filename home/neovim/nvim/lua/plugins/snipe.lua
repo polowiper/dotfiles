@@ -16,7 +16,7 @@ return {
 			-- Where to place the ui window
 			-- Can be any of "topleft", "bottomleft", "topright", "bottomright", "center", "cursor" (sets under the current cursor pos)
 			---@type "topleft"|"bottomleft"|"topright"|"bottomright"|"center"|"cursor"
-			position = "topleft",
+			position = "topright",
 			-- Override options passed to `nvim_open_win`
 			-- Be careful with this as snipe will not validate
 			-- anything you override here. See `:h nvim_open_win`
@@ -126,6 +126,6 @@ return {
 		--  "default" - sort buffers by its number
 		--  fun(bs:snipe.Buffer[]):snipe.Buffer[] - custom sort function, should accept a list of snipe.Buffer[] as an argument and return sorted list of snipe.Buffer[]
 		---@type "last"|"default"|fun(buffers:snipe.Buffer[]):snipe.Buffer[]
-		sort = "default",
+		sort = "last",
 	},
 }
