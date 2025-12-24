@@ -1,0 +1,9 @@
+keys:
+  - &andromeda age14w6n66r3t825rxmt42a0vamy6hun0kepypd5ewptc9ru2pwtc96qtpgryt
+  - &sagittarius age1t0ftz58um5ak77emvtpzuguydvzsk6jl8yfsma0kywu4c7srw3aqkxqjfv
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+      - age:
+        - *andromeda
+        - *sagittarius
