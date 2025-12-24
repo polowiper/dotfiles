@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }: let
@@ -23,7 +24,7 @@ in {
   xdg = {
     enable = true;
     portal = {
-      enable = true;
+      enable = lib.mkDefault true;
       config.common.default = "*";
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk

@@ -10,7 +10,6 @@
 
     plugins = with pkgs.vimPlugins; [
       lazy-nvim
-      catppuccin-nvim
     ];
 
     extraPackages = with pkgs; [
@@ -22,8 +21,15 @@
       clang
       clang-tools # Formatting
 
+      #Assembly
+      asm-lsp
+      asmfmt
+      asmjit
+      asmrepl
+
       #Python
       python3
+      python312Packages.pygments
       python312Packages.jupytext # You need to add it here instead of the extraPython3Packages because the extraPython3Packages won't append the executable to the PATH which makes jupytext unable to detect the jupytext executable basically making it not work
       black # Formatting
       pyright
@@ -58,6 +64,9 @@
       texlab
       texliveMedium # Minimal install to have latexmk there is also miktex or something but that thing requires a manual setup which is annoying
       (texlive.withPackages (ps: [ps.minted]))
+      zathura
+      zathuraPkgs.zathura_pdf_poppler
+      biber
       latex2html
       xdotool
 

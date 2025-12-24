@@ -1,11 +1,9 @@
-{pkgs, ...}: let
-  inherit (import ../../home/options.nix) userName userFullName;
-in {
+{pkgs, config, ...}: {
   users = {
     mutableUsers = true;
-    users.${userName} = {
+    users.${config.var.userName} = {
       isNormalUser = true;
-      description = "${userFullName}";
+      description = "${config.var.userFullName}";
       extraGroups = [
         "networkmanager"
         "wheel"

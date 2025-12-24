@@ -1,6 +1,4 @@
 TODO:
-  -AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH
-  -Idk
-  -Bluetooth interface
-  -Login manager (not the fking it tty==tty1)
-
+ - Theme specific icons
+ - Proper theming for kitty text and neovim
+ - Keyboard thing

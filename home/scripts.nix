@@ -41,7 +41,7 @@
     $logout
     $sleep
     $reboot
-    $shutdown" | ${pkgs.rofi-wayland}/bin/rofi -dmenu -i -p "Power")
+    $shutdown" | ${pkgs.rofi}/bin/rofi -dmenu -i -p "Power")
     # Do something based on selected option
     if [ "$selected_option" == "$lock" ]
     then
@@ -75,7 +75,7 @@
      TOGGLE="Enable WiFi 直"
     fi
 
-    CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | ${pkgs.rofi-wayland}/bin/rofi -dmenu -selected-row 1 -p "Wifi Networks 󰤨 ")
+    CHENTRY=$(echo -e "$TOGGLE\n$LIST" | uniq -u | ${pkgs.rofi}/bin/rofi -dmenu -selected-row 1 -p "Wifi Networks 󰤨 ")
     CHSSID=$(echo "$CHENTRY" | sed  's/\s\{2,\}/\|/g' | awk -F "|" '{print $1}')
 
     if [ "$CHENTRY" = "" ]; then
@@ -95,7 +95,7 @@
       nmcli con up "$CHSSID"
      else
       if [[ "$CHENTRY" =~ "" ]]; then
-    	  WIFIPASS=$(echo " Press Enter if network is saved" | ${pkgs.rofi-wayland}/bin/rofi -dmenu -p " WiFi Password: " -lines 1 )
+    	  WIFIPASS=$(echo " Press Enter if network is saved" | ${pkgs.rofi}/bin/rofi -dmenu -p " WiFi Password: " -lines 1 )
       fi
       if nmcli dev wifi con "$CHSSID" password "$WIFIPASS"
       then
@@ -112,7 +112,10 @@
   # Volume Script
   volume = pkgs.writeShellApplication {
     name = "volume";
-    runtimeInputs = with pkgs; [pamixer dunst];
+    runtimeInputs = with pkgs; [
+      pamixer
+      dunst
+    ];
     text = ''
       # Icon directory
       icon_dir="/etc/nixos/hm-modules/icons/"
@@ -178,7 +181,11 @@
 
   brightness = pkgs.writeShellApplication {
     name = "brightness";
-    runtimeInputs = with pkgs; [brightnessctl light dunst];
+    runtimeInputs = with pkgs; [
+      brightnessctl
+      light
+      dunst
+    ];
     text = ''
       ## Script To Manage Brightness For Axyl OS.
 
@@ -247,7 +254,11 @@
 
   screenshot = pkgs.writeShellApplication {
     name = "screenshot";
-    runtimeInputs = with pkgs; [rofi-wayland grim slurp];
+    runtimeInputs = with pkgs; [
+      rofi
+      grim
+      slurp
+    ];
     text = ''
       icon=/etc/nixos/hm-modules/icons/camera-photo-symbolic.svg
 
@@ -270,7 +281,10 @@
 
   library = pkgs.writeShellApplication {
     name = "library";
-    runtimeInputs = with pkgs; [zathura rofi-wayland];
+    runtimeInputs = with pkgs; [
+      zathura
+      rofi
+    ];
     text = ''
       book_directory="$HOME/Documents/Books/"
       selected=$(find "''${book_directory}" -mindepth 1 -printf '%P\n' -iname ".pdf" | rofi -dmenu -theme ~/.config/rofi/pdf-launcher/style-1.rasi drun -display-drun -p " ")
@@ -310,7 +324,10 @@
 
   power-menu = pkgs.writeShellApplication {
     name = "powermenu";
-    runtimeInputs = with pkgs; [swaylock-effects rofi-wayland];
+    runtimeInputs = with pkgs; [
+      swaylock-effects
+      rofi
+    ];
     text = ''
         # Current Theme
       dir="$HOME/.config/rofi/powermenu/"
@@ -409,7 +426,7 @@
 
   rofi-menu = pkgs.writeShellApplication {
     name = "rofi-menu";
-    runtimeInputs = with pkgs; [rofi-wayland];
+    runtimeInputs = with pkgs; [rofi];
     text = ''
       dir="$HOME/.config/rofi/launchers/type-1"
        theme='style-1'
@@ -420,12 +437,46 @@
     '';
   };
 
+  # Hyprpanel required scripts
+  caffeine = pkgs.writeShellScriptBin "caffeine" ''
+    if [[ $(pidof "hypridle") ]]; then
+      systemctl --user stop hypridle.service
+      ${pkgs.libnotify}/bin/notify-send "Caffeine On" "Idle suspension disabled"
+    else
+      systemctl --user start hypridle.service
+      ${pkgs.libnotify}/bin/notify-send "Caffeine Off" "Idle suspension enabled"
+    fi
+  '';
+
+  night-shift = pkgs.writeShellScriptBin "night-shift" ''
+    if pidof "hyprsunset"; then
+      pkill hyprsunset
+      ${pkgs.libnotify}/bin/notify-send "Night-Shift Off" "Blue light filter disabled"
+    else
+      ${pkgs.hyprsunset}/bin/hyprsunset -t 4500 &
+      ${pkgs.libnotify}/bin/notify-send "Night-Shift On" "Blue light filter enabled"
+    fi
+  '';
+
+  menu = pkgs.writeShellScriptBin "menu" ''
+    ${pkgs.rofi}/bin/rofi -show drun -show-icons
+  '';
+
+  screenshot-swappy = pkgs.writeShellScriptBin "screenshot" ''
+    if [[ $1 == "region" && $2 == "swappy" ]]; then
+      ${pkgs.grimblast}/bin/grimblast --notify --freeze copysave area "/tmp/screenshot.png" || exit 1
+      ${pkgs.swappy}/bin/swappy -f "/tmp/screenshot.png" -o "$HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+    else
+      ${pkgs.grimblast}/bin/grimblast --notify --freeze copysave area "$HOME/Pictures/$(date +%Y-%m-%d_%H:%M:%S).png"
+    fi
+  '';
+
   wifi-menu = pkgs.writeShellScriptBin "wifi-menu" ''
-    bssid=$( ${pkgs.networkmanager}/bin/nmcli dev wifi list | sed -n '1!p' | cut -b 9- | ${pkgs.rofi-wayland}/bin/rofi -dmenu -theme ~/.config/rofi/wifi-menu/style-1.rasi -p " " | cut -d' ' -f1)
+    bssid=$( ${pkgs.networkmanager}/bin/nmcli dev wifi list | sed -n '1!p' | cut -b 9- | ${pkgs.rofi}/bin/rofi -dmenu -theme ~/.config/rofi/wifi-menu/style-1.rasi -p " " | cut -d' ' -f1)
 
     [ -z "$bssid" ] && exit
 
-    password=$(echo "" | ${pkgs.rofi-wayland}/bin/rofi -dmenu -theme ~/.config/rofi/wifi-menu/wifi-password.rasi -p " " )
+    password=$(echo "" | ${pkgs.rofi}/bin/rofi -dmenu -theme ~/.config/rofi/wifi-menu/wifi-password.rasi -p " " )
 
     [ -z "$password" ] && exit
 

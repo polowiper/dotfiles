@@ -1,46 +1,86 @@
-{pkgs, ...}: let
-  inherit (import ./options.nix) fontName;
-in {
+{pkgs, ...}: {
   # List packages installed in system profile. To search, run:
   # $ nix search wgetcon
+
+  nixpkgs.overlays = [
+    (final: prev: {
+      davinci-resolve-studio = prev.davinci-resolve-studio.override (old: {
+        buildFHSEnv = a:
+          old.buildFHSEnv (
+            a
+            // {
+              extraBwrapArgs =
+                (a.extraBwrapArgs or [])
+                ++ [
+                  "--bind /run/opengl-driver/etc/OpenCL /etc/OpenCL"
+                ];
+            }
+          );
+      });
+
+      davinci-resolve-amd = final.davinci-resolve-studio;
+    })
+  ];
+
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wl-clipboard
-    wget
-    git
-    direnv
+    # Coding shi
     kitty
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    direnv
+    git
+    opencode
+
+    #Normal packages
+    wl-clipboard
+    oversteer # Wheel
+    wget
     firefox
-    nh
     xwayland
-    zip
+    yazi
+    ripgrep
+    ffmpeg
+    imagemagick
     unzip
     helvum
-    via
-    qmk
-    qemu
     parted
     gvfs # Thunar dep
     brightnessctl
-    (pkgs.catppuccin-sddm.override {
-      flavor = "mocha";
-      font = fontName;
-      fontSize = "9";
-      background = "${pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/AnimeWaiting.png";
-        sha256 = "sha256-BLSly9FQWaW27oMWH4g3YNHKcbczQgUNZrYUeYJSkTA=";
-      }}";
-      loginBackground = true;
-    })
+    fprintd # Fingerprint reader
+    zip
+    fzf
+    nh # nix
+
+    #Keyboard
+    via
+    qmk
+
+    #VM
+    phodav
+    gnome-boxes
+    dnsmasq
+    qemu
+
+    #Davinci resolve
+    davinci-resolve-amd
+    rocmPackages.clr
+    ocl-icd
   ];
   programs.dconf.enable = true; # gnome
   programs.xfconf.enable = true; # xfce
 
   # Qemu shit
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = ["polo"];
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      swtpm.enable = true;
+    };
+  };
   virtualisation.spiceUSBRedirection.enable = true;
+  users.groups = {
+    libvirtd.members = ["polo"];
+    kvm.members = ["polo"];
+  };
 
   # thunar
   programs.thunar = {

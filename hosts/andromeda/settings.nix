@@ -1,4 +1,4 @@
-{...}: let
+{config, ...}: let
   inherit (import ./options.nix) hostName;
 in {
   # Allow unfree packages
@@ -29,7 +29,16 @@ in {
 
     # Enable networking
     networkmanager.enable = true;
-
+    wireless.networks = {
+      "eduroam" = {
+        auth = ''
+          key_mgmt=WPA-EAP
+          eap=PWD
+          identity=${builtins.readFile config.sops.secrets."eduroam_id".path}
+          password=${builtins.readFile config.sops.secrets."eduroam_pswd".path}
+        '';
+      };
+    };
     domain = "localdomain";
 
     extraHosts = ''

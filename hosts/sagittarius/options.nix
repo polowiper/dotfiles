@@ -1,5 +1,5 @@
-{
-  #system/networking.nix
+rec {
+  # system/networking.nix
   hostName = "sagittarius";
 
   #Home manager et System comme ca les deux sont forcément synchros

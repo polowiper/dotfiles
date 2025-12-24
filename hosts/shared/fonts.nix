@@ -1,6 +1,4 @@
-{pkgs, ...}: let
-  inherit (import ./options.nix) fontName;
-in {
+{pkgs, config, ...}: {
   fonts = {
     packages = [
       pkgs.nerd-fonts.monaspace
@@ -10,8 +8,8 @@ in {
     fontconfig = {
       enable = true;
       defaultFonts = rec {
-        monospace = ["${fontName} Mono"];
-        sansSerif = ["${fontName}"];
+        monospace = ["${config.var.fontName} Mono"];
+        sansSerif = ["${config.var.fontName}"];
         serif = sansSerif;
       };
     };

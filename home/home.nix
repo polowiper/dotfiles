@@ -2,12 +2,15 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }: let
-  inherit (import ./options.nix) userName dotfilesDir;
   ida = pkgs.callPackage ./ida_pro/ida.nix {};
 in {
   imports = [
+    inputs.sops-nix.homeManagerModules.sops
+    ./options.nix
+    ../themes/catppuccin.nix
     ./cli.nix
     ./dconf.nix
     ./extra.nix
@@ -19,16 +22,15 @@ in {
     ./neovim
     ./mako.nix
     ./qt.nix
-    ./rofi.nix
+    ./wofi.nix
     ./starship.nix
     ./vscode.nix
-    # ./waybar.nix
-    ./testwaybar.nix
-    ./wezterm/wezterm.nix
     ./xdg.nix
-    ./hyprland.nix
-    ./hyprlock.nix
-    inputs.catppuccin.homeModules.catppuccin
+    ./hyprland
+    ./hyprlock
+    ./hypridle
+    ./hyprpaper
+    ./hyprpanel
   ];
 
   nixpkgs = {
@@ -39,13 +41,22 @@ in {
   };
 
   home = {
-    username = "${userName}";
-    homeDirectory = "/home/${userName}";
+    username = "${config.var.userName}";
+    homeDirectory = "/home/${config.var.userName}";
     stateVersion = "23.11";
     sessionVariables.EDITOR = "nvim";
     packages = [ida];
   };
-
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    secrets = {
+      "eduroam_id" = {};
+      "eduroam_pswd" = {};
+      "vpn_id" = {};
+    };
+    age.keyFile = "/home/polo/.config/sops/age/keys.txt";
+  };
   programs.home-manager.enable = true;
-  programs.home-manager.path = lib.mkDefault "${dotfilesDir}";
+  programs.home-manager.path = lib.mkDefault "${config.var.dotfilesDir}";
 }

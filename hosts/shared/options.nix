@@ -1,10 +1,21 @@
-{
-  # system/locale.nix
-  theLocale = "en_US.UTF-8";
-  theTimeZone = "Europe/Paris";
+{config, lib, ...}: {
+  options.var = lib.mkOption {
+    type = lib.types.attrs;
+    default = {};
+  };
 
-  system = "x86_64-linux";
+  config.var = {
+    # system/locale.nix
+    theLocale = "en_US.UTF-8";
+    theTimeZone = "Europe/Paris";
 
-  #system/fonts.nix
-  fontName = "Monaspice Nerd Font";
+    system = "x86_64-linux";
+
+    # system/fonts.nix + various UI components
+    fontName = "Monaspice Nerd Font";
+    
+    # User settings (needed for users.nix and home-manager)
+    userName = "polo";
+    userFullName = "polo";
+  };
 }

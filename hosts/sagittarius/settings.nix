@@ -1,4 +1,4 @@
-{...}: let
+{config, ...}: let
   inherit (import ./options.nix) hostName;
 in {
   # Allow unfree packages

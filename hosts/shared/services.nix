@@ -1,4 +1,12 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+    theme = "catppuccin-mocha";
+  };
+in {
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnail support for images
 
@@ -46,6 +54,8 @@
     enable = true;
   };
 
+  services.upower.enable = true; # Dependency for Hyprpanel's battery module
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -69,9 +79,25 @@
     };
   };
   services.pulseaudio.enable = false;
+  environment.systemPackages = [
+    sddm-theme
+    sddm-theme.test
+  ];
+  qt.enable = true;
   services.displayManager.sddm = {
+    package = pkgs.kdePackages.sddm; # use qt6 version of sddm
     enable = true;
-    theme = "catppuccin-mocha";
+    theme = sddm-theme.pname;
+    # the following changes will require sddm to be restarted to take
+    # effect correctly. It is recomend to reboot after this
+    extraPackages = sddm-theme.propagatedBuildInputs;
+    settings = {
+      # required for styling the virtual keyboard
+      General = {
+        GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
+        InputMethod = "qtvirtualkeyboard";
+      };
+    };
   };
   services.mullvad-vpn.enable = true;
 }

@@ -1,9 +1,10 @@
 {pkgs, ...}: {
   programs.vscode = {
     enable = true;
-    package = pkgs.vscodium;
     profiles.default.extensions = with pkgs.vscode-extensions; [
-      catppuccin.catppuccin-vsc
+      github.copilot-chat
+      github.copilot
+
       vscode-icons-team.vscode-icons
       ms-toolsai.jupyter
       bbenoist.nix
@@ -14,6 +15,9 @@
       mhutchie.git-graph
       eamodio.gitlens
       adpyke.codesnap
+      lucianIrsigler.nasm
+      13
+      xforever.language-x86-64-assembly
     ];
   };
 }

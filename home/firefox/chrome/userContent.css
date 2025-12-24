@@ -4,3 +4,25 @@
 @import url("ShyFox/content/shy-about.css");
 @import url("ShyFox/content/shy-global-content.css");
 @import url("ShyFox/shy-variables.css");
+
+/* --- ShyFox: Remove unwanted white borders in about: pages (FF 143+) --- */
+@-moz-document url-prefix(about:) {
+	:root {
+		--in-content-border-color: transparent !important;
+		--in-content-box-border-color: transparent !important;
+		--card-border-color: transparent !important;
+		--card-outline-color: transparent !important;
+		--in-content-table-border-color: transparent !important;
+	}
+
+	.card, .category, .list, .detail-row, .sticky-container {
+		border: 0 !important;
+		box-shadow: none !important;
+	}
+}
+
+@-moz-document url("about:home") {
+    .bookmarks-placeholder {
+        display: none !important;
+        }
+}

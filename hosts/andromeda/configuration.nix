@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed onconfig
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{inputs, ...}: let
+{inputs, config, ...}: let
   inherit (import ./options.nix) stateVersion;
 in {
   imports = [
@@ -10,7 +10,8 @@ in {
     ./hardware-configuration.nix
     ./settings.nix
     ../shared/common.nix
-    inputs.catppuccin.nixosModules.catppuccin
+    ../shared/options.nix
+
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
