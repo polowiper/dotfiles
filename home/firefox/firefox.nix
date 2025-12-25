@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  config,
   ...
 }:
 # Fetch the user's name and their full name from the home/options.nix file
@@ -17,15 +18,14 @@ let
     lib = allowedPkgs.lib;
     stdenv = allowedPkgs.stdenv;
   };
-  inherit (import ../options.nix) userName userFullName;
 in {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
-    profiles."${userName}" = {
+    profiles."${config.var.userName}" = {
       isDefault = true;
-      name = "${userFullName}";
-      path = "${userName}.default";
+      name = "${config.var.userFullName}";
+      path = "${config.var.userName}.default";
 
       extensions.packages = with firefoxAddonsWithUnfree; [
         ublock-origin
@@ -199,6 +199,18 @@ in {
         engines = {
           "bing".metaData.hidden = true;
           "google".metaData.alias = "@g";
+
+          "Perplexity" = {
+            urls = [
+              {
+                template = "https://www.perplexity.ai/search/{searchTerms}";
+              }
+            ];
+
+            icon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+            definedAliases = ["@p"];
+          };
+
           "Nix Packages" = {
             urls = [
               {

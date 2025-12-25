@@ -1,18 +1,14 @@
-{config, ...}:
-# Fetch the user's Git email & username from home/options.nix
-let
-  inherit (import ./options.nix) gitUserName gitEmail;
-in {
+{config, ...}: {
   programs.git = {
     enable = true;
-    userName = "${gitUserName}";
-    userEmail = "${gitEmail}";
-    extraConfig = {
+    settings = {
+      user.name = "${config.var.gitUserName}";
+      user.email = "${config.var.gitEmail}";
       init.defaultBranch = "main";
       color.ui = true;
       core.editor = "${config.home.sessionVariables.EDITOR}";
       credential.helper = "store";
-      github.user = gitUserName;
+      github.user = config.var.gitUserName;
       push.autoSetupRemote = true;
       help.autocorrect = 10;
     };

@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   programs = {
     fish = {
       enable = true;
@@ -9,6 +13,13 @@
         set fish_greeting ""
       '';
       functions = {
+        vpn = ''
+          sudo ${pkgs.openconnect}/bin/openconnect \
+            --user="${builtins.readFile config.sops.secrets."vpn_id".path}" \
+            --passwd-on-stdin \
+            --verbose \
+            vpn.grenet.fr
+        '';
         nd = ''
             function nd --description "nix develop"
               if test (count $argv) -gt 0
@@ -42,7 +53,8 @@
         gs = "git status";
 
         #ETC
-        sl = "ls"; #FUCK SL
+        sl = "ls"; # FUCK SL
+        rm = "${pkgs.srm}/bin/srm";
         c = "clear";
         cd = "z";
         nv = "nvim";
@@ -51,7 +63,7 @@
 
         # Nix
         ns = "nh os switch";
-        hs = "nh home switch";
+        hs = "nh home switch -t --impure";
         nlu = "nix flake lock --update-input";
 
         # Modern yuunix, uwu <3

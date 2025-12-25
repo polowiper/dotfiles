@@ -1,13 +1,28 @@
-rec {
-  #/home/${userName} + Firefox
-  userName = "polo";
+{
+  config,
+  lib,
+  ...
+}: {
+  options.var = lib.mkOption {
+    type = lib.types.attrs;
+    default = {};
+  };
 
-  #Firefox
-  userFullName = "polo";
+  config.var = rec {
+    # User settings
+    userName = "polo";
+    userFullName = "polo";
 
-  #Git
-  gitUserName = "polowiper";
-  gitEmail = "53773040+polowiper@users.noreply.github.com";
-  homeDir = "/home/${userName}";
-  dotfilesDir = "/home/${userName}/nixos";
+    # Git settings
+    gitUserName = "polowiper";
+    gitEmail = "53773040+polowiper@users.noreply.github.com";
+
+    # Paths
+    homeDir = "/home/${userName}";
+    dotfilesDir = "/home/${userName}/nixos";
+
+    # UI settings
+    fontName = "Monaspice Nerd Font";
+    location = "";
+  };
 }

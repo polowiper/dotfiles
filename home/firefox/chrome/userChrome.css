@@ -9,3 +9,49 @@
 @import url("ShyFox/shy-compact.css");
 @import url("ShyFox/shy-icons.css");
 @import url("ShyFox/shy-floating-search.css");
+
+/* --- ShyFox: Remove unwanted white borders in FF 143+ --- */
+:root {
+	--chrome-content-separator-color: transparent !important;
+	--lwt-tabs-border-color: transparent !important;
+	--toolbarseparator-color: transparent !important;
+	--panel-border-color: transparent !important;
+	--arrowpanel-border-color: transparent !important;
+	--toolbar-field-border-color: transparent !important;
+	--urlbarView-row-separator-color: transparent !important;
+}
+
+#navigator-toolbox,
+#TabsToolbar,
+#nav-bar,
+#PersonalToolbar {
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+.browserContainer,
+.browserStack {
+	border: 0 !important;
+	box-shadow: none !important;
+}
+
+#sidebar-box {
+	border-inline-end: 0 !important;
+	box-shadow: none !important;
+}
+#sidebar-splitter {
+	border: 0 !important;
+	background: transparent !important;
+	min-width: 0 !important;
+	width: 0 !important;
+}
+
+#urlbar,
+#searchbar {
+	border: 0 !important;
+	box-shadow: none !important;
+}
+#urlbarView .urlbarView-row {
+	border: 0 !important;
+	box-shadow: none !important;
+}

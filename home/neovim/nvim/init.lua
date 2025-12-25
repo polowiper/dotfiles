@@ -1,7 +1,4 @@
-require("catppuccin").setup({
-  transparent_background = true,
-})
-vim.cmd.colorscheme("catppuccin")
+-- Colorscheme will be handled by stylix
 vim.g.mapleader = " "
 vim.g.maplocalleader = "m"
 require("config.options")

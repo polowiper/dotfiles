@@ -548,8 +548,8 @@ File Edit View History Bookmarks Tools Help
 /* remove annoying line at the top of the window */
 #navigator-toolbox {
   margin-top: -1px !important;
-  position: relative;
-  z-index: 3;
+  position: relative !important;
+  z-index: 3 !important;
 }
 
 /* weird margin fix */

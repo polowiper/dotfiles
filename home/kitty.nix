@@ -1,18 +1,11 @@
-# Fetch the fontName variable from system/options.nix to determine which font to use.
-let
-  inherit (import ../system/options.nix) fontName;
-in {
+{config, ...}: {
   home.sessionVariables.TERMINAL = "kitty";
 
-  catppuccin.kitty.enable = true;
+
   programs.kitty = {
     enable = true;
-    font = {
-      name = "${fontName}";
-      size = 11;
-    };
+    # Font is handled by stylix
     settings = {
-      background_opacity = "1"; # Hyprland will set a uniform opacity for all apps. See home/Hyprland.nix
       enable_audio_bell = "no";
       cursor_text_color = "background";
       window_padding_width = 4;

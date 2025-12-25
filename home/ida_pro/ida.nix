@@ -2,7 +2,7 @@
   autoPatchelfHook,
   cairo,
   copyDesktopItems,
-  python3,
+  nodejs,
   tree,
   dbus,
   fetchurl,
@@ -15,7 +15,6 @@
   libGL,
   libkrb5,
   libsecret,
-  libsForQt5,
   libunwind,
   libxkbcommon,
   makeDesktopItem,
@@ -23,13 +22,16 @@
   openssl,
   stdenv,
   xorg,
+  xcb-util-cursor,
   zlib,
   ...
 }:
 stdenv.mkDerivation rec {
-  pname = "ida-cracked";
-  version = "v9.0";
-  src = ./ida.run;
+  pname = "ida-pro";
+  version = "9.2";
+
+  src = ./ida-pro_92_x64linux.run;
+
   icon = fetchurl {
     urls = [
       "https://web.archive.org/web/20221105181235im_/https://hex-rays.com/products/ida/news/8_1/images/icon_teams.png"
@@ -41,8 +43,8 @@ stdenv.mkDerivation rec {
     name = "ida-pro";
     exec = "ida64";
     icon = icon;
-    comment = "IDA";
-    desktopName = "IDA Pro";
+    comment = "IDA Pro 9.2";
+    desktopName = "IDA Pro 9.2";
     genericName = "Interactive Disassembler";
     categories = ["Development"];
     startupWMClass = "IDA";
@@ -55,15 +57,27 @@ stdenv.mkDerivation rec {
     makeWrapper
     copyDesktopItems
     autoPatchelfHook
-    libsForQt5.wrapQtAppsHook
+    nodejs
+  ];
+
+  # Configure autoPatchelfHook to ignore Qt6 libraries that IDA ships with because SOMEHOW it gives fuckass errors
+  autoPatchelfIgnoreMissingDeps = [
+    "libQt6WaylandCompositor.so.6"
+    "libQt6EglFSDeviceIntegration.so.6"
+    "libQt6WlShellIntegration.so.6"
+    "libQt6Network.so.6"
+    "libQt6Svg.so.6"
+    "libQt6Core.so.6"
+    "libQt6Gui.so.6"
+    "libQt6Widgets.so.6"
   ];
 
   # We just get a runfile in $src, so no need to unpack it.
   dontUnpack = true;
 
-  # Add everything to the RPATH, in case IDA decides to dlopen things.
+  # Add only essential system libraries that IDA doesn't ship with
+  # IDA Pro 9.2 ships with its own Qt6 libraries, so fuck Qt6
   runtimeDependencies = [
-    python3
     cairo
     dbus
     fontconfig
@@ -74,7 +88,6 @@ stdenv.mkDerivation rec {
     libGL
     libkrb5
     libsecret
-    libsForQt5.qtbase
     libunwind
     libxkbcommon
     openssl
@@ -91,6 +104,8 @@ stdenv.mkDerivation rec {
     xorg.xcbutilkeysyms
     xorg.xcbutilrenderutil
     xorg.xcbutilwm
+    xorg.xcbutil
+    xcb-util-cursor
     zlib
   ];
   buildInputs = runtimeDependencies;
@@ -113,34 +128,56 @@ stdenv.mkDerivation rec {
     $(cat $NIX_CC/nix-support/dynamic-linker) $src \
       --mode unattended --prefix $IDADIR
 
-    # python3 -c "print('this is a test and you should somehow see it')"
-    tree $out
-    # Copy the exported libraries to the output.
-    cd $out/opt/
-    cp ${./keygen.py} $out/opt/keygen.py
-    python3 $out/opt/keygen.py
+    # Copy the Node.js keygen to the installation directory
+    cp ${./kg_patch/keygen.js} $IDADIR/keygen.js
+
+    # Run the Node.js keygen to generate license and patch libraries
+    cd $IDADIR/
+    node keygen.js
     cd -
 
-    mv $out/opt/libida.so.patched $out/opt/libida.so
-    mv $out/opt/libida32.so.patched $out/opt/libida32.so
+    # Copy the generated license to the proper location
+    if [ -f $IDADIR/idapro.hexlic ]; then
+      echo "License generated successfully"
+    else
+      echo "Warning: License generation may have failed"
+    fi
 
+    # Copy the libraries to the lib directory to patch ida
     cp $IDADIR/libida.so $out/lib
     cp $IDADIR/libida32.so $out/lib
 
     # Some libraries come with the installer.
     addAutoPatchelfSearchPath $IDADIR
 
-    for bb in ida assistant; do
-      wrapProgram $IDADIR/$bb \
-        --prefix QT_PLUGIN_PATH : $IDADIR/plugins/platforms
-      ln -s $IDADIR/$bb $out/bin/$bb
+    # Simple wrappers that prioritize IDA's own libraries
+    for bb in ida ida64 assistant; do
+      if [ -f $IDADIR/$bb ]; then
+        makeWrapper $IDADIR/$bb $out/bin/$bb \
+          --prefix LD_LIBRARY_PATH : $IDADIR \
+          --set QT_PLUGIN_PATH $IDADIR/plugins/platforms \
+          --chdir $IDADIR
+      fi
     done
 
     # runtimeDependencies don't get added to non-executables, and openssl is needed
-    #  for cloud decompilation
-    patchelf --add-needed libcrypto.so $IDADIR/libida.so
-
+    # for cloud decompilation (lumina)
+    if [ -f $IDADIR/libida.so ]; then
+      patchelf --add-needed libcrypto.so $IDADIR/libida.so
+    fi
+    if [ -f $IDADIR/libida64.so ]; then
+      patchelf --add-needed libcrypto.so $IDADIR/libida64.so
+    fi
 
     runHook postInstall
   '';
+
+  meta = with lib; {
+    description = "Interactive Disassembler Pro 9.2";
+    homepage = "https://hex-rays.com/ida-pro/";
+    license = licenses.unfree;
+    platforms = platforms.linux;
+    maintainers = [];
+  };
 }
+

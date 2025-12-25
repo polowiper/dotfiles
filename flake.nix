@@ -9,8 +9,20 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    catppuccin.url = "github:catppuccin/nix";
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
+    silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,27 +30,49 @@
   };
 
   outputs = {
+    self,
     nixpkgs,
     home-manager,
     ...
-  } @ inputs: let
-    inherit (import ./system/options.nix) hostName system;
-    inherit (import ./home/options.nix) userName;
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    nixosConfigurations."${hostName}" = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        ./system/configuration.nix
-      ];
+  } @ inputs: {
+    nixosConfigurations = {
+      andromeda = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/andromeda/configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
+        ];
+      };
+      sagittarius = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/sagittarius/configuration.nix
+          inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
+        ];
+      };
     };
 
-    homeConfigurations."${userName}" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = {inherit inputs;};
-      modules = [
-        ./home/home.nix
-      ];
+    homeConfigurations = {
+      "polo@andromeda" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/home.nix
+          inputs.stylix.homeModules.stylix
+        ];
+      };
+      "polo@sagittarius" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {inherit inputs;};
+        modules = [
+          ./home/home.nix
+          inputs.stylix.homeModules.stylix
+        ];
+      };
     };
   };
 }
