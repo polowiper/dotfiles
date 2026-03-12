@@ -39,6 +39,9 @@ in {
 
   services.udev.extraRules = ''
     ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c261", RUN+="${pkgs.usb-modeswitch}/bin/usb_modeswitch -c /etc/usb_modeswitch.d/046dc261"
+    # Intel / Altera USB-Blaster (DE10-Lite)
+    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="0666"
   '';
 
   # Configure keymap in X11

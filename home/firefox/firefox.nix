@@ -8,7 +8,7 @@
 let
   # Man why is tampermonkey unfree ? *sight*
   allowedPkgs = import inputs.nixpkgs {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config.allowUnfree = true;
   };
 

@@ -12,8 +12,13 @@
     kotatogram-desktop
     onlyoffice-desktopeditors
 
-    #bambu-studio # GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
-    freecad
+    bambu-studio # GOT A FUCKING 3D PRINTER LET'S GOOOOOOOOOOOOOO
+    droidcam
+    freecad # Waiting for the pagmo2 fix to be merged into unstable
+
+    #Fpga card
+    quartus-prime-lite
+    openfpgaloader
 
     #Wii stuff
     wiimms-iso-tools
@@ -25,6 +30,7 @@
     protontricks
 
     gimp
+    feh
     networkmanagerapplet
     better-control
     usbguard
@@ -40,6 +46,13 @@
     httptoolkit-server
     httptoolkit
     ripgrep
+    inputs.pwndbg.packages.${pkgs.system}.default
+    gdb
+
+    # Poc (for serious programming I use devshells
+    python311
+    libgcc
+    gnumake
 
     kicad
     zathura
@@ -49,22 +62,34 @@
     overskride
     oversteer
     quarto
+
+    # 1337
     monero-gui
     mullvad-vpn
-    galculator
+    hexchat
+    bitwarden-desktop
+
     kdePackages.okular
     lorien
-    bitwarden-desktop
+
+    # Minecraft
     temurin-bin
     prismlauncher
+
     loupe
     grim
     swappy
     wine-wayland
     slurp
     mpv-unwrapped
+    anydesk
+
+    # Coding ish stuff (I say ish because most of the coding shit is in devshells)
+    man
+    man-pages
+    clang-manpages
+
     nix-inspect
     nix-prefetch-scripts
-    anydesk
   ];
 }

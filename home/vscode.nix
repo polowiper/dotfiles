@@ -15,9 +15,6 @@
       mhutchie.git-graph
       eamodio.gitlens
       adpyke.codesnap
-      lucianIrsigler.nasm
-      13
-      xforever.language-x86-64-assembly
     ];
   };
 }

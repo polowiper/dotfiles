@@ -3,17 +3,8 @@
   inputs,
   ...
 }:
-# The wallpaper will be fetched from GitHub. I don't store my wallpapers locally.
+# The wallpaper is managed by Stylix (see themes/catppuccin.nix or themes/nixy.nix)
 let
-  currentWallpaper = pkgs.fetchurl {
-    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/main/macchiato-hald8-cyberpunkish.png";
-    sha256 = "sha256-MxGjtSppJZosNWJQ8YIAUywQ0ffKmFR7QMUEyPg3nqM=";
-  };
-  hyprpaperConf = pkgs.writeText "hyprpaper.conf" ''
-    preload = ${currentWallpaper}
-    wallpaper = ,${currentWallpaper}
-    splash = false
-  '';
   inherit
     (import ./scripts.nix {inherit pkgs;})
     batteryNotificationScript
@@ -88,30 +79,30 @@ in {
         "float,title:^(Page Info)$"
       ];
       windowrulev2 = [
-        "float,class:^(Thunar)$"
-        "size 70% 70%,class:^(Thunar)$"
-        "float,class:^(thunar)$" # HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
-        "size 70% 70%,class:^(thunar)$"
-        "float,class:^(org.gnome.Loupe)$"
-        "size 70% 70%,class:^(org.gnome.Loupe)$"
-        "float,title:^(Media Viewer)$" # Telegram's media viewer
-        "float,class:^(pavucontrol)$"
-        "float,class:^(file_progress)$"
-        "float,class:^(confirm)$"
-        "float,class:^(io.github.kaii_lb.Overskride)$"
-        "float,class:^(dialog)$"
-        "float,title:^(Please wait...)$"
-        "size 70% 70%,class:^(Please wait...)$"
-        "float,title:^(IDA: Quick start)$"
-        "size 70% 70%,class:^(IDA: Quick start)$"
-        "float,title:^(About)$"
-        "size 70% 70%,class:^(About)$"
-        "float,class:^(download)$"
-        "float,class:^(notification)$"
-        "float,class:^(nm-connection-editor)$"
-        "float,title:^(File Operation Progress)$"
-        "float,title:^(Open File)$"
-        "float,title:^(Save As)$"
+        "float, class:^(Thunar)$"
+        "size 70% 70%, class:^(Thunar)$"
+        "float, class:^(thunar)$" # HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
+        "size 70% 70%, class:^(thunar)$"
+        "float, class:^(org.gnome.Loupe)$"
+        "size 70% 70%, class:^(org.gnome.Loupe)$"
+        "float, title:^(Media Viewer)$" # Telegram's media viewer
+        "float, class:^(pavucontrol)$"
+        "float, class:^(file_progress)$"
+        "float, class:^(confirm)$"
+        "float, class:^(io.github.kaii_lb.Overskride)$"
+        "float, class:^(dialog)$"
+        "float, title:^(Please wait...)$"
+        "size 70% 70%, class:^(Please wait...)$"
+        "float, title:^(IDA: Quick start)$"
+        "size 70% 70%, class:^(IDA: Quick start)$"
+        "float, title:^(About)$"
+        "size 70% 70%, class:^(About)$"
+        "float, class:^(download)$"
+        "float, class:^(notification)$"
+        "float, class:^(nm-connection-editor)$"
+        "float, title:^(File Operation Progress)$"
+        "float, title:^(Open File)$"
+        "float, title:^(Save As)$"
       ];
 
       decoration = {
@@ -172,7 +163,7 @@ in {
           "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
           "$mainMod,        p,   exec,   ${power-menu}/bin/powermenu"
           "$mainMod,        w,   exec,   ${wifi-menu}/bin/script"
-          "$mainMod,        d,   exec,   ${pkgs.xfce.thunar}/bin/thunar"
+          "$mainMod,        d,   exec,   ${pkgs.thunar}/bin/thunar"
           "$mainMod,        q,   exec,   ${rofi-menu}/bin/rofi-menu"
           "$mainMod,        y,   exec,   spotify"
           "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
@@ -281,7 +272,6 @@ in {
         };
       };
       exec-once = [
-        "${pkgs.hyprpaper}/bin/hyprpaper -c ${hyprpaperConf}"
         "${pkgs.waybar}/bin/waybar"
 
         # Please see home/gtk.nix before modifying the line below. It actually sets the cursor to Bibata-Modern-Ice.

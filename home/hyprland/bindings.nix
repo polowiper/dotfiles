@@ -9,7 +9,7 @@
         "$mainMod,        f,   exec,   ${pkgs.firefox}/bin/firefox"
         "$mainMod,        q,   exec,   ${pkgs.wofi}/bin/wofi"
         "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
-        "$mainMod,        d,   exec,   ${pkgs.xfce.thunar}/bin/thunar"
+        "$mainMod,        d,   exec,   ${pkgs.thunar}/bin/thunar"
         "$mainMod,        r,   exec,   screenshot region swappy"
         "$mainMod,        x,   exec,   hyprlock" # Make sure you have Hyprlock installed. There's an official flake for it. See /flake.nix
         "$mainMod,        t,   exec,   ${pkgs.kitty}/bin/kitty"

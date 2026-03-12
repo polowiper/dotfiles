@@ -15,7 +15,7 @@
       functions = {
         vpn = ''
           sudo ${pkgs.openconnect}/bin/openconnect \
-            --user="${builtins.readFile config.sops.secrets."vpn_id".path}" \
+            --user="$(cat ${config.sops.secrets."vpn_id".path})" \
             --passwd-on-stdin \
             --verbose \
             vpn.grenet.fr

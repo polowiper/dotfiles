@@ -26,6 +26,7 @@
     settings = {
       auto-optimise-store = true;
       cores = 6;
+      experimental-features = ["nix-command" "flakes"];
     };
     gc = {
       automatic = true;
@@ -37,6 +38,12 @@
     extraOptions = ''
       min-free = ${toString (5 * 1024 * 1024 * 1024)}
     '';
+  };
+  
+  # Configure nh (nix helper)
+  programs.nh = {
+    enable = true;
+    clean.enable = false;
   };
   # OOM configuration (yes my pc is that bad):
   systemd = {

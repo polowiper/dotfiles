@@ -45,8 +45,6 @@ in {
       hyprsunset
       grimblast
       rofi
-      # Apps referenced in keybindings
-      spotify
     ]
     ++ (with (import ../scripts.nix {inherit pkgs;}); [
       caffeine
@@ -80,7 +78,7 @@ in {
         "eDP-1, 2560x1600@165.00, 1920x0, 1" # Internal screen (framework only tho different for the thinkpad I'll have to modify that later on)
         # "HDMI-A-1, preferred, 0x0, 1"
         "DP-3, 1920x1080@144.00, 0x0, 1" # Main screen (external)
-        "DP-3, 1920x1080@60.00, 0x0, 1" # Main screen (external) but when I am back at home
+        # "DP-3, 1920x1080@144.00, 0x0, 1" # Main screen (external) but when I am back at home
         "DP-4, preferred, -1080x0, 1, transform, 1" # Left screen (vertical)
         ",prefered,auto,1" # default
       ];
@@ -160,76 +158,68 @@ in {
         disable_splash_rendering = true;
         disable_autoreload = true;
         focus_on_activate = true;
-        new_window_takes_over_fullscreen = 2;
       };
 
-      windowrulev2 = [
-        "float, tag:modal"
-        "pin, tag:modal"
-        "center, tag:modal"
-        # telegram media viewer
-        "float, title:^(Media viewer)$"
+      windowrule = [
+        # Modal windows
+        "match:tag modal, float true, pin true, center true"
+
+        # Telegram media viewer
+        "match:title Media viewer, float true"
 
         # Bitwarden extension
-        "float, title:^(.*Bitwarden Password Manager.*)$"
+        "match:title .*Bitwarden Password Manager.*, float true"
 
-        # gnome calculator
-        "float, class:^(org.gnome.Calculator)$"
-        "size 360 490, class:^(org.gnome.Calculator)$"
+        # GNOME Calculator
+        "match:class org.gnome.Calculator, float true"
+        "match:class org.gnome.Calculator, size 360 490"
 
-        # Thunar
-        "float,class:^(Thunar)$"
-        "size 70% 70%,class:^(Thunar)$"
+        # Thunar (case-insensitive)
+        "match:class [Tt]hunar, float true"
+        "match:class [Tt]hunar, size 70% 70%"
 
-        "float,class:^(thunar)$" # HALF OF THE FUCKING TIME THE CLASS NAME IS Thunar AND THE OTHER HALF OF THE TIME IT'S thunar, I'M TIRED OF CHANGING THAT EVERY SINGLE FUCKING TIME SO FUCK YOU
-        "size 70% 70%,class:^(thunar)$"
+        # GNOME Image Viewer
+        "match:class org.gnome.Loupe, float true"
+        "match:class org.gnome.Loupe, size 70% 70%"
 
-        # gnome image viewer
-        "float,class:^(org.gnome.Loupe)$"
-        "size 70% 70%,class:^(org.gnome.Loupe)$"
+        # Firefox/Zen Picture-in-Picture
+        "match:title Picture-in-Picture, float true, pin true"
 
-        # make Firefox/Zen PiP window floating and sticky
-        "float, title:^(Picture-in-Picture)$"
-        "pin, title:^(Picture-in-Picture)$"
+        # Random floating windows
+        "match:class pavucontrol, float true"
+        "match:class file_progress, float true"
+        "match:class confirm, float true"
+        "match:class io.github.kaii_lb.Overskride, float true"
+        "match:class dialog, float true"
+        "match:title Please wait..., float true"
+        "match:title Please wait..., size 70% 70%"
+        "match:title IDA: Quick start, float true"
+        "match:title IDA: Quick start, size 70% 70%"
+        "match:title About, float true"
+        "match:title About, size 70% 70%"
+        "match:class download, float true"
+        "match:class notification, float true"
+        "match:class nm-connection-editor, float true"
+        "match:title File Operation Progress, float true"
+        "match:title Open File, float true"
+        "match:title Save As, float true"
+        "match:class xdg-desktop-portal-gtk, float true"
 
-        #Random stuff
-        "float,class:^(pavucontrol)$"
-        "float,class:^(file_progress)$"
-        "float,class:^(confirm)$"
-        "float,class:^(io.github.kaii_lb.Overskride)$"
-        "float,class:^(dialog)$"
-        "float,title:^(Please wait...)$"
-        "size 70% 70%,class:^(Please wait...)$"
-        "float,title:^(IDA: Quick start)$"
-        "size 70% 70%,class:^(IDA: Quick start)$"
-        "float,title:^(About)$"
-        "size 70% 70%,class:^(About)$"
-        "float,class:^(download)$"
-        "float,class:^(notification)$"
-        "float,class:^(nm-connection-editor)$"
-        "float,title:^(File Operation Progress)$"
-        "float,title:^(Open File)$"
-        "float,title:^(Save As)$"
+        # Idle inhibit while watching videos
+        "match:class mpv, idle_inhibit focus"
+        "match:class celluloid, idle_inhibit focus"
+        "match:class .+exe, idle_inhibit focus"
+        "match:class firefox, match:title YouTube, idle_inhibit focus"
 
-        "float,class:^(xdg-desktop-portal-gtk)$"
+        # Dim around certain windows
+        "match:class gcr-prompter, dim_around true"
+        "match:class xdg-desktop-portal-gtk, dim_around true"
+        "match:class polkit-gnome-authentication-agent-1, dim_around true"
+        "match:class firefox, match:title File Upload, dim_around true"
 
-        # idle inhibit while watching videos
-        "idleinhibit focus, class:^(mpv|.+exe|celluloid)$"
-        "idleinhibit focus, class:^(zen)$, title:^(.*YouTube.*)$"
-        "idleinhibit fullscreen, class:^(zen)$"
-
-        "dimaround, class:^(gcr-prompter)$"
-        "dimaround, class:^(xdg-desktop-portal-gtk)$"
-        "dimaround, class:^(polkit-gnome-authentication-agent-1)$"
-        "dimaround, class:^(zen)$, title:^(File Upload)$"
-
-        "center, class:^(.*jetbrains.*)$, title:^(Confirm Exit|Open Project|win424|win201|splash)$"
-        "size 640 400, class:^(.*jetbrains.*)$, title:^(splash)$"
-      ];
-
-      layerrule = [
-        "noanim, launcher"
-        "noanim, ^ags-.*"
+        # JetBrains windows
+        "match:class .*jetbrains.*, match:title Confirm Exit|Open Project|win424|win201|splash, center true"
+        "match:class .*jetbrains.*, match:title splash, size 640 400"
       ];
 
       input = {

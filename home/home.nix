@@ -21,6 +21,7 @@ in {
     ./kitty.nix
     ./neovim
     ./mako.nix
+    ./modelsim/modelsim-home-manager.nix
     ./qt.nix
     ./wofi.nix
     ./starship.nix
@@ -47,6 +48,10 @@ in {
     sessionVariables.EDITOR = "nvim";
     packages = [ida];
   };
+
+  # Enable ModelSim FPGA simulator with default configuration
+  programs.modelsim.enable = true;
+
   sops = {
     defaultSopsFile = ../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";

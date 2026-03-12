@@ -12,7 +12,7 @@
               extraBwrapArgs =
                 (a.extraBwrapArgs or [])
                 ++ [
-                  "--bind /run/opengl-driver/etc/OpenCL /etc/OpenCL"
+                  "-- bind ${pkgs.rocmPackages.clr}/lib/libclr.so /usr/lib/libclr.so"
                 ];
             }
           );
@@ -64,6 +64,8 @@
     davinci-resolve-amd
     rocmPackages.clr
     ocl-icd
+
+    protonup-qt
   ];
   programs.dconf.enable = true; # gnome
   programs.xfconf.enable = true; # xfce
@@ -85,7 +87,7 @@
   # thunar
   programs.thunar = {
     enable = true;
-    plugins = with pkgs.xfce; [
+    plugins = with pkgs; [
       thunar-volman
       thunar-media-tags-plugin
     ];
@@ -95,5 +97,8 @@
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    extraCompatPackages = with pkgs; [
+      proton-ge-bin
+    ];
   };
 }

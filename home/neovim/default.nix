@@ -21,6 +21,9 @@
       clang
       clang-tools # Formatting
 
+      #Vhdl
+      vhdl-ls
+
       #Assembly
       asm-lsp
       asmfmt
@@ -50,7 +53,7 @@
 
       #Nix
       nixd
-      nixfmt-rfc-style # Required formatting in order to contribute to nixpkgs
+      nixfmt # Required formatting in order to contribute to nixpkgs
       alejandra # Formatting
 
       #Ts/Js

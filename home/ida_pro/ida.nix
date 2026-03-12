@@ -20,6 +20,7 @@
   makeDesktopItem,
   makeWrapper,
   openssl,
+  python3,
   stdenv,
   xorg,
   xcb-util-cursor,
@@ -70,6 +71,7 @@ stdenv.mkDerivation rec {
     "libQt6Core.so.6"
     "libQt6Gui.so.6"
     "libQt6Widgets.so.6"
+    "libpython3.*\\.so"
   ];
 
   # We just get a runfile in $src, so no need to unpack it.
@@ -91,6 +93,7 @@ stdenv.mkDerivation rec {
     libunwind
     libxkbcommon
     openssl
+    python3
     stdenv.cc.cc
     xorg.libICE
     xorg.libSM
@@ -154,11 +157,18 @@ stdenv.mkDerivation rec {
     for bb in ida ida64 assistant; do
       if [ -f $IDADIR/$bb ]; then
         makeWrapper $IDADIR/$bb $out/bin/$bb \
-          --prefix LD_LIBRARY_PATH : $IDADIR \
+          --prefix LD_LIBRARY_PATH : $IDADIR:${python3}/lib \
+          --prefix PYTHONPATH : $IDADIR/opt/python \
           --set QT_PLUGIN_PATH $IDADIR/plugins/platforms \
           --chdir $IDADIR
       fi
     done
+
+    # Fix IDAPython runtime
+    mkdir -p $IDADIR/opt/python/lib-dynload
+    ln -s ${python3}/lib/libpython*.so $IDADIR/opt/python/
+    ln -s ${python3}/lib/libpython3*m.so $IDADIR/opt/python/
+    ln -s ${python3}/lib/python*/lib-dynload $IDADIR/opt/python/lib-dynload/
 
     # runtimeDependencies don't get added to non-executables, and openssl is needed
     # for cloud decompilation (lumina)
@@ -168,6 +178,10 @@ stdenv.mkDerivation rec {
     if [ -f $IDADIR/libida64.so ]; then
       patchelf --add-needed libcrypto.so $IDADIR/libida64.so
     fi
+
+    # Copy plugins from the plugins folder
+    mkdir -p $IDADIR/plugins
+    cp ${./plugins}/* $IDADIR/plugins/
 
     runHook postInstall
   '';
@@ -180,4 +194,3 @@ stdenv.mkDerivation rec {
     maintainers = [];
   };
 }
-
