@@ -5,7 +5,7 @@ return {
 		local img = require("image")
 		img.setup({
 			backend = "kitty",
-			processor = "magick_rock", -- or "magick_cli"
+			processor = "magick_cli", -- or "magick_rock" but it does not work too well on nix
 			integrations = {
 				markdown = {
 					enabled = true,
@@ -32,4 +32,3 @@ return {
 		})
 	end,
 }
-

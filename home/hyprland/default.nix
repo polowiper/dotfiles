@@ -204,6 +204,7 @@ in {
         "match:title Open File, float true"
         "match:title Save As, float true"
         "match:class xdg-desktop-portal-gtk, float true"
+        "match:class .scrcpy-wrapped, float true"
 
         # Idle inhibit while watching videos
         "match:class mpv, idle_inhibit focus"

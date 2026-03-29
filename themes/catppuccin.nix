@@ -84,8 +84,8 @@
     targets.firefox.profileNames = ["polo"];
     polarity = "dark";
     image = pkgs.fetchurl {
-      url = "https://raw.githubusercontent.com/polowiper/Wallpapers/refs/heads/main/wallhaven-4d1wrl.png";
-      sha256 = "sha256-woWK46t3/XYyU/eCRLKtZLxQAfu6ZD98AXVuUYYCRzw=";
+      url = "https://raw.githubusercontent.com/polowiper/Wallpapers/refs/heads/main/nix-wall.jpg";
+      sha256 = "sha256-wPKo6qV/iIzzLTKxWzZz+4Wv6D+XTF8mAAWT+dRfTBc=";
     };
   };
 }

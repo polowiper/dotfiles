@@ -8,7 +8,7 @@
     vial
     obs-studio
     anki
-    xorg.xev
+    xev
     kotatogram-desktop
     onlyoffice-desktopeditors
 
@@ -17,6 +17,8 @@
     freecad # Waiting for the pagmo2 fix to be merged into unstable
 
     #Fpga card
+    graphviz
+    yosys
     quartus-prime-lite
     openfpgaloader
 

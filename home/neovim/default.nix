@@ -1,5 +1,6 @@
 # TODO: Add a thing to highlish TODOs and also setup conform to autoformat on save and uhh some linter shit I guess although it's already half setup
 {pkgs, ...}: {
+  nixpkgs.config.allowBroken = true;
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -47,7 +48,7 @@
 
       #Lua
       stylua # Formatting
-      lua
+      lua5_1
       lua-language-server
       lua51Packages.luarocks
 
@@ -78,14 +79,14 @@
       git
       curl
       fzf
-      imagemagick
+      imagemagick # image.nvim
       vscode-langservers-extracted
       tree-sitter
     ];
 
     extraLuaPackages = luaPkgs:
       with luaPkgs; [
-        magick # for image rendering
+        magick # for image rendering (although might not be needed now)
         luarocks
       ];
 

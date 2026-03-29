@@ -41,7 +41,6 @@
     ffmpeg
     imagemagick
     unzip
-    helvum
     parted
     gvfs # Thunar dep
     brightnessctl

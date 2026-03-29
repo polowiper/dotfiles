@@ -23,10 +23,10 @@ let
         glibc
         gcc
         zlib
-        xorg.libX11
-        xorg.libXext
-        xorg.libXrender
-        xorg.libXft
+        libX11
+        libXext
+        libXrender
+        libXft
         fontconfig
         bash
         coreutils
@@ -39,20 +39,20 @@ let
           glibc
           gcc.cc.lib
           zlib
-          xorg.libX11
-          xorg.libXext
-          xorg.libXrender
-          xorg.libXft
+          libX11
+          libXext
+          libXrender
+          libXft
           fontconfig
         ]
         ++ (with pkgs.pkgsi686Linux; [
           glibc
           gcc.cc.lib
           zlib
-          xorg.libX11
-          xorg.libXext
-          xorg.libXrender
-          xorg.libXft
+          libX11
+          libXext
+          libXrender
+          libXft
           fontconfig
         ]);
 

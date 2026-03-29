@@ -22,9 +22,21 @@
   openssl,
   python3,
   stdenv,
-  xorg,
   xcb-util-cursor,
   zlib,
+  libICE,
+  libSM,
+  libX11,
+  libXau,
+  libxcb,
+  libXext,
+  libXi,
+  libXrender,
+  xcbutilimage,
+  xcbutilkeysyms,
+  xcbutilrenderutil,
+  xcbutilwm,
+  xcbutil,
   ...
 }:
 stdenv.mkDerivation rec {
@@ -95,19 +107,19 @@ stdenv.mkDerivation rec {
     openssl
     python3
     stdenv.cc.cc
-    xorg.libICE
-    xorg.libSM
-    xorg.libX11
-    xorg.libXau
-    xorg.libxcb
-    xorg.libXext
-    xorg.libXi
-    xorg.libXrender
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
-    xorg.xcbutil
+    libICE
+    libSM
+    libX11
+    libXau
+    libxcb
+    libXext
+    libXi
+    libXrender
+    xcbutilimage
+    xcbutilkeysyms
+    xcbutilrenderutil
+    xcbutilwm
+    xcbutil
     xcb-util-cursor
     zlib
   ];

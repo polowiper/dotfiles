@@ -20,7 +20,6 @@ in {
     ./gtk.nix
     ./kitty.nix
     ./neovim
-    ./mako.nix
     ./modelsim/modelsim-home-manager.nix
     ./qt.nix
     ./wofi.nix

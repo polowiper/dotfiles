@@ -1,4 +1,4 @@
 TODO:
  - Theme specific icons
  - Proper theming for kitty text and neovim
- - Keyboard thing
+ - Keyboard thing btw [ressource for the mappings](https://github.com/codethread/qmk.nvim/)
