@@ -4,9 +4,11 @@
 {
   inputs,
   config,
+  pkgs,
   ...
 }: let
   inherit (import ./options.nix) stateVersion;
+  system = pkgs.stdenv.hostPlatform.system;
 in {
   imports = [
     # Include the results of the hardware scan.

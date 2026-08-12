@@ -28,6 +28,28 @@ in {
     # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
     # Enable networking
+    # wireguard.interfaces = {
+    #   wg0 = {
+    #     # L'adresse IP locale de ton PC NixOS dans le tunnel VPN
+    #     ips = ["10.0.0.3/32"];
+    #
+    #     # ICI : On pointe directement vers le chemin du fichier généré par SOPS
+    #     privateKeyFile = config.sops.secrets.homelab_vpn_key.path;
+    #
+    #     peers = [
+    #       {
+    #         publicKey = "DCYlW8qZm2zuw3iwLcZC+s4nv8HYHjKhocRxcmxWgx4=";
+    #
+    #         endpoint = "ton618.host:51820";
+    #
+    #         #Full tunel
+    #         allowedIPs = ["0.0.0.0/0"];
+    #
+    #         persistentKeepalive = 25;
+    #       }
+    #     ];
+    #   };
+    # };
     networkmanager.enable = true;
     domain = "localdomain";
 

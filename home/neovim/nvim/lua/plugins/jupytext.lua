@@ -1,10 +1,25 @@
 return {
   "GCBallesteros/jupytext.nvim",
   config = function()
-local jupytext = require("jupytext")
-jupytext.setup({
-  jupytext = 'jupytext',
-  format = "markdown",
+	-- jupytext.nvim still uses the deprecated table-form `vim.validate{...}`.
+	-- Wrap `vim.validate` so table-calls are forwarded to the new varargs API.
+	local _validate = vim.validate
+	vim.validate = function(...)
+		local first = select(1, ...)
+		if select('#', ...) == 1 and type(first) == 'table' then
+			for name, spec in pairs(first) do
+				-- Spec is { value, type, optional? }
+				_validate(name, spec[1], spec[2], spec[3])
+			end
+			return
+		end
+		return _validate(...)
+	end
+
+ local jupytext = require("jupytext")
+ jupytext.setup({
+   jupytext = 'jupytext',
+   format = "markdown",
 
   update = true,
   filetype = require("jupytext").get_filetype,
@@ -20,6 +35,9 @@ jupytext.setup({
   autosync = true,
   handle_url_schemes = true,
 
-})
-end,
+ })
+
+	-- Restore the original once setup is done.
+	vim.validate = _validate
+ end,
 }

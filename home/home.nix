@@ -10,7 +10,8 @@ in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ./options.nix
-    ../themes/catppuccin.nix
+    ../themes/nixy.nix
+    ./android.nix
     ./cli.nix
     ./dconf.nix
     ./extra.nix
@@ -21,6 +22,7 @@ in {
     ./kitty.nix
     ./neovim
     ./modelsim/modelsim-home-manager.nix
+    ./opencode.nix
     ./qt.nix
     ./wofi.nix
     ./starship.nix

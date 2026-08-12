@@ -1,8 +1,14 @@
 # Edit this configuration file to define what should be installed onconfig
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{inputs, config, ...}: let
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}: let
   inherit (import ./options.nix) stateVersion;
+  system = pkgs.stdenv.hostPlatform.system;
 in {
   imports = [
     # Include the results of the hardware scan.
@@ -11,7 +17,6 @@ in {
     ./settings.nix
     ../shared/common.nix
     ../shared/options.nix
-
   ];
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

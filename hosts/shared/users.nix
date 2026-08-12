@@ -1,4 +1,8 @@
-{pkgs, config, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   users = {
     mutableUsers = true;
     users.${config.var.userName} = {
@@ -6,8 +10,13 @@
       description = "${config.var.userFullName}";
       extraGroups = [
         "networkmanager"
+        "kvm" # Android
+        "adbusers" # Android
         "wheel"
-        "libvirtd"
+        "libvirtd" # Qemu iirc ?
+        "pico" # picoscope
+        "dialout" # STM32
+        "tty" # STM32
       ];
       shell = pkgs.fish;
     };

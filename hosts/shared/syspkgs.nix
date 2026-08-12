@@ -1,27 +1,31 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   # List packages installed in system profile. To search, run:
   # $ nix search wgetcon
 
-  nixpkgs.overlays = [
-    (final: prev: {
-      davinci-resolve-studio = prev.davinci-resolve-studio.override (old: {
-        buildFHSEnv = a:
-          old.buildFHSEnv (
-            a
-            // {
-              extraBwrapArgs =
-                (a.extraBwrapArgs or [])
-                ++ [
-                  "-- bind ${pkgs.rocmPackages.clr}/lib/libclr.so /usr/lib/libclr.so"
-                ];
-            }
-          );
-      });
-
-      davinci-resolve-amd = final.davinci-resolve-studio;
-    })
-  ];
-
+  #Fuck this for now
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     davinci-resolve-studio = prev.davinci-resolve-studio.override (old: {
+  #       buildFHSEnv = a:
+  #         old.buildFHSEnv (
+  #           a
+  #           // {
+  #             extraBwrapArgs =
+  #               (a.extraBwrapArgs or [])
+  #               ++ [
+  #                 "-- bind ${pkgs.rocmPackages.clr}/lib/libclr.so /usr/lib/libclr.so"
+  #               ];
+  #           }
+  #         );
+  #     });
+  #
+  #     davinci-resolve-amd = final.davinci-resolve-studio;
+  #   })
+  # ];
   environment.systemPackages = with pkgs; [
     # Coding shi
     kitty
@@ -29,6 +33,7 @@
     direnv
     git
     opencode
+    devenv
 
     #Normal packages
     wl-clipboard
@@ -60,7 +65,7 @@
     qemu
 
     #Davinci resolve
-    davinci-resolve-amd
+    #davinci-resolve-amd
     rocmPackages.clr
     ocl-icd
 
@@ -92,6 +97,13 @@
     ];
   };
   programs.kdeconnect.enable = true;
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+    ];
+  };
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play

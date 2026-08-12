@@ -1,0 +1,6 @@
+result
+home/ida_pro/plugins/ida_mcp/.devenv
+home/ida_pro/plugins/ida_mcp/.venv
+home/ida_pro/plugins/ida_mcp/result
+home/ida_pro/plugins/ida_mcp/__pycache__
+home/ida_pro/plugins/ida_mcp/**/__pycache__

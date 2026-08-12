@@ -32,7 +32,14 @@ return {
 
 			-- servers: adjust names here as needed for the language servers you install via nix
 			local servers = {
-				clangd = {},
+				clangd = {
+					cmd = {
+						"clangd",
+						"--background-index",
+						"--clang-tidy",
+						"--header-insertion=iwyu",
+					},
+				},
 				vhdl_ls = {},
 				lua_ls = {
 					settings = {
@@ -48,6 +55,7 @@ return {
 				pylsp = {}, -- you have python-lsp-server in nix
 				ts_ls = {}, -- use ts_ls (tsserver is deprecated in lspconfig)
 				nixd = {}, -- keep nixd here if that's the server you installed; change to "rnix" if you use rnix-lsp
+				verible = {},
 				texlab = {
 					settings = {
 						texlab = {
@@ -103,9 +111,16 @@ return {
 			})
 
 			-- nicer float handlers
-			vim.lsp.handlers["textdocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-			vim.lsp.handlers["textdocument/signaturehelp"] =
-				vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+			-- `vim.lsp.with()` was removed in Nvim 0.12.
+			-- Wrap handlers and inject config instead.
+			vim.lsp.handlers["textDocument/hover"] = function(err, result, ctx, config)
+				config = vim.tbl_deep_extend("force", config or {}, { border = "rounded" })
+				return vim.lsp.handlers.hover(err, result, ctx, config)
+			end
+			vim.lsp.handlers["textDocument/signatureHelp"] = function(err, result, ctx, config)
+				config = vim.tbl_deep_extend("force", config or {}, { border = "rounded" })
+				return vim.lsp.handlers.signature_help(err, result, ctx, config)
+			end
 		end,
 	},
 }

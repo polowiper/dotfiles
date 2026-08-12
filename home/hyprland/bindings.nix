@@ -7,6 +7,7 @@
       [
         # Launch apps
         "$mainMod,        f,   exec,   ${pkgs.firefox}/bin/firefox"
+        "$mainMod,        z,   exec,   ${pkgs.better-control}/bin/better-control"
         "$mainMod,        q,   exec,   ${pkgs.wofi}/bin/wofi"
         "$mainMod,        i,   exec,   ${pkgs.loupe}/bin/loupe"
         "$mainMod,        d,   exec,   ${pkgs.thunar}/bin/thunar"

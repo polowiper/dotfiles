@@ -1,11 +1,23 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: let
-  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
     theme = "catppuccin-mocha";
   };
+  pfp = pkgs.fetchurl {
+    url = "https://raw.githubusercontent.com/polowiper/Wallpapers/refs/heads/main/pfp.jpg";
+    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  };
+  sddm-faces = pkgs.runCommand "sddm-faces" {} ''
+    mkdir -p $out
+    #Priority order
+    cp ${pfp} $out/.face.icon
+    cp ${pfp} $out/root.face.icon
+    cp ${pfp} $out/${config.var.userName}.face.icon
+  '';
 in {
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnail support for images
@@ -15,6 +27,15 @@ in {
     wantedBy = ["multi-user.target"];
     serviceConfig.Type = "simple";
   };
+
+  services.usbguard = {
+    enable = false;
+    dbus.enable = true;
+    rules = ''
+      device_id "*:*"
+    '';
+  };
+
   services.fprintd = {
     enable = true;
     tod = {
@@ -37,11 +58,14 @@ in {
     };
   };
 
+  services.udev.packages = [pkgs.stlink];
   services.udev.extraRules = ''
     ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c261", RUN+="${pkgs.usb-modeswitch}/bin/usb_modeswitch -c /etc/usb_modeswitch.d/046dc261"
     # Intel / Altera USB-Blaster (DE10-Lite)
     SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="0666"
     SUBSYSTEM=="usb", ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="0666"
+    ATTRS{idVendor}=="0ce9", MODE="777"
+
   '';
 
   # Configure keymap in X11
@@ -96,6 +120,9 @@ in {
     extraPackages = sddm-theme.propagatedBuildInputs;
     settings = {
       # required for styling the virtual keyboard
+      Theme = {
+        FacesDir = sddm-faces;
+      };
       General = {
         GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
         InputMethod = "qtvirtualkeyboard";

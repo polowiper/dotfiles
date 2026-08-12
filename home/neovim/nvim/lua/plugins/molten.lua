@@ -56,19 +56,18 @@ return {
           open = not open
           vim.fn.MoltenUpdateOption("auto_open_output", open)
         end)
-
-        if vim.bo.filetype == "python" then
-          vim.fn.MoltenUpdateOption("molten_virt_lines_off_by_1", false)
-          vim.fn.MoltenUpdateOption("molten_virt_text_output", false)
-        end
       end,
     })
+
+    local function molten_initialized()
+      return pcall(vim.fn.MoltenStatusLineInit) and vim.fn.MoltenStatusLineInit() == "Molten"
+    end
 
     vim.api.nvim_create_autocmd("BufEnter", {
       pattern = "*.py",
       callback = function(e)
         if string.match(e.file, ".otter.") then return end
-        if require("molten.status").initialized() == "Molten" then
+        if molten_initialized() then
           vim.fn.MoltenUpdateOption("molten_virt_lines_off_by_1", false)
           vim.fn.MoltenUpdateOption("molten_virt_text_output", false)
         end
@@ -78,7 +77,7 @@ return {
     vim.api.nvim_create_autocmd("BufEnter", {
       pattern = { "*.qmd", "*.md", "*.ipynb" },
       callback = function()
-        if require("molten.status").initialized() == "Molten" then
+        if molten_initialized() then
           vim.fn.MoltenUpdateOption("molten_virt_lines_off_by_1", true)
           vim.fn.MoltenUpdateOption("molten_virt_text_output", true)
         end

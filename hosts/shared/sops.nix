@@ -15,6 +15,7 @@
       "eduroam_id" = {};
       "eduroam_pswd" = {};
       "vpn_id" = {};
+      "homelab_vpn_key" = {};
     };
     templates."wireless-secrets" = {
       content = ''

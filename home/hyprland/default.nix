@@ -86,7 +86,6 @@ in {
       env = [
         "XDG_CURRENT_DESKTOP,Hyprland"
         "MOZ_ENABLE_WAYLAND,1"
-        "ANKI_WAYLAND,1"
         "DISABLE_QT5_COMPAT,0"
         "NIXOS_OZONE_WL,1"
         "XDG_SESSION_TYPE,wayland"
@@ -153,7 +152,7 @@ in {
       gesture = "3, horizontal, workspace";
 
       misc = {
-        vfr = true;
+        #vfr = true;
         disable_hyprland_logo = true;
         disable_splash_rendering = true;
         disable_autoreload = true;
@@ -187,6 +186,8 @@ in {
 
         # Random floating windows
         "match:class pavucontrol, float true"
+        "match:title Better Control, float true"
+        "match:title Better Control, size 70% 70%"
         "match:class file_progress, float true"
         "match:class confirm, float true"
         "match:class io.github.kaii_lb.Overskride, float true"

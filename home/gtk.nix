@@ -29,8 +29,7 @@
     };
     gtk2 = {
       configLocation = "${config.var.homeDir}/gtk-2.0/gtkrc";
-      extraConfig = ''
-      '';
+      extraConfig = "";
     };
 
     gtk3 = {
@@ -49,6 +48,7 @@
     };
 
     gtk4 = {
+      #theme = null;
       extraConfig = {
         gtk-application-prefer-dark-theme = true;
         gtk-overlay-scrolling = false;

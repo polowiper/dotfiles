@@ -34,6 +34,7 @@ in {
     };
     userDirs = {
       enable = true;
+      setSessionVariables = true;
       createDirectories = true;
       desktop = "${config.home.homeDirectory}/Screenshots"; # Yeah I know but the desktop dir is almost excusively used to save screenshots in my case so who cares ?
       publicShare = "${config.home.homeDirectory}/.local/public";

@@ -22,6 +22,7 @@ in {
   programs.firefox = {
     enable = true;
     package = pkgs.firefox;
+    configPath = ".mozilla/firefox";
     profiles."${config.var.userName}" = {
       isDefault = true;
       name = "${config.var.userFullName}";
@@ -318,7 +319,20 @@ in {
               }
             ];
           }
-
+          {
+            name = "Electronics";
+            toolbar = true;
+            bookmarks = [
+              {
+                name = "LCSC";
+                url = "https://www.lcsc.com";
+              }
+              {
+                name = "Gotronic";
+                url = "https://www.gotronic.fr";
+              }
+            ];
+          }
           {
             name = "Image utilities";
             toolbar = false;

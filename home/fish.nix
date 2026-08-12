@@ -38,6 +38,15 @@
               end
           end
         '';
+        homelab_vpn = ''
+          function vpntoggle --description "Toggle the Andromeda WireGuard VPN"
+              if nmcli -t connection show Andromeda | string match -q "GENERAL.STATE:activated"
+                  nmcli connection down Andromeda
+              else
+                  nmcli connection up Andromeda
+              end
+          end
+        '';
       };
 
       shellAliases = {
@@ -59,7 +68,7 @@
         cd = "z";
         nv = "nvim";
         f = "${pkgs.yazi-unwrapped}/bin/yazi";
-        n = "${pkgs.nitch}/bin/nitch";
+        n = "${pkgs.fastfetch}/bin/fastfetch";
 
         # Nix
         ns = "nh os switch";
@@ -69,8 +78,6 @@
         # Modern yuunix, uwu <3
         cat = "${pkgs.bat}/bin/bat";
         df = "${pkgs.duf}/bin/duf";
-        find = "${pkgs.fd}/bin/fd";
-        grep = "${pkgs.ripgrep}/bin/rg";
         tree = "${pkgs.eza}/bin/eza --git --icons --tree";
       };
     };

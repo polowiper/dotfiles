@@ -12,6 +12,30 @@ return {
 		"zbirenbaum/copilot-cmp",
 		dependencies = { "zbirenbaum/copilot.lua" },
 		config = function()
+			-- copilot-cmp currently calls `client.is_stopped()` (deprecated in Nvim 0.13).
+			-- Provide a real field so the call doesn't hit the deprecated accessor.
+			local function patch_client(client)
+				if not client or client.name ~= "copilot" then
+					return
+				end
+				-- Implement it directly to avoid deprecated accessor and any recursion.
+				client.is_stopped = function()
+					local ok, closing = pcall(function()
+						return client.rpc and client.rpc.is_closing and client.rpc.is_closing()
+					end)
+					return (ok and closing) or client._is_stopping or false
+				end
+			end
+
+			for _, client in ipairs(vim.lsp.get_clients({ name = "copilot" }) or {}) do
+				patch_client(client)
+			end
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					patch_client(client)
+				end,
+			})
 			require("copilot_cmp").setup()
 		end,
 	},
