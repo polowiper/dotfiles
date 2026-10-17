@@ -113,7 +113,7 @@ in {
     };
   };
   services.pulseaudio.enable = false;
-  environment.etc."NetworkManager/grenoble-inp-eduroam-ca.pem".source = ./eduroam-grenoble-inp-ca.pem;
+  environment.etc."NetworkManager/grenoble-inp-eduroam-ca.pem".source = ./grenoble-inp-eduroam-ca.pem;
   environment.systemPackages = [
     sddm-theme
     sddm-theme.test
