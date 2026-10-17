@@ -9,5 +9,6 @@
     ./sys.nix
     ./users.nix
     ./packages.nix
+    ./home-manager.nix
   ];
 }

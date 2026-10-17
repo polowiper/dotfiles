@@ -5,7 +5,6 @@
       specialArgs = {inherit inputs;};
       modules = [
         ../hosts/andromeda/configuration.nix
-        inputs.home-manager.nixosModules.home-manager
         inputs.stylix.nixosModules.stylix
       ];
     };
@@ -13,7 +12,6 @@
       specialArgs = {inherit inputs;};
       modules = [
         ../hosts/sagittarius/configuration.nix
-        inputs.home-manager.nixosModules.home-manager
         inputs.stylix.nixosModules.stylix
       ];
     };
