@@ -1,6 +1,10 @@
+# Nix build outputs
 result
-home/ida_pro/plugins/ida_mcp/.devenv
-home/ida_pro/plugins/ida_mcp/.venv
-home/ida_pro/plugins/ida_mcp/result
-home/ida_pro/plugins/ida_mcp/__pycache__
-home/ida_pro/plugins/ida_mcp/**/__pycache__
+result-*
+
+# IDA MCP plugin local development artifacts
+pkgs/ida-pro/plugins/ida_mcp/.devenv
+pkgs/ida-pro/plugins/ida_mcp/.venv
+pkgs/ida-pro/plugins/ida_mcp/result
+pkgs/ida-pro/plugins/ida_mcp/__pycache__
+pkgs/ida-pro/plugins/ida_mcp/**/__pycache__

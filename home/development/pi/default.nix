@@ -1,5 +1,6 @@
 {
   inputs,
+  lib,
   pkgs,
   config,
   ...
@@ -106,22 +107,25 @@ in {
   home.file."${config.programs.pi-coding-agent.configDir}/mcp.json".source =
     jsonFormat.generate "pi-agent-mcp.json"
     {
-      mcpServers = {
-        # Official Hex-Rays IDA MCP server, provided by ../ida_pro/ida.nix
-        # (https://github.com/HexRaysSA/ida-mcp). It exposes the `stdio`
-        # subcommand; `--agent` is just a label used in the session dashboard.
-        # A single server can share multiple databases via IDA Nexus, so there
-        # is no port/RPC second-instance equivalent to configure.
-        ida = {
-          command = "ida-mcp";
-          args = [
-            "stdio"
-            "--agent=pi"
-          ];
+      mcpServers =
+        {
+          httptoolkit = {
+            command = "${pkgs.httptoolkit}/share/httptoolkit/resources/httptoolkit-mcp";
+          };
+        }
+        // lib.optionalAttrs config.my.ida-mcp.enable {
+          # Official Hex-Rays IDA MCP server, provided by ../../pkgs/ida-pro and
+          # only enabled when the modding category is imported. It exposes the
+          # `stdio` subcommand; `--agent` is just a label used in the session
+          # dashboard. A single server can share multiple databases via IDA
+          # Nexus, so there is no port/RPC second-instance equivalent.
+          ida = {
+            command = "ida-mcp";
+            args = [
+              "stdio"
+              "--agent=pi"
+            ];
+          };
         };
-        httptoolkit = {
-          command = "${pkgs.httptoolkit}/share/httptoolkit/resources/httptoolkit-mcp";
-        };
-      };
     };
 }
