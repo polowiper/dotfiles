@@ -1,5 +1,9 @@
 # Sagittarius: the development/laptop machine.
-{...}: let
+{
+  config,
+  inputs,
+  ...
+}: let
   inherit (import ./options.nix) stateVersion;
 in {
   imports = [
@@ -19,6 +23,14 @@ in {
     ../../modules/system/security/usbguard.nix
     ../../modules/system/security/openssh.nix
   ];
+
+  # Home Manager is applied by `nixos-rebuild` together with the system.
+  # The per-machine capability matrix lives in ./home.nix.
+  home-manager = {
+    useUserPackages = true;
+    extraSpecialArgs = {inherit inputs;};
+    users.${config.var.userName} = import ./home.nix;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data were taken. Leave it at the release version

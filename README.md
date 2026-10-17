@@ -7,8 +7,7 @@ Flake-based NixOS + Home Manager configuration for two machines.
 ```
 flake.nix                 # thin entry point (flake-parts)
 flake-modules/
-  hosts.nix               # nixosConfigurations (one per machine)
-  home.nix                # homeConfigurations (one per machine, standalone HM)
+  hosts.nix               # nixosConfigurations (one per machine; embeds Home Manager)
   packages.nix            # perSystem packages extracted from home/ (ida-pro, modelsim)
 modules/system/           # reusable NixOS modules, opt-in per machine
   core/                   # options, fonts, locale, sops, nix daemon, users, packages
@@ -35,6 +34,12 @@ secrets/                  # sops-encrypted secrets
 The flake is assembled with [flake-parts](https://flake.parts/). `flake-modules/`
 defines the flake outputs; `modules/system` and `home` are plain NixOS/Home
 Manager modules selected per machine.
+
+Home Manager is embedded in NixOS: each host sets `home-manager.users.<user> =
+import ./home.nix`, so a single `nixos-rebuild switch` applies both the system
+and the user configuration. HM keeps its own `nixpkgs` instance (the default
+`useGlobalPkgs = false`) because stylix and several modules set HM-side
+`nixpkgs` options.
 
 ## Per-machine capability matrix
 
@@ -69,13 +74,9 @@ The system side works the same way, e.g. `../../modules/system/gaming/steam.nix`
 ## Commands
 
 ```sh
-# System
+# System + Home Manager (one command per machine)
 sudo nixos-rebuild switch --flake .#andromeda
 sudo nixos-rebuild switch --flake .#sagittarius
-
-# Home Manager (standalone)
-home-manager switch --flake .#polo@andromeda
-home-manager switch --flake .#polo@sagittarius
 
 # Build the standalone programs
 nix build .#ida-pro

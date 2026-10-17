@@ -1,4 +1,4 @@
 # eduroam CA certificate used by NetworkManager.
 {...}: {
-  environment.etc."NetworkManager/grenoble-inp-eduroam-ca.pem".source = ./grenoble-inp-eduroam-ca.pem;
+  environment.etc."NetworkManager/eduroam-ca.pem".source = ./eduroam-ca.pem;
 }
