@@ -11,7 +11,7 @@
   textEditor = "neovim.desktop";
 in {
   home.sessionVariables = with config.xdg; {
-    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_CURRENT_DESKTOP = "Hyprland:GNOME";
     XDG_SESSION_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
     BROWSER = "firefox";
@@ -23,9 +23,16 @@ in {
   ];
   xdg = {
     enable = true;
+
     portal = {
       enable = lib.mkDefault true;
-      config.common.default = "*";
+      config = {
+        common.default = ["gtk"];
+        hyprland.default = [
+          "hyprland"
+          "gtk"
+        ];
+      };
       extraPortals = with pkgs; [
         xdg-desktop-portal-gtk
         xdg-desktop-portal-hyprland

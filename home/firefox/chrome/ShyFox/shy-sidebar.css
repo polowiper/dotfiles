@@ -20,7 +20,7 @@ Styles for sidebar
 }
 
 /* if sidebar is not hidden or clean mode not enabled, this window is not floating popup and not in fullscreen video */
-#main-window:not(:is([titlepreface*="᠎"], [titlepreface*="‍"]))[chromehidden=""]:not([inDOMFullscreen="true"]){
+#main-window:not(:is([titlepreface*="᠎"], [titlepreface*="‍"])):not([inDOMFullscreen="true"]){
   /* set left margin to sidebar width */
   --left-margin: var(--sdbr-wdt) !important;
 }
@@ -307,7 +307,7 @@ Styles when Sidebery is not opened
 }
 
 /* notification when sidebar is not opened */
-#main-window[chromehidden=""]:has( 
+#main-window:has( 
   #sidebar-box[hidden="true"]
 ) {
   --shyfox-string-open-sidebar: "Open sidebar!";
@@ -333,7 +333,7 @@ Styles when Sidebery is not opened
 }
 
 /* styles when Sidebery is not opened but sidebar is */
-#main-window[chromehidden=""]:has(
+#main-window:has(
   #sidebar-box:not([hidden]):not([sidebarcommand*="_3c078156-979c-498b-8990-85f7987dd929_-sidebar-action"]) 
 ) {
   

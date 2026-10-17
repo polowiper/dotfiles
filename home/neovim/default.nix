@@ -1,5 +1,18 @@
 # TODO: Add a thing to highlish TODOs and also setup conform to autoformat on save and uhh some linter shit I guess although it's already half setup
 {pkgs, ...}: let
+  # Newer Rust rejects a glob-import ambiguity in veridian's vendored
+  # `sv-parser-parser 0.8.3` (E0659). Patch the vendored crate to disambiguate
+  # the import until upstream fixes it.
+  veridian = pkgs.veridian.overrideAttrs (old: {
+    cargoDeps = pkgs.runCommand "veridian-vendor-patched" {} (
+      "cp -r ${old.cargoDeps} $out\n"
+      + "chmod -R u+w $out\n"
+      + "substituteInPlace $out/source-registry-0/sv-parser-parser-0.8.3/src/lib.rs "
+      + "--replace-fail 'pub(crate) use sv_parser_syntaxtree::*;' "
+      + "'pub(crate) use sv_parser_syntaxtree::*; pub(crate) use sv_parser_syntaxtree::VersionSpecifier;'\n"
+    );
+  });
+
   # Create a Python environment with all required packages for Molten/Neovim
   # We have it here and not in the extra py packages because we need some of those packages to be on the PATH
   python3WithPackages = pkgs.python3.withPackages (
@@ -71,7 +84,7 @@ in {
       # python3 is now included via python3WithPackages above
       black # Formatting
       pyright
-      python312Packages.python-lsp-server
+      # python312Packages.python-lsp-server   #FUCK YOU !!! WHY THE FUCK WOULD AN LSP NEED FUCKING SCIPY AS A DEPENDENCY AND MOREOVER WHY THE FUCK WOULD YOU BOTH BUILD IT FROM SOURCE AND RUN THE WHOLE 8 THOUSANDS FUCKING TEST FUCKING END YOURSELF
       isort # Formatting
 
       #Ocaml
@@ -107,6 +120,9 @@ in {
       biber
       latex2html
       xdotool
+
+      #Java
+      java-language-server
 
       #Utils
       codespell

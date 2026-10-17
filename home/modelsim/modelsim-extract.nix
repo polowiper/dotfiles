@@ -1,6 +1,5 @@
 {
   stdenv,
-  fetchurl,
   buildFHSEnv,
   glibc,
   gcc,
@@ -63,10 +62,7 @@ in
     pname = "modelsim-ase";
     version = "20.1.1.720";
 
-    src = fetchurl {
-      url = "https://download.altera.com/akdlm/software/acdsinst/20.1std.1/720/ib_installers/ModelSimSetup-20.1.1.720-linux.run";
-      sha256 = "kUyRbya2uIZEAagvfa5Z2SCU86vQp7CJRurhbTraD7M=";
-    };
+    src = ./ModelSimSetup-20.1.1.720-linux.run;
 
     nativeBuildInputs = [];
     buildInputs = [];

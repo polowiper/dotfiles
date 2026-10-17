@@ -9,7 +9,6 @@ let
 in
   pkgs.buildFHSEnv {
     name = "modelsim";
-    inherit (pkgs) pkgs;
 
     targetPkgs = pkgs:
       with pkgs; [

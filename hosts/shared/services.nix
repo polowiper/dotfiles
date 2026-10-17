@@ -9,7 +9,7 @@
   };
   pfp = pkgs.fetchurl {
     url = "https://raw.githubusercontent.com/polowiper/Wallpapers/refs/heads/main/pfp.jpg";
-    sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    sha256 = "sha256-a9ojZeT+BBPpmXXSupz36tUe8b5gtdZZY+XrNIgs+8k=";
   };
   sddm-faces = pkgs.runCommand "sddm-faces" {} ''
     mkdir -p $out
@@ -58,7 +58,13 @@ in {
     };
   };
 
-  services.udev.packages = [pkgs.stlink];
+  # stlink for the DE10/STM32 tooling; via/vial need hidraw access so their
+  # WebHID clients can talk to VIA/Vial keyboards (else /dev/hidraw* is 0600 root).
+  services.udev.packages = [
+    pkgs.stlink
+    pkgs.via
+    pkgs.vial
+  ];
   services.udev.extraRules = ''
     ATTRS{idVendor}=="046d", ATTRS{idProduct}=="c261", RUN+="${pkgs.usb-modeswitch}/bin/usb_modeswitch -c /etc/usb_modeswitch.d/046dc261"
     # Intel / Altera USB-Blaster (DE10-Lite)
@@ -92,6 +98,7 @@ in {
     #jack.enable = true;
   };
 
+  services.power-profiles-daemon.enable = false; # Conflicts with tlp
   services.tlp = {
     enable = true;
     settings = {
@@ -106,6 +113,7 @@ in {
     };
   };
   services.pulseaudio.enable = false;
+  environment.etc."NetworkManager/grenoble-inp-eduroam-ca.pem".source = ./eduroam-grenoble-inp-ca.pem;
   environment.systemPackages = [
     sddm-theme
     sddm-theme.test
@@ -121,7 +129,7 @@ in {
     settings = {
       # required for styling the virtual keyboard
       Theme = {
-        FacesDir = sddm-faces;
+        FacesDir = "${sddm-faces}";
       };
       General = {
         GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";

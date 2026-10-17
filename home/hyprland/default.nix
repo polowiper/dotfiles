@@ -12,12 +12,42 @@
   rounding = config.theme.rounding;
   blur = config.theme.blur;
   background = "rgb(" + config.lib.stylix.colors.base00 + ")";
+
+  # Start wayle only outside of GNOME (GNOME already provides its own shell, so
+  # a second bar is not wanted there). We can't use XDG_CURRENT_DESKTOP or
+  # XDG_SESSION_DESKTOP for this: both are forced to "Hyprland:GNOME"/
+  # "Hyprland" (see ./xdg.nix and the `env` block below). The login session
+  # reported by the display manager is authoritative instead.
+  start-wayle = pkgs.writeShellScript "start-wayle" ''
+    shopt -s nocasematch
+
+    desktop="''${DESKTOP_SESSION:-}"
+    if [ -z "$desktop" ] && [ -n "''${XDG_SESSION_ID:-}" ]; then
+      desktop="$(${pkgs.systemd}/bin/loginctl show-session "$XDG_SESSION_ID" -p Desktop --value 2>/dev/null)"
+    fi
+
+    if [[ "$desktop" == *gnome* ]]; then
+      exit 0
+    fi
+
+    exec ${lib.getExe' config.services.wayle.package "wayle"} shell
+  '';
 in {
   imports = [
     ./animations.nix
     ./bindings.nix
     ./polkitagent.nix
   ];
+
+  systemd.user.targets.hyprland-session = {
+    Unit = {
+      Description = "Hyprland compositor session";
+      Documentation = ["man:systemd.special(7)"];
+      BindsTo = ["graphical-session.target"];
+      Wants = ["graphical-session-pre.target"];
+      After = ["graphical-session-pre.target"];
+    };
+  };
 
   home.packages = with pkgs;
     [
@@ -53,6 +83,13 @@ in {
       screenshot-swappy
     ]);
 
+  # Stylix's Rofi target still sets the deprecated `programs.rofi.font`. Keep its
+  # theme but move the font over to the new `programs.rofi.settings.font` option.
+  stylix.targets.rofi.fonts.enable = false;
+  programs.rofi.settings.font = "${config.stylix.fonts.monospace.name} ${
+    toString config.stylix.fonts.sizes.popups
+  }";
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -64,14 +101,17 @@ in {
     };
     package = null;
     portalPackage = null;
+    configType = "hyprlang";
 
     settings = {
       "$mainMod" = "SUPER";
       "$shiftMod" = "SUPER_SHIFT";
 
       exec-once = [
-        "dbus-update-activation-environment --systemd --all &"
-        "systemctl --user enable --now hyprpaper.service &"
+        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE"
+        "systemctl --user start hyprland-session.target"
+        "systemctl --user enable --now hyprpaper.service"
+        "${start-wayle}"
       ];
 
       monitor = [
@@ -84,7 +124,7 @@ in {
       ];
 
       env = [
-        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_CURRENT_DESKTOP,Hyprland:GNOME"
         "MOZ_ENABLE_WAYLAND,1"
         "DISABLE_QT5_COMPAT,0"
         "NIXOS_OZONE_WL,1"

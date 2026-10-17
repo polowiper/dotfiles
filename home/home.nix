@@ -5,7 +5,9 @@
   config,
   ...
 }: let
-  ida = pkgs.callPackage ./ida_pro/ida.nix {};
+  ida = pkgs.callPackage ./ida_pro/ida.nix {
+    python3 = pkgs.python314;
+  };
 in {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
@@ -23,6 +25,7 @@ in {
     ./neovim
     ./modelsim/modelsim-home-manager.nix
     ./opencode.nix
+    ./pi
     ./qt.nix
     ./wofi.nix
     ./starship.nix
@@ -32,7 +35,7 @@ in {
     ./hyprlock
     ./hypridle
     ./hyprpaper
-    ./hyprpanel
+    ./wayle.nix
   ];
 
   nixpkgs = {

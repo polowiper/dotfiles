@@ -11,10 +11,12 @@ in {
       "flakes"
     ];
     substituters = [
+      "ssh-ng://alpine-builder"
       "https://hyprland.cachix.org"
       "https://nix-community.cachix.org"
     ];
     trusted-public-keys = [
+      "builder-name:GHpEwaOemSqdwOBKBpE1tZlhtrYBRxVi2ko19+q7DHo="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];

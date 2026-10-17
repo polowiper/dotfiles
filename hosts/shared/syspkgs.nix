@@ -63,6 +63,7 @@
     gnome-boxes
     dnsmasq
     qemu
+    virt-viewer
 
     #Davinci resolve
     #davinci-resolve-amd

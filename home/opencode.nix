@@ -55,16 +55,10 @@
           }
         },
         "mcp": {
-          "ida-pro": {
+          "ida": {
             "type": "local",
             "command": [
-              "ida-pro-mcp"
-            ]
-          },
-          "ida-pro-2": {
-            "type": "local",
-            "command": [
-              "ida-pro-mcp", "--ida-rpc", "http://127.0.0.1:13338"
+              "ida-mcp", "stdio", "--agent=opencode"
             ]
           },
           "httptoolkit": {

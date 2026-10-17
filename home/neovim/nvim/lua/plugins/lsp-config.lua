@@ -56,6 +56,18 @@ return {
 				ts_ls = {}, -- use ts_ls (tsserver is deprecated in lspconfig)
 				nixd = {}, -- keep nixd here if that's the server you installed; change to "rnix" if you use rnix-lsp
 				verible = {},
+				-- java-language-server crashes on initialize when no project root is
+				-- found (rootUri is null -> NPE on java.net.URI.getScheme()). Fall
+				-- back to the file's directory so a root is always provided.
+				java_language_server = {
+					root_dir = function(bufnr, on_dir)
+						local root = vim.fs.root(bufnr, { "build.gradle", "build.gradle.kts", "pom.xml", ".git" })
+						if not root then
+							root = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(bufnr), ":p:h")
+						end
+						on_dir(root)
+					end,
+				},
 				texlab = {
 					settings = {
 						texlab = {

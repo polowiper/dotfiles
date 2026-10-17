@@ -13,7 +13,7 @@ Navigation bar on top of the window
 }
 
 /* if navbar is not hidden, this window is not floating popup and not in fullscreen video */
-#main-window:not(:is([titlepreface*="‌"], [titlepreface*="‍"]))[chromehidden=""]:not([inDOMFullscreen="true"]){
+#main-window:not(:is([titlepreface*="‌"], [titlepreface*="‍"])):not([inDOMFullscreen="true"]){
   /* set top margin to navbar height */
   --top-margin: calc(var(--toolbar-item-hgt)) !important;
 }

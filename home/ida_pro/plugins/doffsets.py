@@ -12,10 +12,7 @@ PLUGIN_NAME = "dOffset"
 
 import idc
 import idaapi
-import PyQt5.QtGui as QtGui
-import PyQt5.QtCore as QtCore
-import PyQt5.QtWidgets as QtWidgets
-from PyQt5.Qt import QApplication
+from PySide6.QtWidgets import QApplication
 
 
 class dOffset(idaapi.plugin_t):
@@ -157,8 +154,8 @@ class GetOffsetHandler(idaapi.action_handler_t):
         CurrentOffset = idaapi.get_screen_ea() - idaapi.get_imagebase()
 
         clipboard = QApplication.clipboard()
-        clipboard.clear(mode=clipboard.Clipboard)
-        clipboard.setText(f"{CurrentOffset:X}", mode=clipboard.Clipboard)
+        clipboard.clear()
+        clipboard.setText(f"{CurrentOffset:X}")
 
         print("[%s] %X -> 0x%X" % (PLUGIN_NAME, idaapi.get_screen_ea(), CurrentOffset))
         return 1
@@ -176,8 +173,8 @@ class GetModuleOffsetHandler(idaapi.action_handler_t):
         file_name = idc.get_root_filename()
 
         clipboard = QApplication.clipboard()
-        clipboard.clear(mode=clipboard.Clipboard)
-        clipboard.setText(f"{file_name}+{CurrentOffset:X}", mode=clipboard.Clipboard)
+        clipboard.clear()
+        clipboard.setText(f"{file_name}+{CurrentOffset:X}")
 
         print(
             "[%s] %X -> %s+0x%X"
