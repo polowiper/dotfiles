@@ -3,6 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,48 +38,13 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    home-manager,
-    ...
-  } @ inputs: {
-    nixosConfigurations = {
-      andromeda = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/andromeda/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          inputs.stylix.nixosModules.stylix
-        ];
-      };
-      sagittarius = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          ./hosts/sagittarius/configuration.nix
-          inputs.home-manager.nixosModules.home-manager
-          inputs.stylix.nixosModules.stylix
-        ];
-      };
-    };
+  outputs = inputs @ {flake-parts, ...}:
+    flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux"];
 
-    homeConfigurations = {
-      "polo@andromeda" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ./home/home.nix
-          inputs.stylix.homeModules.stylix
-        ];
-      };
-      "polo@sagittarius" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {inherit inputs;};
-        modules = [
-          ./home/home.nix
-          inputs.stylix.homeModules.stylix
-        ];
-      };
+      imports = [
+        ./flake-modules/hosts.nix
+        ./flake-modules/home.nix
+      ];
     };
-  };
 }
