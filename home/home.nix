@@ -1,14 +1,9 @@
 {
   inputs,
-  pkgs,
   lib,
   config,
   ...
-}: let
-  ida = pkgs.callPackage ./ida_pro/ida.nix {
-    python3 = pkgs.python314;
-  };
-in {
+}: {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ./options.nix
@@ -23,7 +18,8 @@ in {
     ./gtk.nix
     ./kitty.nix
     ./neovim
-    ./modelsim/modelsim-home-manager.nix
+    ./modding/ida.nix
+    ./electronics/modelsim.nix
     ./opencode.nix
     ./pi
     ./qt.nix
@@ -50,7 +46,6 @@ in {
     homeDirectory = "/home/${config.var.userName}";
     stateVersion = "23.11";
     sessionVariables.EDITOR = "nvim";
-    packages = [ida];
   };
 
   # Enable ModelSim FPGA simulator with default configuration

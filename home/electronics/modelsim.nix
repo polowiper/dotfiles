@@ -2,13 +2,15 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.programs.modelsim;
 
-  # Layer 2: Get the wrappers for individual ModelSim binaries
-  modelsimWrappers = pkgs.callPackage ./modelsim-wrappers.nix {};
+  # Layer 3: the individual ModelSim binaries, packaged in ../../pkgs/modelsim
+  # and exposed as `packages.<system>.modelsim`.
+  modelsimWrappers = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.modelsim;
 in {
   options.programs.modelsim = {
     enable = mkEnableOption "ModelSim FPGA simulator (free ASE version)";
