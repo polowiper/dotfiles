@@ -7,31 +7,14 @@
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ../modules/system/core/options.nix
-    ../themes/nixy.nix
-    ./android.nix
-    ./cli.nix
-    ./dconf.nix
-    ./extra.nix
-    ./firefox/firefox.nix
-    ./fish.nix
-    ./git.nix
-    ./gtk.nix
-    ./kitty.nix
-    ./neovim
-    ./modding/ida.nix
-    ./electronics/modelsim.nix
-    ./opencode.nix
-    ./pi
-    ./qt.nix
-    ./wofi.nix
-    ./starship.nix
-    ./vscode.nix
-    ./xdg.nix
-    ./hyprland
-    ./hyprlock
-    ./hypridle
-    ./hyprpaper
-    ./wayle.nix
+    ./base
+    ./desktop
+    ./development
+    ./modding
+    ./electronics
+    ./gaming
+    ./media
+    ./apps
   ];
 
   nixpkgs = {

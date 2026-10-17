@@ -1,0 +1,6 @@
+# Gaming.
+{...}: {
+  imports = [
+    ./packages.nix
+  ];
+}
