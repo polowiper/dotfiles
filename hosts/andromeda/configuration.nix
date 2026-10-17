@@ -1,28 +1,28 @@
-# Edit this configuration file to define what should be installed onconfig
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  inputs,
-  pkgs,
-  config,
-  ...
-}: let
+# Andromeda: the main/gaming + reverse-engineering machine.
+{...}: let
   inherit (import ./options.nix) stateVersion;
-  system = pkgs.stdenv.hostPlatform.system;
 in {
   imports = [
     # Include the results of the hardware scan.
     ./boot.nix
     ./hardware-configuration.nix
     ./settings.nix
-    ../shared/common.nix
-    ../shared/options.nix
+
+    # Shared system modules, opt-in per machine.
+    ../../modules/system/core
+    ../../modules/system/desktop
+    ../../modules/system/desktop/gnome.nix
+    ../../modules/system/hardware/fingerprint.nix
+    ../../modules/system/hardware/udev.nix
+    ../../modules/system/virt/libvirt.nix
+    ../../modules/system/gaming/steam.nix
+    ../../modules/system/security/mullvad.nix
+    ../../modules/system/security/usbguard.nix
+    ../../modules/system/security/openssh.nix
   ];
+
   # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # settings for stateful data were taken. Leave it at the release version
+  # of the first install of this system.
   system.stateVersion = "${stateVersion}"; # Did you read the comment?
 }

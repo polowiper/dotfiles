@@ -6,7 +6,7 @@
 }: {
   imports = [
     inputs.sops-nix.homeManagerModules.sops
-    ./options.nix
+    ../modules/system/core/options.nix
     ../themes/nixy.nix
     ./android.nix
     ./cli.nix

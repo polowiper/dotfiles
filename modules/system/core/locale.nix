@@ -1,6 +1,5 @@
-{...}:
-{
-# Set your time zone.
+{...}: {
+  # Set your time zone.
   time.timeZone = "Europe/Paris";
 
   # Select internationalisation properties.
@@ -17,5 +16,4 @@
     LC_TELEPHONE = "fr_FR.UTF-8";
     LC_TIME = "fr_FR.UTF-8";
   };
-
 }

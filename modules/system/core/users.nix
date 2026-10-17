@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, config, ...}: {
   users = {
     mutableUsers = true;
     users.${config.var.userName} = {
@@ -23,9 +19,6 @@
   };
 
   programs.fish = {
-    enable = true;
-  };
-  programs.hyprland = {
     enable = true;
   };
 }

@@ -6,10 +6,6 @@ in {
 
   #Enable flakes
   nix.settings = {
-    experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
     substituters = [
       "ssh-ng://alpine-builder"
       "https://hyprland.cachix.org"

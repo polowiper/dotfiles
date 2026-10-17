@@ -9,7 +9,7 @@
     sops
   ];
   sops = {
-    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFile = ../../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";
     secrets = {
       "eduroam_id" = {};

@@ -15,5 +15,3 @@
     };
   };
 }
-
-#Here my fontName Monaspice Nerd Font

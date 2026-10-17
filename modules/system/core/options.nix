@@ -1,8 +1,6 @@
-{
-  config,
-  lib,
-  ...
-}: {
+# Shared `var` options used by both the NixOS and Home Manager evaluations.
+# This replaces the previously duplicated home/options.nix + hosts/shared/options.nix.
+{lib, ...}: {
   options.var = lib.mkOption {
     type = lib.types.attrs;
     default = {};
@@ -24,5 +22,10 @@
     # UI settings
     fontName = "Monaspice Nerd Font";
     location = "";
+
+    # Locale / system
+    theLocale = "en_US.UTF-8";
+    theTimeZone = "Europe/Paris";
+    system = "x86_64-linux";
   };
 }
