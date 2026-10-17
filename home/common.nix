@@ -7,14 +7,6 @@
   imports = [
     inputs.sops-nix.homeManagerModules.sops
     ../modules/system/core/options.nix
-    ./base
-    ./desktop
-    ./development
-    ./modding
-    ./electronics
-    ./gaming
-    ./media
-    ./apps
   ];
 
   nixpkgs = {
@@ -31,8 +23,8 @@
     sessionVariables.EDITOR = "nvim";
   };
 
-  # Enable ModelSim FPGA simulator with default configuration
-  programs.modelsim.enable = true;
+  # NOTE: `programs.modelsim.enable` lives in home/electronics/default.nix,
+  # so it is only declared when a machine imports the electronics category.
 
   sops = {
     defaultSopsFile = ../secrets/secrets.yaml;

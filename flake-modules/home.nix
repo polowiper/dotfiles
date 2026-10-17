@@ -8,7 +8,7 @@
       pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs = {inherit inputs;};
       modules = [
-        ../home/home.nix
+        ../hosts/andromeda/home.nix
         inputs.stylix.homeModules.stylix
       ];
     };
@@ -16,7 +16,7 @@
       pkgs = inputs.nixpkgs.legacyPackages.x86_64-linux;
       extraSpecialArgs = {inherit inputs;};
       modules = [
-        ../home/home.nix
+        ../hosts/sagittarius/home.nix
         inputs.stylix.homeModules.stylix
       ];
     };
