@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    ida-pro.url = "git+https://git.ton618.host/polowiper/ida-pro.git";
+
+    modelsim.url = "git+https://git.ton618.host/polowiper/modelsim.git";
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";

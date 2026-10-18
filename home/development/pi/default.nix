@@ -114,8 +114,9 @@ in {
           };
         }
         // lib.optionalAttrs config.my.ida-mcp.enable {
-          # Official Hex-Rays IDA MCP server, provided by ../../pkgs/ida-pro and
-          # only enabled when the modding category is imported. It exposes the
+          # Official Hex-Rays IDA MCP server, provided by the `ida-pro` flake
+          # input and only enabled when the modding category is imported. It
+          # exposes the
           # `stdio` subcommand; `--agent` is just a label used in the session
           # dashboard. A single server can share multiple databases via IDA
           # Nexus, so there is no port/RPC second-instance equivalent.

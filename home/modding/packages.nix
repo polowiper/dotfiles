@@ -80,7 +80,10 @@
 in {
   home.packages = with pkgs; [
     binutils
-    hcli
+    # `hcli` comes from `programs.ida-pro` (home/modding/ida.nix), which
+    # installs it wrapped with IDADIR so `hcli plugin install` targets the
+    # right IDA. Installing plain `pkgs.hcli` here too would collide in
+    # `home-manager-path`.
     scrcpy
     android-tools
     apktool

@@ -203,7 +203,76 @@
         "type": "github"
       }
     },
+    "ida-pro": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "plugin-repository": "plugin-repository"
+      },
+      "locked": {
+        "lastModified": 1792333211,
+        "narHash": "sha256-WGwJGNd2a22lW5xW99z+Rb11qM/irX8TP9+ou0C+6G8=",
+        "ref": "refs/heads/main",
+        "rev": "2440b245b9b1f6308da0a84a20932399e7fa8751",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://git.ton618.host/polowiper/ida-pro.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.ton618.host/polowiper/ida-pro.git"
+      }
+    },
+    "modelsim": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1792329339,
+        "narHash": "sha256-btfvGLx87toksrvqUupRo6y+lravhhHSo7TCu7vwelU=",
+        "ref": "refs/heads/main",
+        "rev": "70a63e8b4b074c62ead64f5e73682a2cf4aecc73",
+        "revCount": 1,
+        "type": "git",
+        "url": "https://git.ton618.host/polowiper/modelsim.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://git.ton618.host/polowiper/modelsim.git"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1791956154,
+        "narHash": "sha256-jBYGPi4udQ9uo4KQp9m2J0546nJVQitG15gvZSaVVAs=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "55bfb4d7437bd4e09ab7cba58a43bd68eb310044",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1792094642,
+        "narHash": "sha256-zp8ToDMnqZcu4o4IH9pdwXFXGp7yLm/M0dEnNWnyd7I=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "fe13242281a67641c0102cdb1087f0ebe586c7df",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1791260994,
         "narHash": "sha256-Miqqk/ammqnTUxaoCyvtwoPeLbI1ksFyLxi/CazZpWY=",
@@ -241,6 +310,23 @@
       "original": {
         "owner": "nix-community",
         "repo": "NUR",
+        "type": "github"
+      }
+    },
+    "plugin-repository": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792155288,
+        "narHash": "sha256-eogIikrS6meuMA82h/YjFfA76ingwTiKb05+ZfcmE3s=",
+        "owner": "HexRaysSA",
+        "repo": "plugin-repository",
+        "rev": "65bf57fa412259f1da0ecf8971dd8526e9de4694",
+        "type": "github"
+      },
+      "original": {
+        "owner": "HexRaysSA",
+        "ref": "v1",
+        "repo": "plugin-repository",
         "type": "github"
       }
     },
@@ -322,7 +408,9 @@
         "firefox-addons": "firefox-addons",
         "flake-parts": "flake-parts",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
+        "ida-pro": "ida-pro",
+        "modelsim": "modelsim",
+        "nixpkgs": "nixpkgs_3",
         "pwndbg": "pwndbg",
         "silentSDDM": "silentSDDM",
         "sops-nix": "sops-nix",

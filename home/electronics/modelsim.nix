@@ -8,8 +8,8 @@
 with lib; let
   cfg = config.programs.modelsim;
 
-  # Layer 3: the individual ModelSim binaries, packaged in ../../pkgs/modelsim
-  # and exposed as `packages.<system>.modelsim`.
+  # Layer 3: the individual ModelSim binaries, provided by the `modelsim` flake
+  # input (see ../../flake.nix) and exposed as `packages.<system>.modelsim`.
   modelsimWrappers = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.modelsim;
 in {
   options.programs.modelsim = {

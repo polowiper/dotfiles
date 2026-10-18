@@ -1,19 +1,15 @@
-# Standalone packages extracted from home/. They can be built on their own:
+# Re-exposes the two heavy self-contained programs from their own flakes.
+#
+# IDA Pro and ModelSim used to be vendored under ../pkgs/ along with their
+# multi-hundred-MB vendor installers (<name>.run). They now live in dedicated
+# flakes, declared as the `ida-pro` and `modelsim` inputs in ../flake.nix, so
+# this repository only pins them and re-exports the packages for convenience:
+#
 #   nix build .#ida-pro
 #   nix build .#modelsim
-#
-# `perSystem`'s default `pkgs` disallows unfree packages, so import nixpkgs
-# explicitly with `allowUnfree` (IDA and the Hex-Rays servers are unfree).
 {inputs, ...}: {
-  perSystem = {system, ...}: let
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
-  in {
-    packages.ida-pro = pkgs.callPackage ../pkgs/ida-pro {
-      python3 = pkgs.python314;
-    };
-    packages.modelsim = pkgs.callPackage ../pkgs/modelsim/modelsim-wrappers.nix {};
+  perSystem = {system, ...}: {
+    packages.ida-pro = inputs.ida-pro.packages.${system}.ida-pro;
+    packages.modelsim = inputs.modelsim.packages.${system}.modelsim;
   };
 }

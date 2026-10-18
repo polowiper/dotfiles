@@ -8,7 +8,7 @@ Flake-based NixOS + Home Manager configuration for my machines (andromeda, milky
 flake.nix                 # flake parts entry point
 flake-modules/
   hosts.nix               # nixosConfigurations (one per machine; embeds Home Manager)
-  packages.nix            # perSystem packages extracted from home/ (ida-pro, modelsim)
+  packages.nix            # re-exports the ida-pro / modelsim flake inputs
 modules/system/           # reusable NixOS modules, each one is optional
   core/
   desktop/
@@ -24,9 +24,6 @@ home/                     # Same as above but for home manager
   modding/
   electronics/
   gaming/  media/  apps/
-pkgs/                     # heavy self-contained programs (own derivations)
-  ida-pro/                # IDA Pro 9.4
-  modelsim/               # ModelSim ASE
 hosts/<machine>/          # boot, hardware-configuration, settings, options, home
 secrets/                  # sops-encrypted secrets
 ```
@@ -76,7 +73,9 @@ nix flake check --no-build
 `secrets/secrets.yaml` is encrypted with sops. It is consumed by both the NixOS `sops-nix`
 module (`modules/system/core/sops.nix`) and Home Manager (`home/common.nix`).
 
-## Large installer caveat
+## Heavy programs
 
-`pkgs/ida-pro/ida-pro_94_x64linux.run` (557 MB) and
-`pkgs/modelsim/ModelSimSetup-20.1.1.720-linux.run` (1.4 GB) are **staged in the git index but intentionally not committed**. You will have to get them yourself lil bro
+IDA Pro 9.4 and ModelSim ASE are consumed as flake inputs (`ida-pro` and
+`modelsim` in `flake.nix`), so their vendor installers and derivations live in
+their own repositories instead of this one. `flake-modules/packages.nix` merely
+re-exports them.
